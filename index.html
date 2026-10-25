@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="snowflake-source" content="cortex-agent-authored">
+<meta name="color-scheme" content="light">
+<title>Snowflake</title>
+<style>
+:root{
+  --blue:#29B5E8; --navy:#11567F; --text:#2B2F33; --muted:#5B6670;
+  --line:#E3E8EC; --tint:#F2FAFD; --tint2:#E8F6FC; --white:#FFFFFF;
+  --amber:#A86400; --amber-bg:#FFF4E0; --red:#B3261E; --red-bg:#FDECEA;
+  --green:#1E7B4F; --green-bg:#E6F4EC;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--white);}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;width:100%;margin:0 auto;padding:0 clamp(16px,4vw,32px);}
+svg{max-width:100%;}
+.sprite{position:absolute;width:0;height:0;overflow:hidden;}
+
+/* Header */
+.topbar{border-bottom:1px solid var(--line);background:#fff;}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;padding-top:16px;padding-bottom:16px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.brand .wm{font-weight:800;color:var(--navy);font-size:18px;letter-spacing:.2px;}
+.brand .sep{width:1px;height:20px;background:var(--line);display:inline-block;}
+.brand .for{color:var(--muted);font-size:14.5px;}
+.brand .names{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap;}
+.brand .wm .x{color:var(--muted);font-weight:500;}
+.prepared{font-size:13px;color:var(--navy);background:var(--tint2);border:1px solid #CDEBF7;border-radius:999px;padding:4px 12px;white-space:nowrap;}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--tint) 0%,var(--white) 100%);}
+.hero .wrap{padding-top:clamp(36px,6vw,72px);padding-bottom:clamp(24px,4vw,44px);}
+h1{font-size:clamp(28px,4.6vw,46px);line-height:1.15;color:var(--navy);margin:0 0 14px;letter-spacing:-.5px;max-width:860px;}
+h1 .hl{color:var(--blue);}
+.sub{font-size:clamp(16px,2vw,19px);color:var(--muted);margin:0;max-width:720px;}
+
+section{padding:clamp(24px,4.5vw,44px) 0;}
+h2{font-size:clamp(20px,2.6vw,26px);color:var(--navy);margin:0 0 6px;letter-spacing:-.2px;}
+.section-sub{color:var(--muted);margin:0 0 22px;}
+
+/* Cards */
+.card{position:relative;border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,28px);margin-bottom:24px;background:#fff;box-shadow:0 1px 2px rgba(17,86,127,.04),0 8px 24px rgba(17,86,127,.06);}
+.card-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.card h3{margin:0;font-size:clamp(18px,2.2vw,22px);color:var(--navy);}
+.card-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:start;}
+
+/* Card 1: explainer */
+.explain p.lead{font-size:clamp(16px,1.9vw,18px);margin:0 0 18px;max-width:820px;}
+.explain p.lead b{color:var(--navy);}
+.flow{display:grid;grid-template-columns:minmax(0,1fr) 64px minmax(0,1.05fr) 64px minmax(0,1fr);align-items:center;gap:0;background:var(--tint);border:1px solid #DDF0F8;border-radius:14px;padding:18px;}
+.col{display:flex;flex-direction:column;gap:8px;}
+.col .cap{font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:#9FB3C1;flex:0 0 auto;}
+.outcomes .chip{border-color:#CDEBF7;color:var(--navy);}
+.outcomes .chip::before{background:var(--blue);}
+.core{background:#fff;border:2px solid var(--blue);border-radius:16px;padding:18px 14px;text-align:center;box-shadow:0 6px 20px rgba(41,181,232,.18);}
+.core .sf-big{display:block;margin:0 auto 6px;animation:spin 18s linear infinite;}
+.core .t1{font-weight:800;color:var(--navy);font-size:17px;}
+.core .t2{font-size:14px;color:var(--muted);}
+.pipe{position:relative;height:4px;margin:0 6px;background:linear-gradient(90deg,#CDEBF7,#9EDBF3);border-radius:4px;overflow:visible;}
+.pipe i{position:absolute;top:50%;left:0;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(41,181,232,.18);animation:flowx 2.4s linear infinite;opacity:0;}
+.pipe i:nth-child(2){animation-delay:.8s}
+.pipe i:nth-child(3){animation-delay:1.6s}
+.points{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.points span{font-size:13.5px;color:var(--navy);background:#fff;border:1px solid #CDEBF7;border-radius:999px;padding:5px 12px;}
+
+/* Chat + run button */
+.chat{display:flex;flex-direction:column;gap:12px;}
+.who{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.6px;}
+.bubble{align-self:flex-start;background:var(--blue);color:#fff;border-radius:18px 18px 18px 4px;padding:14px 16px;font-size:15.5px;line-height:1.5;max-width:100%;box-shadow:0 4px 14px rgba(41,181,232,.25);}
+.run{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.runbtn{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;background:var(--navy);color:#fff;font-weight:700;font-size:14px;border-radius:999px;padding:9px 18px;box-shadow:0 4px 12px rgba(17,86,127,.22);transition:transform .15s ease,background .15s ease;}
+.runbtn::before{content:"";width:0;height:0;border-left:9px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
+.runbtn:hover{background:#0D4566;transform:translateY(-1px);}
+.run:focus-visible ~ .card-body .runbtn{outline:3px solid var(--blue);outline-offset:3px;}
+.run:checked ~ .card-body .runbtn{background:#fff;color:var(--navy);border:1px solid #CDEBF7;box-shadow:none;font-size:0;padding:9px 18px;}
+.run:checked ~ .card-body .runbtn::before{border-left-color:var(--navy);border-left-width:0;width:10px;height:10px;border:0;background:var(--navy);border-radius:2px;}
+.run:checked ~ .card-body .runbtn::after{content:"Hide result";font-size:14px;}
+.beforenow{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 10px 10px 0;padding:12px 14px;font-size:14.5px;}
+.beforenow p{margin:0;}
+.beforenow p + p{margin-top:6px;}
+.beforenow b{color:var(--navy);}
+.label{display:flex;flex-wrap:wrap;gap:6px;}
+.pill{font-size:12px;color:var(--navy);background:#fff;border:1px solid #CDEBF7;border-radius:999px;padding:3px 10px;}
+
+/* Result panel */
+.result{position:relative;border:1px solid var(--line);border-radius:14px;background:#FBFDFE;padding:16px;min-height:120px;}
+.result-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.result-title{font-size:13px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--blue);display:inline-block;}
+.sample{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:#EEF2F5;border-radius:6px;padding:3px 8px;}
+.placeholder{display:none;}
+.run ~ .card-body .placeholder{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;min-height:180px;border:1.5px dashed #CDEBF7;border-radius:12px;color:var(--muted);font-size:14px;text-align:center;padding:16px;}
+.run ~ .card-body .placeholder::before{content:"";width:34px;height:34px;border-radius:50%;background:var(--tint2);border:2px solid #CDEBF7;}
+.run ~ .card-body .placeholder::after{content:"Press \"Run this prompt\" to see the answer";}
+.run ~ .card-body .out{display:none;}
+.run:checked ~ .card-body .placeholder{display:none;}
+.run:checked ~ .card-body .out{display:block;}
+.thinking{display:none;}
+.run:checked ~ .card-body .thinking{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);animation:fadeout .25s ease 1.1s forwards;}
+.thinking i{width:7px;height:7px;border-radius:50%;background:var(--blue);opacity:.35;animation:bounce 1s ease-in-out infinite;}
+.thinking i:nth-child(2){animation-delay:.15s}
+.thinking i:nth-child(3){animation-delay:.3s}
+.run:checked ~ .card-body .reveal{animation:rise .55s ease-out 1.2s both;}
+.run:checked ~ .card-body .typed{animation:type 1.1s steps(40,end) 1.25s both;}
+.answer{font-size:14.5px;margin:0 0 14px;}
+
+/* Dashboard */
+.dash{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;}
+.dash-bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--tint);border-bottom:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--navy);flex-wrap:wrap;}
+.dash-bar .w{width:8px;height:8px;border-radius:50%;background:#CFE3EC;display:inline-block;}
+.dash-bar .ttl{margin-left:6px;}
+.dash-bar .shared{margin-left:auto;font-weight:500;color:var(--muted);font-size:12px;}
+.dash-in{padding:12px;}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px;}
+.kpi{background:var(--tint);border-radius:10px;padding:10px;border:1px solid #E1F2F9;}
+.kpi .k{font-size:11px;color:var(--muted);}
+.kpi .v{font-size:18px;font-weight:800;color:var(--navy);line-height:1.2;}
+.kpi .d{font-size:11px;font-weight:700;}
+.kpi .d.up{color:var(--red);}
+.kpi .d.ok{color:var(--green);}
+.chart-title{font-size:12px;font-weight:700;color:var(--muted);margin:0 0 8px;}
+.bars{display:flex;flex-direction:column;gap:8px;}
+.bar-row{display:grid;grid-template-columns:22px 70px 1fr 50px;gap:8px;align-items:center;font-size:13px;}
+.rank{width:22px;height:22px;border-radius:50%;background:var(--tint2);color:var(--navy);font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.bar-track{background:#EAF1F5;border-radius:6px;height:14px;overflow:hidden;}
+.bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#7FD3F2,var(--blue));transform-origin:left;}
+.bar.top{background:linear-gradient(90deg,var(--blue),var(--navy));}
+.run:checked ~ .card-body .bar{animation:grow .9s cubic-bezier(.2,.8,.2,1) 1.4s both;}
+.bar-val{color:var(--navy);font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:12.5px;}
+.w92{width:92%}.w70{width:70%}.w55{width:55%}.w30{width:30%}
+
+/* Tables */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:#fff;}
+table{border-collapse:collapse;width:100%;font-size:13.5px;}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle;}
+th{background:var(--tint);color:var(--navy);font-weight:700;font-size:12px;letter-spacing:.3px;text-transform:uppercase;}
+tr:last-child td{border-bottom:none;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;white-space:nowrap;}
+.risk{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap;}
+.risk::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;}
+.risk.high{color:var(--red);background:var(--red-bg);}
+.risk.med{color:var(--amber);background:var(--amber-bg);}
+.risk.low{color:var(--green);background:var(--green-bg);}
+tr.hi td:first-child{box-shadow:inset 3px 0 0 var(--red);}
+tr.md td:first-child{box-shadow:inset 3px 0 0 #E59A2F;}
+tr.lo td:first-child{box-shadow:inset 3px 0 0 #4CAF7D;}
+.summary{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.summary span{font-size:12px;font-weight:700;border-radius:8px;padding:4px 10px;background:#fff;border:1px solid var(--line);color:var(--navy);}
+.note{font-size:12.5px;color:var(--muted);margin:10px 0 0;}
+.role{display:flex;align-items:center;gap:10px;font-weight:600;}
+.ri{flex:0 0 auto;width:30px;height:30px;padding:6px;border-radius:50%;background:var(--tint2);color:var(--navy);}
+.ri.c2{background:#EEF0FB;color:#3B4BA8;}
+.ri.c3{background:var(--green-bg);color:var(--green);}
+.ri.c4{background:#F1F3F5;color:#5B6670;}
+.acc{display:inline-block;font-size:11.5px;font-weight:700;color:var(--navy);background:var(--tint2);border-radius:6px;padding:2px 8px;}
+.datec{white-space:nowrap;color:var(--muted);font-size:13px;}
+
+/* Banks strip */
+.strip{background:var(--tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.logos{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+.namechip{background:#fff;border:1px solid #CDEBF7;border-radius:12px;padding:14px 20px;font-weight:700;color:var(--navy);font-size:17px;}
+.namechip small{display:block;font-weight:500;color:var(--muted);font-size:13px;margin-top:2px;}
+
+/* Tabs */
+.tabin{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.tabbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.tabbar label{cursor:pointer;user-select:none;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:700;font-size:14.5px;border-radius:999px;padding:9px 18px;transition:background .15s ease,color .15s ease;}
+.tabbar label:hover{border-color:var(--blue);}
+#tab-1:checked ~ .tabbar label[for="tab-1"],
+#tab-2:checked ~ .tabbar label[for="tab-2"],
+#tab-3:checked ~ .tabbar label[for="tab-3"]{background:var(--navy);color:#fff;border-color:var(--navy);}
+#tab-1:focus-visible ~ .tabbar label[for="tab-1"],
+#tab-2:focus-visible ~ .tabbar label[for="tab-2"],
+#tab-3:focus-visible ~ .tabbar label[for="tab-3"]{outline:3px solid var(--blue);outline-offset:2px;}
+.panel{border:1px solid var(--line);border-radius:14px;background:#fff;padding:clamp(16px,2.6vw,22px);margin-bottom:12px;}
+.tabs .panel{display:none;margin-bottom:0;}
+#tab-1:checked ~ .panels .p-1,
+#tab-2:checked ~ .panels .p-2,
+#tab-3:checked ~ .panels .p-3{display:grid;animation:rise .4s ease-out both;}
+.panel{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:start;}
+.panel-title{margin:0 0 4px;font-size:15px;color:var(--navy);}
+.tabs .panel-title{display:none;}
+.panel .bubble{font-size:15px;}
+.mini{border:1px solid var(--line);border-radius:12px;background:#FBFDFE;padding:14px;}
+.mini .answer{margin-bottom:10px;}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13.5px;}
+.checks li{display:flex;align-items:center;gap:8px;}
+.ck{width:18px;height:18px;border-radius:50%;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.ck.ok{background:var(--green-bg);color:var(--green);}
+.ck.wait{background:var(--amber-bg);color:var(--amber);}
+.hours{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;align-items:end;height:96px;margin-top:6px;}
+.hours div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;font-size:10.5px;color:var(--muted);}
+.hours i{display:block;width:100%;border-radius:4px 4px 0 0;background:#9EDBF3;}
+.hours i.pk{background:var(--navy);}
+.h20{height:20%}.h35{height:35%}.h55{height:55%}.h80{height:80%}.h95{height:95%}.h70{height:70%}.h45{height:45%}.h30{height:30%}
+
+/* Footer */
+.foot{border-top:1px solid var(--line);}
+.fine{font-size:12.5px;color:var(--muted);padding:18px 0 28px;margin:0;}
+
+/* Animations */
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes bounce{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+@keyframes fadeout{to{opacity:0;height:0;margin:0;overflow:hidden}}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes flowx{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:calc(100% - 9px);opacity:0}}
+@keyframes flowy{0%{top:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:calc(100% - 9px);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important;}
+  .run:checked ~ .card-body .thinking{display:none;}
+}
+
+/* Responsive */
+@media (max-width: 860px){
+  .card-body,.panel{grid-template-columns:1fr;}
+}
+@media (max-width: 760px){
+  .flow{grid-template-columns:1fr;padding:14px;}
+  .pipe{width:4px;height:34px;margin:6px auto;background:linear-gradient(180deg,#CDEBF7,#9EDBF3);}
+  .pipe i{left:50%;top:0;margin-left:-4.5px;margin-top:0;animation-name:flowy;}
+  .col{flex-direction:row;flex-wrap:wrap;}
+  .col .cap{width:100%;}
+}
+@media (max-width: 640px){
+  .prepared{white-space:normal;}
+  .kpis{grid-template-columns:1fr 1fr 1fr;}
+  .kpi{padding:8px;}
+  .kpi .v{font-size:15px;}
+  .bar-row{grid-template-columns:20px 58px 1fr 44px;gap:6px;}
+  table{font-size:12.5px;}
+  th,td{padding:8px 8px;}
+  .mono{font-size:11px;}
+  .ri{width:26px;height:26px;padding:5px;}
+  .role{gap:6px;}
+  .hide-sm{display:none;}
+  .card{padding:16px;}
+  .result,.mini{padding:12px;}
+  .kpis{grid-template-columns:1fr;gap:6px;}
+  .kpi{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+  .kpi .k{flex:1 1 auto;}
+  .kpi .d{width:100%;text-align:right;}
+  .bar-row{grid-template-columns:20px 56px minmax(0,1fr) 54px;}
+  .bar-val{font-size:11.5px;}
+  table.stack thead{display:none;}
+  table.stack tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:10px 12px;border-bottom:1px solid var(--line);}
+  table.stack tr:last-child{border-bottom:none;}
+  table.stack td{border:0;padding:0;}
+  table.stack td.desc{grid-column:1 / -1;order:3;font-size:12.5px;color:var(--muted);}
+  table.stack td.mono.desc{font-size:11px;}
+  tr.hi td:first-child,tr.md td:first-child,tr.lo td:first-child{box-shadow:none;}
+  tr.hi{box-shadow:inset 3px 0 0 var(--red);}
+  tr.md{box-shadow:inset 3px 0 0 #E59A2F;}
+  tr.lo{box-shadow:inset 3px 0 0 #4CAF7D;}
+}
+
+/* Smart template additions */
+.risk.info{color:var(--navy);background:var(--tint2);}
+.risk.info::before{background:var(--blue);}
+.ck.no{background:var(--red-bg);color:var(--red);}
+td.strong{font-weight:700;color:var(--navy);}
+.bar-row.norank{grid-template-columns:70px 1fr 56px;}
+.steps{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:10px;}
+.steps li{display:grid;grid-template-columns:70px 1fr;gap:10px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;}
+.st-k{font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#fff;background:var(--navy);border-radius:6px;padding:3px 8px;text-align:center;}
+.steps li:first-child .st-k{background:#B3261E;}
+.steps li:last-child .st-k{background:var(--green);}
+.mflow{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;gap:8px;background:var(--tint);border:1px solid #DDF0F8;border-radius:12px;padding:12px;margin-bottom:12px;}
+.msrc{display:flex;flex-direction:column;gap:6px;}
+.msrc span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600;}
+.marrow{height:4px;background:linear-gradient(90deg,#CDEBF7,var(--blue));border-radius:4px;position:relative;}
+.marrow::after{content:"";position:absolute;right:-2px;top:-5px;border-left:8px solid var(--blue);border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.mtgt{background:#fff;border:2px solid var(--blue);border-radius:12px;padding:12px;text-align:center;}
+.mtgt .mono{display:block;font-weight:700;color:var(--navy);word-break:break-all;}
+.mtgt small{display:block;color:var(--muted);font-size:12px;margin-top:4px;}
+.hdr-for[hidden],.hdr-x[hidden]{display:none;}
+@media (max-width: 640px){
+  .mflow{grid-template-columns:1fr;}
+  .marrow{width:4px;height:24px;margin:0 auto;background:linear-gradient(180deg,#CDEBF7,var(--blue));}
+  .marrow::after{right:auto;left:-5px;top:auto;bottom:-4px;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid var(--blue);border-bottom:0;}
+  .steps li{grid-template-columns:1fr;gap:6px;}
+  .st-k{justify-self:start;}
+  .bar-row.norank{grid-template-columns:56px minmax(0,1fr) 54px;}
+}
+</style>
+</head>
+<body>
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="i-person" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></g></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke-linecap="round"/></g></symbol>
+</svg>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><svg class="sf" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="#29B5E8" stroke-width="2" stroke-linecap="round"><g><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(60 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(120 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g></g></svg><span class="names"><span class="wm">Snowflake<span class="hdr-x" id="hdr-x" hidden> <span class="x">x</span> <span id="hdr-co"></span></span></span><span class="for hdr-for" id="hdr-for" hidden></span></span></div>
+    <div class="prepared">Prepared with Snowflake CoWork</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>What <span id="hero-co">your team</span> could get done <span class="hl">by just asking</span></h1>
+    <p class="sub">Save time and cost, and get more done with the same team, by letting people ask questions of your data in plain English.</p>
+  </div>
+</div>
+
+<main>
+<section id="cards">
+  <div class="wrap">
+    <article class="card explain" id="what-snowflake-does">
+      <div class="card-head"><span class="num">1</span><h3>What Snowflake does</h3></div>
+      <p class="lead"><b>Snowflake is one secure place for all of <span id="c1-co">your</span> data, with AI built in.</b> Anyone on the team can ask questions in plain English and get answers, reports, and dashboards. We run it for you, so there are no servers to manage.</p>
+      <div class="flow" role="img" aria-label="Data from your business systems flows into Snowflake, one secure place with AI, which gives answers, dashboards, reports, and alerts.">
+        <div class="col sources" id="c1-src">
+          <div class="cap">Your data</div>
+          <div class="chip">ERP</div><div class="chip">CRM</div><div class="chip">Spreadsheets</div><div class="chip">Business apps</div>
+        </div>
+        <div class="pipe" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="core">
+          <svg class="sf-big" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="#29B5E8" stroke-width="2" stroke-linecap="round"><g><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(60 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(120 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g></g></svg>
+          <div class="t1">Snowflake</div>
+          <div class="t2">One secure place + AI</div>
+        </div>
+        <div class="pipe" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="col outcomes">
+          <div class="cap">What your team gets</div>
+          <div class="chip">Answers</div><div class="chip">Dashboards</div><div class="chip">Reports</div><div class="chip">Alerts</div>
+        </div>
+      </div>
+      <div class="points"><span>Ask in plain English</span><span>Access controls built in</span><span>Nothing to install or maintain</span></div>
+    </article>
+
+    <h2>Three things you could ask today</h2>
+    <p class="section-sub">Press "Run this prompt" on each card to see the kind of answer that comes back.</p>
+
+    <article class="card uc" id="uc1">
+      <input type="checkbox" id="run-1" class="run" aria-label="Run this prompt">
+      <div class="card-head"><span class="num">2</span><h3 data-f="title">Analytics and dashboards just by asking</h3></div>
+      <div class="card-body">
+        <div class="chat">
+          <span class="who">You ask</span>
+          <div class="bubble" data-f="prompt">Which regions had the biggest drop in sales this quarter? Turn it into a dashboard for the leadership team.</div>
+          <label for="run-1" class="runbtn">Run this prompt</label>
+          <div class="beforenow"><p><b>Before:</b> <span data-f="before">wait days for IT to build a report.</span></p><p><b>Now:</b> <span data-f="now">ask and get the answer and dashboard in minutes.</span></p></div>
+          <div class="label" data-f="pills"><span class="pill">Snowflake CoWork</span><span class="pill">Cortex Analyst</span><span class="pill">Cortex Code</span></div>
+        </div>
+        <div class="result">
+          <div class="result-top"><span class="result-title"><span class="dot"></span><span data-f="rt">Answer</span></span><span class="sample">Sample data</span></div>
+          <div class="placeholder" aria-hidden="true"></div>
+          <div class="out">
+            <div class="thinking"><i></i><i></i><i></i><span data-f="think">Working on it</span></div>
+            <div class="reveal" data-f="reveal"><p class="answer typed">Region C had the biggest drop in sales this quarter, followed by Region A and Region F.</p><div class="dash"><div class="dash-bar"><span class="w"></span><span class="w"></span><span class="w"></span><span class="ttl">Leadership: Sales Health</span><span class="shared">Shared with the leadership team</span></div><div class="dash-in"><div class="kpis"><div class="kpi"><div class="k">Regions flagged</div><div class="v">3</div><div class="d up">Down from last quarter</div></div><div class="kpi"><div class="k">Biggest drop</div><div class="v">Region C</div><div class="d up">-4.9%</div></div><div class="kpi"><div class="k">Refreshed</div><div class="v">Daily</div><div class="d ok">Automatic</div></div></div><p class="chart-title">Change in sales, this quarter vs last</p><div class="bars"><div class="bar-row"><span class="rank">1</span><span>Region C</span><div class="bar-track"><div class="bar top" style="width:92%"></div></div><span class="bar-val">-4.9%</span></div><div class="bar-row"><span class="rank">2</span><span>Region A</span><div class="bar-track"><div class="bar" style="width:70%"></div></div><span class="bar-val">-3.6%</span></div><div class="bar-row"><span class="rank">3</span><span>Region F</span><div class="bar-track"><div class="bar" style="width:50%"></div></div><span class="bar-val">-2.5%</span></div><div class="bar-row"><span class="rank">4</span><span>Region D</span><div class="bar-track"><div class="bar" style="width:26%"></div></div><span class="bar-val">-1.3%</span></div></div></div></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="card uc" id="uc2">
+      <input type="checkbox" id="run-2" class="run" aria-label="Run this prompt">
+      <div class="card-head"><span class="num">3</span><h3 data-f="title">One weekly KPI dashboard from every system</h3></div>
+      <div class="card-body">
+        <div class="chat">
+          <span class="who">You ask</span>
+          <div class="bubble" data-f="prompt">Pull our weekly numbers from ERP, CRM, and the spreadsheets into one dashboard that updates every Monday.</div>
+          <label for="run-2" class="runbtn">Run this prompt</label>
+          <div class="beforenow"><p><b>Before:</b> <span data-f="before">someone spends Monday morning copying numbers into a report.</span></p><p><b>Now:</b> <span data-f="now">the dashboard updates itself every Monday.</span></p></div>
+          <div class="label" data-f="pills"><span class="pill">Snowflake CoWork</span><span class="pill">Cortex Code</span></div>
+        </div>
+        <div class="result">
+          <div class="result-top"><span class="result-title"><span class="dot"></span><span data-f="rt">Weekly KPI dashboard</span></span><span class="sample">Sample data</span></div>
+          <div class="placeholder" aria-hidden="true"></div>
+          <div class="out">
+            <div class="thinking"><i></i><i></i><i></i><span data-f="think">Connecting your systems</span></div>
+            <div class="reveal" data-f="reveal"><div class="dash"><div class="dash-bar"><span class="w"></span><span class="w"></span><span class="w"></span><span class="ttl">Leadership: Weekly KPIs</span><span class="shared">Updates every Monday</span></div><div class="dash-in"><div class="kpis"><div class="kpi"><div class="k">Sales vs target</div><div class="v">On track</div><div class="d ok">Up this week</div></div><div class="kpi"><div class="k">New customers</div><div class="v">Up</div><div class="d ok">Best week this month</div></div><div class="kpi"><div class="k">Overdue invoices</div><div class="v">Down</div><div class="d ok">Improving</div></div></div></div></div><div class="summary"><span>ERP connected</span><span>CRM connected</span><span>Spreadsheets connected</span></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="card uc" id="uc3">
+      <input type="checkbox" id="run-3" class="run" aria-label="Run this prompt">
+      <div class="card-head"><span class="num">4</span><h3 data-f="title">Less infrastructure to manage</h3></div>
+      <div class="card-body">
+        <div class="chat">
+          <span class="who">You ask</span>
+          <div class="bubble" data-f="prompt">What would my team stop doing if we ran our analytics on Snowflake?</div>
+          <label for="run-3" class="runbtn">Run this prompt</label>
+          <div class="beforenow"><p><b>Before:</b> <span data-f="before">time spent keeping servers, patches, and upgrades running.</span></p><p><b>Now:</b> <span data-f="now">that work is handled for you, so the team can focus on new projects.</span></p></div>
+          <div class="label" data-f="pills"><span class="pill">Fully managed by Snowflake</span></div>
+        </div>
+        <div class="result">
+          <div class="result-top"><span class="result-title"><span class="dot"></span><span data-f="rt">What your team stops doing</span></span><span class="sample">Sample data</span></div>
+          <div class="placeholder" aria-hidden="true"></div>
+          <div class="out">
+            <div class="thinking"><i></i><i></i><i></i><span data-f="think">Checking what Snowflake handles for you</span></div>
+            <div class="reveal" data-f="reveal"><ul class="checks"><li><span class="ck ok">&#10003;</span>No servers to buy or manage</li><li><span class="ck ok">&#10003;</span>No patching or upgrades</li><li><span class="ck ok">&#10003;</span>No database tuning for performance</li><li><span class="ck ok">&#10003;</span>No capacity planning for month-end</li></ul><p class="note">Snowflake runs and scales the platform for you, so your team can spend that time on new projects.</p></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="strip" id="customers">
+  <div class="wrap">
+    <h2>Teams already doing this</h2>
+    <div class="logos" id="cust"><div class="namechip">Globe</div><div class="namechip">Ayala</div><div class="namechip">Jollibee</div></div>
+  </div>
+</section>
+
+<section id="business-teams">
+  <div class="wrap">
+    <h2>And your business teams too</h2>
+    <p class="section-sub">The same way of asking works for teams outside IT, so fewer requests land on your desk.</p>
+    <div class="tabs"><input type="radio" name="team" id="tab-1" class="tabin" checked aria-label="Finance"><input type="radio" name="team" id="tab-2" class="tabin" aria-label="Marketing"><input type="radio" name="team" id="tab-3" class="tabin" aria-label="Operations"><div class="tabbar"><label for="tab-1" data-f="tl1">Finance</label><label for="tab-2" data-f="tl2">Marketing</label><label for="tab-3" data-f="tl3">Operations</label></div><div class="panels"><div class="panel p-1" id="panel-1"><div><h4 class="panel-title" data-f="pt">Finance</h4><div class="bubble" data-f="pp">Help me close the month: reconcile invoices against payments.</div></div><div class="mini"><div class="result-top"><span class="result-title"><span class="dot"></span><span data-f="prt">Month-end check</span></span><span class="sample">Sample data</span></div><div data-f="pb"><p class="answer">Most invoices match. A short list needs follow-up before close.</p><ul class="checks"><li><span class="ck ok">&#10003;</span>Invoices matched to payments</li><li><span class="ck wait">!</span>Some invoices are partly paid</li><li><span class="ck wait">!</span>A few payments with no invoice</li></ul></div></div></div><div class="panel p-2" id="panel-2"><div><h4 class="panel-title" data-f="pt">Marketing</h4><div class="bubble" data-f="pp">How did last month&#x27;s campaigns perform?</div></div><div class="mini"><div class="result-top"><span class="result-title"><span class="dot"></span><span data-f="prt">Campaign results</span></span><span class="sample">Sample data</span></div><div data-f="pb"><div class="table-wrap"><table class="stack"><thead><tr><th>Campaign</th><th>Leads</th><th>Result</th></tr></thead><tbody><tr class="lo"><td>Email newsletter</td><td>Higher</td><td><span class="risk low">Strong</span></td></tr><tr class="md"><td>Social ads</td><td>Flat</td><td><span class="risk med">Mixed</span></td></tr><tr class="hi"><td>Event booth</td><td>Lower</td><td><span class="risk high">Weak</span></td></tr></tbody></table></div></div></div></div><div class="panel p-3" id="panel-3"><div><h4 class="panel-title" data-f="pt">Operations</h4><div class="bubble" data-f="pp">Build a weekly KPI dashboard for the leadership team.</div></div><div class="mini"><div class="result-top"><span class="result-title"><span class="dot"></span><span data-f="prt">Weekly KPIs</span></span><span class="sample">Sample data</span></div><div data-f="pb"><div class="kpis"><div class="kpi"><div class="k">Orders</div><div class="v">Up</div><div class="d ok">vs last week</div></div><div class="kpi"><div class="k">On-time delivery</div><div class="v">Steady</div><div class="d ok">vs last week</div></div><div class="kpi"><div class="k">Open issues</div><div class="v">Down</div><div class="d ok">vs last week</div></div></div></div></div></div></div></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap"><p class="fine">Sample data shown for illustration.</p></div>
+</footer>
+
+<script type="application/json" id="sf-data">{"ind":{"banking":{"chips":["Core banking","Loans","Mobile app","Branches & ATMs"],"customers":[["UnionBank",""],["Credit Access","Microfinance lender"],["Skyro","Digital lender"]],"tabs":[["Compliance","Prepare this month's BSP report from the latest validated data.","Draft report",[{"t":"p","x":"The draft is ready, built from data validated this morning. Two items need a reviewer's sign-off before it goes out."},{"t":"checks","items":[["ok","Loan and deposit figures match the source systems"],["ok","All branches included"],["warn","2 items flagged for reviewer sign-off"]]}]],["Lending","Which borrowers need attention before they miss a payment?","Borrowers to call this week",[{"t":"table","cols":["Borrower","Early warning sign","Priority"],"rows":[[{"m":"**** 2210"},{"d":"Payments getting later each month"},{"b":"bad","x":"High"}],[{"m":"**** 8463"},{"d":"Regular salary deposits have stopped"},{"b":"warn","x":"Medium"}],[{"m":"**** 3307"},{"d":"Account balance trending down"},{"b":"ok","x":"Low"}]]}]],["Branch Operations","Which branches are busiest by hour so we can staff better?","Branch C, customers by hour",[{"t":"p","x":"Busiest from 11 AM to 1 PM, and heavier on paydays. Adding one teller over lunch would cover the peak."},{"t":"hours","items":[["9",20,0],["10",35,0],["11",80,1],["12",95,1],["1",70,1],["2",45,0],["3",30,0],["4",20,0]]}]]]},"retail":{"chips":["ERP","Point of sale","E-commerce","Inventory"],"customers":[["Robinsons Retail",""],["Metro Retail",""],["Great Deals eCommerce",""]],"tabs":[["Merchandising","Which SKUs will stock out next week?","Likely stockouts",[{"t":"table","cols":["SKU","Store","Days left","Risk"],"rows":[[{"m":"SKU 10482"},"Store C","3",{"b":"bad","x":"High"}],[{"m":"SKU 22917"},"Store A","5",{"b":"warn","x":"Medium"}],[{"m":"SKU 31055"},"Store F","7",{"b":"ok","x":"Low"}]]}]],["Finance","Reconcile last week's online orders against payments received.","Reconciliation",[{"t":"p","x":"Almost everything matches. A few items need a look before close."},{"t":"checks","items":[["ok","Most orders matched to a payment"],["warn","Some orders paid but not yet delivered"],["warn","A few payments with no matching order"]]}]],["Store Operations","Which stores had the biggest sales drop this week?","Sales change by store",[{"t":"bars","title":"Change vs last week","rows":[["Store C",90,"-5.4%"],["Store A",66,"-3.9%"],["Store F",40,"-2.2%"]]}]]]},"restaurants":{"chips":["Point of sale","Delivery apps","Inventory & supply","Loyalty app"],"customers":[["Jollibee",""],["Shakey's",""],["Bistro Group",""]],"tabs":[["Marketing","Which promos drove the most repeat orders last month?","Promo results",[{"t":"table","cols":["Promo","Repeat orders","Result"],"rows":[["Weekday lunch bundle","Higher",{"b":"ok","x":"Strong"}],["Delivery free shipping","Slightly higher",{"b":"warn","x":"Mixed"}],["Weekend family meal","Flat",{"b":"bad","x":"Weak"}]]}]],["Supply Chain","Compare ingredient usage vs waste by store this week.","Usage vs waste",[{"t":"table","cols":["Store","Ingredient","Waste"],"rows":[["Outlet C","Dough",{"b":"bad","x":"Above normal"}],["Outlet A","Cheese",{"b":"warn","x":"Slightly high"}],["Outlet F","Chicken",{"b":"ok","x":"Normal"}]]}]],["Store Operations","What are our peak hours by outlet so we can staff better?","Outlet C, orders by hour",[{"t":"p","x":"Busiest at lunch and dinner, and heavier on weekends. One more crew member at 6 PM would cover the dinner rush."},{"t":"hours","items":[["10",20,0],["11",55,1],["12",90,1],["1",65,1],["3",25,0],["5",40,0],["6",80,1],["7",95,1]]}]]]},"cpg":{"chips":["ERP","Distributors","Sell-out data","Trade promotions"],"customers":[["CDO Foodsphere",""],["PepsiCo",""],["Kraft Heinz",""]],"tabs":[["Sales","Which distributors are behind target this month?","Distributors vs target",[{"t":"table","cols":["Distributor","Vs target","Status"],"rows":[["Distributor C","Behind",{"b":"bad","x":"At risk"}],["Distributor A","Slightly behind",{"b":"warn","x":"Watch"}],["Distributor F","Ahead",{"b":"ok","x":"On track"}]]}]],["Marketing","Which trade promos paid off best by region?","Trade promo results",[{"t":"table","cols":["Region","Promo","Result"],"rows":[["Region A","Buy 2 get 1",{"b":"ok","x":"Strong"}],["Region C","Shelf display",{"b":"warn","x":"Mixed"}],["Region F","Price discount",{"b":"bad","x":"Weak"}]]}]],["Supply Chain","Forecast demand by SKU for the next 4 weeks.","4-week demand",[{"t":"bars","title":"Expected demand vs last 4 weeks","rows":[["SKU 1104",88,"Higher"],["SKU 2087",55,"Flat"],["SKU 3310",35,"Lower"]]}]]]},"general":{"chips":["ERP","CRM","Spreadsheets","Business apps"],"customers":[["Globe",""],["Ayala",""],["Jollibee",""]],"tabs":[["Finance","Help me close the month: reconcile invoices against payments.","Month-end check",[{"t":"p","x":"Most invoices match. A short list needs follow-up before close."},{"t":"checks","items":[["ok","Invoices matched to payments"],["warn","Some invoices are partly paid"],["warn","A few payments with no invoice"]]}]],["Marketing","How did last month's campaigns perform?","Campaign results",[{"t":"table","cols":["Campaign","Leads","Result"],"rows":[["Email newsletter","Higher",{"b":"ok","x":"Strong"}],["Social ads","Flat",{"b":"warn","x":"Mixed"}],["Event booth","Lower",{"b":"bad","x":"Weak"}]]}]],["Operations","Build a weekly KPI dashboard for the leadership team.","Weekly KPIs",[{"t":"kpis","items":[["Orders","Up","vs last week","ok"],["On-time delivery","Steady","vs last week","ok"],["Open issues","Down","vs last week","ok"]]}]]]}},"cards":{"banking|it":[{"title":"Analytics and dashboards just by asking","prompt":"Which branches had the biggest jump in loan delinquencies this quarter? Turn it into a dashboard for the branch heads.","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Branch C had the biggest rise in loans past due this quarter, followed by Branch A and Branch F.","typed":1},{"t":"dash","title":"Branch Heads: Loan Health","shared":"Shared with the branch heads","blocks":[{"t":"kpis","items":[["Branches flagged","3","Up from last quarter","up"],["Biggest jump","Branch C","+2.4 pts","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in loans past due, this quarter vs last","rows":[["Branch C",92,"+2.4 pts"],["Branch A",70,"+1.8 pts"],["Branch F",55,"+1.4 pts"],["Branch D",30,"+0.8 pts"]],"rank":1}]}],"before":"wait days for IT to build a report.","now":"ask and get the answer and dashboard in minutes.","pills":["Snowflake CoWork","Cortex Analyst","Cortex Code"]},{"title":"Spot unusual activity","prompt":"Show accounts with unusual transfer patterns this week compared to their normal behavior.","rt":"Flagged accounts","think":"Comparing each account with its usual pattern","blocks":[{"t":"summary","items":["4 accounts to review","2 high","1 medium","1 low"]},{"t":"table","cols":["Account","What looks unusual","Risk"],"rows":[[{"m":"**** 4821"},{"d":"Many small transfers to new payees in one day"},{"b":"bad","x":"High"}],[{"m":"**** 0937"},{"d":"Late-night transfers well above its usual size"},{"b":"bad","x":"High"}],[{"m":"**** 5562"},{"d":"Sudden large transfer out after months of low activity"},{"b":"warn","x":"Medium"}],[{"m":"**** 7104"},{"d":"New device and new location, normal amounts"},{"b":"ok","x":"Low"}]]},{"t":"note","x":"Each account is compared with its own normal pattern, so your team reviews the few that stand out instead of everything."}],"before":"unusual activity turns up late, after someone reviews reports by hand.","now":"ask once and get a ranked list of accounts to review.","pills":["Snowflake CoWork","ML anomaly detection","Cortex AI Functions"]},{"title":"Audit-ready in one question","prompt":"Who accessed customer loan data in the last 30 days?","rt":"Access log, last 30 days","think":"Checking the access records","blocks":[{"t":"table","cols":["User role","Table",{"hs":1,"x":"Access"},"Date"],"rows":[[{"ic":"person","cls":"","x":"Loan Officer"},{"m":"CUSTOMER_LOANS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 21"}],[{"ic":"chart","cls":"c2","x":"Credit Analyst"},{"m":"CUSTOMER_LOANS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 18"}],[{"ic":"shield","cls":"c3","x":"Compliance Officer"},{"m":"LOAN_PAYMENTS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 14"}],[{"ic":"gear","cls":"c4","x":"Reporting Service"},{"m":"CUSTOMER_LOANS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 02"}]]},{"t":"note","x":"Every read and change is recorded, down to the column, so audit and compliance questions have a ready answer."}],"before":"audit requests mean pulling logs from different systems by hand.","now":"one question shows who accessed what, and when.","pills":["Access History","Snowflake Horizon governance"]}],"banking|de":[{"title":"Fix a broken pipeline by asking","prompt":"Last night's core banking load failed. Find out why, fix it, and rerun it.","rt":"Pipeline fix","think":"Checking last night's run","blocks":[{"t":"steps","items":[["Found","The core banking file arrived with a renamed column: ACCT_NO is now ACCOUNT_ID."],["Fixed","Updated the load to use the new column name, and added a check for future column changes."],["Rerun","Reloaded last night's data. Row counts match the source."]]},{"t":"summary","items":["Pipeline healthy","Next run tonight"]}],"before":"hours digging through logs to find what broke.","now":"ask, review the fix, and rerun in minutes.","pills":["Cortex Code"]},{"title":"Bring data together from every source","prompt":"Combine core banking, loan, and mobile app data into one table, refreshed hourly.","rt":"New pipeline","think":"Connecting the sources","blocks":[{"t":"flow","src":["Core banking","Loan system","Mobile app"],"tgt":"CUSTOMER_360","sub":"Refreshed hourly"},{"t":"checks","items":[["ok","All sources connected"],["ok","Refresh scheduled every hour"],["ok","Alert set if a refresh fails"]]}],"before":"separate scripts and manual exports for each system.","now":"one table that keeps itself up to date.","pills":["Openflow","Cortex Code"]},{"title":"Data quality checks","prompt":"Add checks for duplicates, missing values, and freshness on LOANS, and alert me if anything fails.","rt":"Check results","think":"Setting up the checks","blocks":[{"t":"table","cols":["Check","Result","Status"],"rows":[["Duplicates","None found",{"b":"ok","x":"Passed"}],["Missing values","12 rows missing ACCOUNT_ID",{"b":"warn","x":"Review"}],["Freshness","Updated 20 minutes ago",{"b":"ok","x":"Passed"}],["Row count","Within normal range",{"b":"ok","x":"Passed"}]]},{"t":"note","x":"The checks run on a schedule and alert you as soon as one fails."}],"before":"bad data is found by users after reports go out.","now":"checks run on their own and alert you first.","pills":["Data metric functions"]}],"banking|da":[{"title":"Answers without waiting on IT","prompt":"Which branches had the biggest jump in loan delinquencies this quarter?","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Branch C had the biggest rise in loans past due this quarter, followed by Branch A and Branch F.","typed":1},{"t":"bars","title":"Change in loans past due, this quarter vs last","rows":[["Branch C",92,"+2.4 pts"],["Branch A",70,"+1.8 pts"],["Branch F",55,"+1.4 pts"],["Branch D",30,"+0.8 pts"]],"rank":1}],"before":"send a request and wait for IT to pull the numbers.","now":"ask in plain English and get the answer yourself.","pills":["Snowflake CoWork","Cortex Analyst"]},{"title":"Turn a manual Excel report into a live dashboard","prompt":"Turn our weekly branch performance spreadsheet into a live dashboard that updates itself every morning.","rt":"Live dashboard","think":"Building the dashboard","blocks":[{"t":"dash","title":"Branch Performance, live","shared":"Refreshes every morning","blocks":[{"t":"kpis","items":[["Branches flagged","3","Up from last quarter","up"],["Biggest jump","Branch C","+2.4 pts","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in loans past due, this quarter vs last","rows":[["Branch C",92,"+2.4 pts"],["Branch A",70,"+1.8 pts"],["Branch F",55,"+1.4 pts"],["Branch D",30,"+0.8 pts"]],"rank":1}]}],"before":"hours each week copying and pasting into Excel.","now":"a live dashboard that refreshes on its own.","pills":["Cortex Code","Streamlit in Snowflake"]},{"title":"Make sense of text and documents","prompt":"Group this month's customer complaints by topic and sentiment.","rt":"Customer complaints by topic","think":"Reading every comment","blocks":[{"t":"summary","items":["Top topic: Mobile app login","Mostly negative: Loan approval time"]},{"t":"table","cols":["Topic","Example","Sentiment"],"rows":[[{"x":"Mobile app login","strong":1},{"d":"Can't log in after the update"},{"b":"bad","x":"Negative"}],[{"x":"Loan approval time","strong":1},{"d":"Approval took longer than promised"},{"b":"bad","x":"Negative"}],[{"x":"Branch service","strong":1},{"d":"The teller was very helpful"},{"b":"ok","x":"Positive"}],[{"x":"Fees","strong":1},{"d":"Asked how a charge was computed"},{"b":"warn","x":"Neutral"}]]}],"before":"reading through comments one by one.","now":"every comment sorted by topic and sentiment in minutes.","pills":["Cortex AI Functions"]}],"banking|sec":[{"title":"Find and protect sensitive data","prompt":"Find every column with customer personal data and hide it from everyone outside Compliance.","rt":"Sensitive columns found","think":"Scanning every table","blocks":[{"t":"summary","items":["4 columns found","All now masked"]},{"t":"table","cols":["Column","Detected as","Status"],"rows":[[{"m":"CUSTOMERS.FULL_NAME","d":1},"Name",{"b":"ok","x":"Masked"}],[{"m":"CUSTOMERS.TIN","d":1},"Tax ID",{"b":"ok","x":"Masked"}],[{"m":"CUSTOMERS.MOBILE_NO","d":1},"Phone number",{"b":"ok","x":"Masked"}],[{"m":"LOANS.BIRTH_DATE","d":1},"Date of birth",{"b":"ok","x":"Masked"}]]},{"t":"p","x":"What everyone else now sees:","small":1},{"t":"table","cols":["Name","Phone number"],"rows":[[{"m":"J*** D***"},{"m":"09** *** **12"}],[{"m":"M*** S***"},{"m":"09** *** **48"}]]}],"before":"sensitive columns are found by hand, and some get missed.","now":"personal data is found and hidden automatically.","pills":["Sensitive data classification","Masking policies"]},{"title":"Who accessed what","prompt":"Who accessed customer loan data in the last 30 days?","rt":"Access log, last 30 days","think":"Checking the access records","blocks":[{"t":"table","cols":["User role","Table",{"hs":1,"x":"Access"},"Date"],"rows":[[{"ic":"person","cls":"","x":"Loan Officer"},{"m":"CUSTOMER_LOANS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 21"}],[{"ic":"chart","cls":"c2","x":"Credit Analyst"},{"m":"CUSTOMER_LOANS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 18"}],[{"ic":"shield","cls":"c3","x":"Compliance Officer"},{"m":"LOAN_PAYMENTS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 14"}],[{"ic":"gear","cls":"c4","x":"Reporting Service"},{"m":"CUSTOMER_LOANS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 02"}]]},{"t":"note","x":"Every read and change is recorded, down to the column, so audit and compliance questions have a ready answer."}],"before":"audit requests mean pulling logs from different systems by hand.","now":"one question shows who accessed what, and when.","pills":["Access History","Snowflake Horizon governance"]},{"title":"Give a team exactly the access it needs","prompt":"Create read-only access to loan and deposit summaries for the finance team, nothing else.","rt":"Access granted","think":"Setting up the access","blocks":[{"t":"p","x":"Done. Here is what the finance team can and cannot do:"},{"t":"checks","items":[["ok","Can read LOAN_SUMMARY and DEPOSIT_SUMMARY"],["no","Cannot change or delete any data"],["no","Cannot see customer personal data"],["ok","Every query they run is logged"]]}],"before":"access requests go back and forth for days.","now":"describe the access in plain English and review it before it goes live.","pills":["Role-based access control","Cortex Code"]}],"retail|it":[{"title":"Analytics and dashboards just by asking","prompt":"Which stores had the biggest drop in sales this month? Turn it into a dashboard for the store managers.","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Store C had the biggest drop in sales this month, followed by Store A and Store F.","typed":1},{"t":"dash","title":"Store Managers: Sales Health","shared":"Shared with the store managers","blocks":[{"t":"kpis","items":[["Stores flagged","3","Down from last month","up"],["Biggest drop","Store C","-6.2%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in sales, this month vs last","rows":[["Store C",92,"-6.2%"],["Store A",72,"-4.8%"],["Store F",52,"-3.5%"],["Store D",28,"-1.9%"]],"rank":1}]}],"before":"wait days for IT to build a report.","now":"ask and get the answer and dashboard in minutes.","pills":["Snowflake CoWork","Cortex Analyst","Cortex Code"]},{"title":"Inventory across every store","prompt":"Show stock on hand vs sell-through for our top SKUs at every store, and flag where we will run out next week.","rt":"Stock vs sell-through","blocks":[{"t":"summary","items":["4 SKU and store pairs to watch","1 needs a reorder now"]},{"t":"table","cols":["Store","SKU","Days of stock","Status"],"rows":[["Store C",{"m":"SKU 10482"},"3 days",{"b":"bad","x":"Reorder"}],["Store A",{"m":"SKU 22917"},"5 days",{"b":"warn","x":"Watch"}],["Store F",{"m":"SKU 10482"},"6 days",{"b":"warn","x":"Watch"}],["Store D",{"m":"SKU 31055"},"21 days",{"b":"ok","x":"OK"}]]}],"before":"stock levels come from each store's own report, often days late.","now":"one view of stock across every store, with stockouts flagged ahead of time.","pills":["Snowflake CoWork","Cortex Analyst"],"think":"Checking stock at every store"},{"title":"Less infrastructure to manage","prompt":"What would my team stop doing if we ran our analytics on Snowflake?","rt":"What your team stops doing","think":"Checking what Snowflake handles for you","blocks":[{"t":"checks","items":[["ok","No servers to buy or manage"],["ok","No patching or upgrades"],["ok","No database tuning for performance"],["ok","No capacity planning for sale days"]]},{"t":"note","x":"Snowflake runs and scales the platform for you, so your team can spend that time on new projects."}],"before":"time spent keeping servers, patches, and upgrades running.","now":"that work is handled for you, so the team can focus on new projects.","pills":["Fully managed by Snowflake"]}],"retail|de":[{"title":"Fix a broken pipeline by asking","prompt":"Last night's point of sale load failed. Find out why, fix it, and rerun it.","rt":"Pipeline fix","think":"Checking last night's run","blocks":[{"t":"steps","items":[["Found","The point of sale file arrived with a renamed column: SKU_CODE is now ITEM_CODE."],["Fixed","Updated the load to use the new column name, and added a check for future column changes."],["Rerun","Reloaded last night's data. Row counts match the source."]]},{"t":"summary","items":["Pipeline healthy","Next run tonight"]}],"before":"hours digging through logs to find what broke.","now":"ask, review the fix, and rerun in minutes.","pills":["Cortex Code"]},{"title":"Bring data together from every source","prompt":"Combine ERP, point of sale, e-commerce, and inventory data into one table, refreshed hourly.","rt":"New pipeline","think":"Connecting the sources","blocks":[{"t":"flow","src":["ERP","Point of sale","E-commerce"],"tgt":"DAILY_SALES_BY_STORE","sub":"Refreshed hourly"},{"t":"checks","items":[["ok","All sources connected"],["ok","Refresh scheduled every hour"],["ok","Alert set if a refresh fails"]]}],"before":"separate scripts and manual exports for each system.","now":"one table that keeps itself up to date.","pills":["Openflow","Cortex Code"]},{"title":"Data quality checks","prompt":"Add checks for duplicates, missing values, and freshness on SALES, and alert me if anything fails.","rt":"Check results","think":"Setting up the checks","blocks":[{"t":"table","cols":["Check","Result","Status"],"rows":[["Duplicates","None found",{"b":"ok","x":"Passed"}],["Missing values","12 rows missing ITEM_CODE",{"b":"warn","x":"Review"}],["Freshness","Updated 20 minutes ago",{"b":"ok","x":"Passed"}],["Row count","Within normal range",{"b":"ok","x":"Passed"}]]},{"t":"note","x":"The checks run on a schedule and alert you as soon as one fails."}],"before":"bad data is found by users after reports go out.","now":"checks run on their own and alert you first.","pills":["Data metric functions"]}],"retail|da":[{"title":"Answers without waiting on IT","prompt":"Which stores had the biggest drop in sales this month?","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Store C had the biggest drop in sales this month, followed by Store A and Store F.","typed":1},{"t":"bars","title":"Change in sales, this month vs last","rows":[["Store C",92,"-6.2%"],["Store A",72,"-4.8%"],["Store F",52,"-3.5%"],["Store D",28,"-1.9%"]],"rank":1}],"before":"send a request and wait for IT to pull the numbers.","now":"ask in plain English and get the answer yourself.","pills":["Snowflake CoWork","Cortex Analyst"]},{"title":"Turn a manual Excel report into a live dashboard","prompt":"Turn our weekly store sales spreadsheet into a live dashboard that updates itself every morning.","rt":"Live dashboard","think":"Building the dashboard","blocks":[{"t":"dash","title":"Store Sales, live","shared":"Refreshes every morning","blocks":[{"t":"kpis","items":[["Stores flagged","3","Down from last month","up"],["Biggest drop","Store C","-6.2%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in sales, this month vs last","rows":[["Store C",92,"-6.2%"],["Store A",72,"-4.8%"],["Store F",52,"-3.5%"],["Store D",28,"-1.9%"]],"rank":1}]}],"before":"hours each week copying and pasting into Excel.","now":"a live dashboard that refreshes on its own.","pills":["Cortex Code","Streamlit in Snowflake"]},{"title":"Make sense of text and documents","prompt":"Group this month's product reviews by topic and sentiment.","rt":"Product reviews by topic","think":"Reading every comment","blocks":[{"t":"summary","items":["Top topic: Delivery","Mostly negative: Product quality"]},{"t":"table","cols":["Topic","Example","Sentiment"],"rows":[[{"x":"Delivery","strong":1},{"d":"My order arrived later than expected"},{"b":"bad","x":"Negative"}],[{"x":"Product quality","strong":1},{"d":"The tiles looked exactly as pictured"},{"b":"ok","x":"Positive"}],[{"x":"Stock availability","strong":1},{"d":"Item was out of stock at my store"},{"b":"bad","x":"Negative"}],[{"x":"Services","strong":1},{"d":"Asked about installation services"},{"b":"warn","x":"Neutral"}]]}],"before":"reading through comments one by one.","now":"every comment sorted by topic and sentiment in minutes.","pills":["Cortex AI Functions"]}],"retail|sec":[{"title":"Find and protect sensitive data","prompt":"Find every column with customer personal data and hide it from everyone outside the CRM team.","rt":"Sensitive columns found","think":"Scanning every table","blocks":[{"t":"summary","items":["4 columns found","All now masked"]},{"t":"table","cols":["Column","Detected as","Status"],"rows":[[{"m":"CUSTOMERS.FULL_NAME","d":1},"Name",{"b":"ok","x":"Masked"}],[{"m":"CUSTOMERS.MOBILE_NO","d":1},"Phone number",{"b":"ok","x":"Masked"}],[{"m":"CUSTOMERS.EMAIL","d":1},"Email",{"b":"ok","x":"Masked"}],[{"m":"ORDERS.DELIVERY_ADDRESS","d":1},"Address",{"b":"ok","x":"Masked"}]]},{"t":"p","x":"What everyone else now sees:","small":1},{"t":"table","cols":["Name","Phone number"],"rows":[[{"m":"J*** D***"},{"m":"09** *** **12"}],[{"m":"M*** S***"},{"m":"09** *** **48"}]]}],"before":"sensitive columns are found by hand, and some get missed.","now":"personal data is found and hidden automatically.","pills":["Sensitive data classification","Masking policies"]},{"title":"Who accessed what","prompt":"Who accessed customer and loyalty data in the last 30 days?","rt":"Access log, last 30 days","think":"Checking the access records","blocks":[{"t":"table","cols":["User role","Table",{"hs":1,"x":"Access"},"Date"],"rows":[[{"ic":"person","cls":"","x":"Store Manager"},{"m":"LOYALTY_MEMBERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 21"}],[{"ic":"chart","cls":"c2","x":"Marketing Analyst"},{"m":"ONLINE_ORDERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 18"}],[{"ic":"shield","cls":"c3","x":"Finance Officer"},{"m":"ONLINE_ORDERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 14"}],[{"ic":"gear","cls":"c4","x":"Reporting Service"},{"m":"LOYALTY_MEMBERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 02"}]]},{"t":"note","x":"Every read and change is recorded, down to the column, so audit and compliance questions have a ready answer."}],"before":"audit requests mean pulling logs from different systems by hand.","now":"one question shows who accessed what, and when.","pills":["Access History","Snowflake Horizon governance"]},{"title":"Give a team exactly the access it needs","prompt":"Create read-only access to sales and inventory for the finance team, nothing else.","rt":"Access granted","think":"Setting up the access","blocks":[{"t":"p","x":"Done. Here is what the finance team can and cannot do:"},{"t":"checks","items":[["ok","Can read SALES and INVENTORY"],["no","Cannot change or delete any data"],["no","Cannot see customer personal data"],["ok","Every query they run is logged"]]}],"before":"access requests go back and forth for days.","now":"describe the access in plain English and review it before it goes live.","pills":["Role-based access control","Cortex Code"]}],"restaurants|it":[{"title":"Analytics and dashboards just by asking","prompt":"Which outlets had the biggest drop in repeat orders this month? Turn it into a dashboard for the area managers.","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Outlet C had the biggest drop in repeat orders this month, followed by Outlet A and Outlet F.","typed":1},{"t":"dash","title":"Area Managers: Outlet Health","shared":"Shared with the area managers","blocks":[{"t":"kpis","items":[["Outlets flagged","3","Down from last month","up"],["Biggest drop","Outlet C","-5.1%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in repeat orders, this month vs last","rows":[["Outlet C",92,"-5.1%"],["Outlet A",70,"-3.9%"],["Outlet F",50,"-2.8%"],["Outlet D",26,"-1.4%"]],"rank":1}]}],"before":"wait days for IT to build a report.","now":"ask and get the answer and dashboard in minutes.","pills":["Snowflake CoWork","Cortex Analyst","Cortex Code"]},{"title":"Sales by outlet and hour","prompt":"Show last week's sales by outlet and hour, and highlight our busiest times.","rt":"Sales by hour, all outlets","blocks":[{"t":"p","x":"Lunch and dinner drive most sales. Outlet C peaks earliest at lunch."},{"t":"hours","items":[["10",25,0],["11",60,1],["12",95,1],["1",70,1],["3",30,0],["5",45,0],["6",85,1],["7",90,1]]},{"t":"summary","items":["Busiest: 12 PM","Second peak: 7 PM"]}],"before":"sales by hour pulled from each outlet's POS export by hand.","now":"ask and see every outlet's busiest hours in one view.","pills":["Snowflake CoWork","Cortex Analyst"],"think":"Adding up sales by outlet and hour"},{"title":"Less infrastructure to manage","prompt":"What would my team stop doing if we ran our analytics on Snowflake?","rt":"What your team stops doing","think":"Checking what Snowflake handles for you","blocks":[{"t":"checks","items":[["ok","No servers to buy or manage"],["ok","No patching or upgrades"],["ok","No database tuning for performance"],["ok","No capacity planning for peak hours"]]},{"t":"note","x":"Snowflake runs and scales the platform for you, so your team can spend that time on new projects."}],"before":"time spent keeping servers, patches, and upgrades running.","now":"that work is handled for you, so the team can focus on new projects.","pills":["Fully managed by Snowflake"]}],"restaurants|de":[{"title":"Fix a broken pipeline by asking","prompt":"Last night's POS load failed. Find out why, fix it, and rerun it.","rt":"Pipeline fix","think":"Checking last night's run","blocks":[{"t":"steps","items":[["Found","The POS file arrived with a renamed column: STORE_CODE is now OUTLET_ID."],["Fixed","Updated the load to use the new column name, and added a check for future column changes."],["Rerun","Reloaded last night's data. Row counts match the source."]]},{"t":"summary","items":["Pipeline healthy","Next run tonight"]}],"before":"hours digging through logs to find what broke.","now":"ask, review the fix, and rerun in minutes.","pills":["Cortex Code"]},{"title":"Bring data together from every source","prompt":"Combine POS, delivery app, and loyalty data into one table, refreshed hourly.","rt":"New pipeline","think":"Connecting the sources","blocks":[{"t":"flow","src":["Point of sale","Delivery apps","Loyalty app"],"tgt":"ORDERS_BY_OUTLET","sub":"Refreshed hourly"},{"t":"checks","items":[["ok","All sources connected"],["ok","Refresh scheduled every hour"],["ok","Alert set if a refresh fails"]]}],"before":"separate scripts and manual exports for each system.","now":"one table that keeps itself up to date.","pills":["Openflow","Cortex Code"]},{"title":"Data quality checks","prompt":"Add checks for duplicates, missing values, and freshness on ORDERS, and alert me if anything fails.","rt":"Check results","think":"Setting up the checks","blocks":[{"t":"table","cols":["Check","Result","Status"],"rows":[["Duplicates","None found",{"b":"ok","x":"Passed"}],["Missing values","12 rows missing OUTLET_ID",{"b":"warn","x":"Review"}],["Freshness","Updated 20 minutes ago",{"b":"ok","x":"Passed"}],["Row count","Within normal range",{"b":"ok","x":"Passed"}]]},{"t":"note","x":"The checks run on a schedule and alert you as soon as one fails."}],"before":"bad data is found by users after reports go out.","now":"checks run on their own and alert you first.","pills":["Data metric functions"]}],"restaurants|da":[{"title":"Answers without waiting on IT","prompt":"Which outlets had the biggest drop in repeat orders this month?","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Outlet C had the biggest drop in repeat orders this month, followed by Outlet A and Outlet F.","typed":1},{"t":"bars","title":"Change in repeat orders, this month vs last","rows":[["Outlet C",92,"-5.1%"],["Outlet A",70,"-3.9%"],["Outlet F",50,"-2.8%"],["Outlet D",26,"-1.4%"]],"rank":1}],"before":"send a request and wait for IT to pull the numbers.","now":"ask in plain English and get the answer yourself.","pills":["Snowflake CoWork","Cortex Analyst"]},{"title":"Turn a manual Excel report into a live dashboard","prompt":"Turn our daily outlet sales spreadsheet into a live dashboard that updates itself every morning.","rt":"Live dashboard","think":"Building the dashboard","blocks":[{"t":"dash","title":"Outlet Sales, live","shared":"Refreshes every morning","blocks":[{"t":"kpis","items":[["Outlets flagged","3","Down from last month","up"],["Biggest drop","Outlet C","-5.1%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in repeat orders, this month vs last","rows":[["Outlet C",92,"-5.1%"],["Outlet A",70,"-3.9%"],["Outlet F",50,"-2.8%"],["Outlet D",26,"-1.4%"]],"rank":1}]}],"before":"hours each week copying and pasting into Excel.","now":"a live dashboard that refreshes on its own.","pills":["Cortex Code","Streamlit in Snowflake"]},{"title":"Make sense of text and documents","prompt":"Group this month's customer reviews by topic and sentiment.","rt":"Customer reviews by topic","think":"Reading every comment","blocks":[{"t":"summary","items":["Top topic: Delivery time","Mostly negative: Taste"]},{"t":"table","cols":["Topic","Example","Sentiment"],"rows":[[{"x":"Delivery time","strong":1},{"d":"The food arrived cold"},{"b":"bad","x":"Negative"}],[{"x":"Taste","strong":1},{"d":"Best pizza in the area"},{"b":"ok","x":"Positive"}],[{"x":"Order accuracy","strong":1},{"d":"An item was missing from my order"},{"b":"bad","x":"Negative"}],[{"x":"Promos","strong":1},{"d":"Asked if the promo applies to delivery"},{"b":"warn","x":"Neutral"}]]}],"before":"reading through comments one by one.","now":"every comment sorted by topic and sentiment in minutes.","pills":["Cortex AI Functions"]}],"restaurants|sec":[{"title":"Find and protect sensitive data","prompt":"Find every column with customer personal data and hide it from everyone outside the loyalty team.","rt":"Sensitive columns found","think":"Scanning every table","blocks":[{"t":"summary","items":["4 columns found","All now masked"]},{"t":"table","cols":["Column","Detected as","Status"],"rows":[[{"m":"MEMBERS.FULL_NAME","d":1},"Name",{"b":"ok","x":"Masked"}],[{"m":"MEMBERS.MOBILE_NO","d":1},"Phone number",{"b":"ok","x":"Masked"}],[{"m":"MEMBERS.EMAIL","d":1},"Email",{"b":"ok","x":"Masked"}],[{"m":"ORDERS.DELIVERY_ADDRESS","d":1},"Address",{"b":"ok","x":"Masked"}]]},{"t":"p","x":"What everyone else now sees:","small":1},{"t":"table","cols":["Name","Phone number"],"rows":[[{"m":"J*** D***"},{"m":"09** *** **12"}],[{"m":"M*** S***"},{"m":"09** *** **48"}]]}],"before":"sensitive columns are found by hand, and some get missed.","now":"personal data is found and hidden automatically.","pills":["Sensitive data classification","Masking policies"]},{"title":"Who accessed what","prompt":"Who accessed loyalty member data in the last 30 days?","rt":"Access log, last 30 days","think":"Checking the access records","blocks":[{"t":"table","cols":["User role","Table",{"hs":1,"x":"Access"},"Date"],"rows":[[{"ic":"person","cls":"","x":"Outlet Manager"},{"m":"LOYALTY_MEMBERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 21"}],[{"ic":"chart","cls":"c2","x":"Marketing Analyst"},{"m":"DELIVERY_ORDERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 18"}],[{"ic":"shield","cls":"c3","x":"Finance Officer"},{"m":"DELIVERY_ORDERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 14"}],[{"ic":"gear","cls":"c4","x":"Reporting Service"},{"m":"LOYALTY_MEMBERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 02"}]]},{"t":"note","x":"Every read and change is recorded, down to the column, so audit and compliance questions have a ready answer."}],"before":"audit requests mean pulling logs from different systems by hand.","now":"one question shows who accessed what, and when.","pills":["Access History","Snowflake Horizon governance"]},{"title":"Give a team exactly the access it needs","prompt":"Create read-only access to sales and inventory for the finance team, nothing else.","rt":"Access granted","think":"Setting up the access","blocks":[{"t":"p","x":"Done. Here is what the finance team can and cannot do:"},{"t":"checks","items":[["ok","Can read SALES and INVENTORY"],["no","Cannot change or delete any data"],["no","Cannot see customer personal data"],["ok","Every query they run is logged"]]}],"before":"access requests go back and forth for days.","now":"describe the access in plain English and review it before it goes live.","pills":["Role-based access control","Cortex Code"]}],"cpg|it":[{"title":"Analytics and dashboards just by asking","prompt":"Which regions had the biggest drop in sell-out this quarter? Turn it into a dashboard for the sales heads.","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Region C had the biggest drop in sell-out this quarter, followed by Region A and Region F.","typed":1},{"t":"dash","title":"Sales Heads: Sell-out Health","shared":"Shared with the sales heads","blocks":[{"t":"kpis","items":[["Regions flagged","3","Down from last quarter","up"],["Biggest drop","Region C","-4.7%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in sell-out, this quarter vs last","rows":[["Region C",92,"-4.7%"],["Region A",68,"-3.4%"],["Region F",48,"-2.4%"],["Region D",24,"-1.2%"]],"rank":1}]}],"before":"wait days for IT to build a report.","now":"ask and get the answer and dashboard in minutes.","pills":["Snowflake CoWork","Cortex Analyst","Cortex Code"]},{"title":"Demand forecast by distributor","prompt":"Forecast next month's demand by distributor for our top SKUs.","rt":"Next month forecast","blocks":[{"t":"table","cols":["Distributor","SKU","Next month","Confidence"],"rows":[["Distributor C",{"m":"SKU 1104"},"Higher",{"b":"ok","x":"High"}],["Distributor A",{"m":"SKU 2087"},"Lower",{"b":"warn","x":"Medium"}],["Distributor F",{"m":"SKU 1104"},"Flat",{"b":"ok","x":"High"}],["Distributor D",{"m":"SKU 3310"},"Higher",{"b":"warn","x":"Medium"}]]},{"t":"note","x":"Forecasts refresh as new sell-out data comes in, so planning always uses the latest numbers."}],"before":"forecasts are built in spreadsheets once a month.","now":"forecasts refresh on their own, by distributor and SKU.","pills":["Snowflake CoWork","ML forecasting"],"think":"Building the forecast"},{"title":"Less infrastructure to manage","prompt":"What would my team stop doing if we ran our analytics on Snowflake?","rt":"What your team stops doing","think":"Checking what Snowflake handles for you","blocks":[{"t":"checks","items":[["ok","No servers to buy or manage"],["ok","No patching or upgrades"],["ok","No database tuning for performance"],["ok","No capacity planning for month-end"]]},{"t":"note","x":"Snowflake runs and scales the platform for you, so your team can spend that time on new projects."}],"before":"time spent keeping servers, patches, and upgrades running.","now":"that work is handled for you, so the team can focus on new projects.","pills":["Fully managed by Snowflake"]}],"cpg|de":[{"title":"Fix a broken pipeline by asking","prompt":"Last night's distributor load failed. Find out why, fix it, and rerun it.","rt":"Pipeline fix","think":"Checking last night's run","blocks":[{"t":"steps","items":[["Found","The distributor file arrived with a renamed column: DIST_CODE is now DISTRIBUTOR_ID."],["Fixed","Updated the load to use the new column name, and added a check for future column changes."],["Rerun","Reloaded last night's data. Row counts match the source."]]},{"t":"summary","items":["Pipeline healthy","Next run tonight"]}],"before":"hours digging through logs to find what broke.","now":"ask, review the fix, and rerun in minutes.","pills":["Cortex Code"]},{"title":"Bring data together from every source","prompt":"Combine ERP, distributor, and sell-out data into one table, refreshed hourly.","rt":"New pipeline","think":"Connecting the sources","blocks":[{"t":"flow","src":["ERP","Distributor reports","Sell-out data"],"tgt":"SELL_OUT_BY_SKU","sub":"Refreshed hourly"},{"t":"checks","items":[["ok","All sources connected"],["ok","Refresh scheduled every hour"],["ok","Alert set if a refresh fails"]]}],"before":"separate scripts and manual exports for each system.","now":"one table that keeps itself up to date.","pills":["Openflow","Cortex Code"]},{"title":"Data quality checks","prompt":"Add checks for duplicates, missing values, and freshness on SELL_OUT, and alert me if anything fails.","rt":"Check results","think":"Setting up the checks","blocks":[{"t":"table","cols":["Check","Result","Status"],"rows":[["Duplicates","None found",{"b":"ok","x":"Passed"}],["Missing values","12 rows missing DISTRIBUTOR_ID",{"b":"warn","x":"Review"}],["Freshness","Updated 20 minutes ago",{"b":"ok","x":"Passed"}],["Row count","Within normal range",{"b":"ok","x":"Passed"}]]},{"t":"note","x":"The checks run on a schedule and alert you as soon as one fails."}],"before":"bad data is found by users after reports go out.","now":"checks run on their own and alert you first.","pills":["Data metric functions"]}],"cpg|da":[{"title":"Answers without waiting on IT","prompt":"Which regions had the biggest drop in sell-out this quarter?","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Region C had the biggest drop in sell-out this quarter, followed by Region A and Region F.","typed":1},{"t":"bars","title":"Change in sell-out, this quarter vs last","rows":[["Region C",92,"-4.7%"],["Region A",68,"-3.4%"],["Region F",48,"-2.4%"],["Region D",24,"-1.2%"]],"rank":1}],"before":"send a request and wait for IT to pull the numbers.","now":"ask in plain English and get the answer yourself.","pills":["Snowflake CoWork","Cortex Analyst"]},{"title":"Turn a manual Excel report into a live dashboard","prompt":"Turn our monthly distributor spreadsheet into a live dashboard that updates itself every morning.","rt":"Live dashboard","think":"Building the dashboard","blocks":[{"t":"dash","title":"Distributor Performance, live","shared":"Refreshes every morning","blocks":[{"t":"kpis","items":[["Regions flagged","3","Down from last quarter","up"],["Biggest drop","Region C","-4.7%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in sell-out, this quarter vs last","rows":[["Region C",92,"-4.7%"],["Region A",68,"-3.4%"],["Region F",48,"-2.4%"],["Region D",24,"-1.2%"]],"rank":1}]}],"before":"hours each week copying and pasting into Excel.","now":"a live dashboard that refreshes on its own.","pills":["Cortex Code","Streamlit in Snowflake"]},{"title":"Make sense of text and documents","prompt":"Group this month's consumer feedback by topic and sentiment.","rt":"Consumer feedback by topic","think":"Reading every comment","blocks":[{"t":"summary","items":["Top topic: Packaging","Mostly negative: Taste"]},{"t":"table","cols":["Topic","Example","Sentiment"],"rows":[[{"x":"Packaging","strong":1},{"d":"The seal was hard to open"},{"b":"bad","x":"Negative"}],[{"x":"Taste","strong":1},{"d":"My kids love the new flavor"},{"b":"ok","x":"Positive"}],[{"x":"Availability","strong":1},{"d":"I can't find it in my area"},{"b":"bad","x":"Negative"}],[{"x":"Price","strong":1},{"d":"Asked about bulk pack pricing"},{"b":"warn","x":"Neutral"}]]}],"before":"reading through comments one by one.","now":"every comment sorted by topic and sentiment in minutes.","pills":["Cortex AI Functions"]}],"cpg|sec":[{"title":"Find and protect sensitive data","prompt":"Find every column with customer personal data and hide it from everyone outside the consumer insights team.","rt":"Sensitive columns found","think":"Scanning every table","blocks":[{"t":"summary","items":["4 columns found","All now masked"]},{"t":"table","cols":["Column","Detected as","Status"],"rows":[[{"m":"CONSUMERS.FULL_NAME","d":1},"Name",{"b":"ok","x":"Masked"}],[{"m":"CONSUMERS.MOBILE_NO","d":1},"Phone number",{"b":"ok","x":"Masked"}],[{"m":"CONSUMERS.EMAIL","d":1},"Email",{"b":"ok","x":"Masked"}],[{"m":"PROMO_ENTRIES.ADDRESS","d":1},"Address",{"b":"ok","x":"Masked"}]]},{"t":"p","x":"What everyone else now sees:","small":1},{"t":"table","cols":["Name","Phone number"],"rows":[[{"m":"J*** D***"},{"m":"09** *** **12"}],[{"m":"M*** S***"},{"m":"09** *** **48"}]]}],"before":"sensitive columns are found by hand, and some get missed.","now":"personal data is found and hidden automatically.","pills":["Sensitive data classification","Masking policies"]},{"title":"Who accessed what","prompt":"Who accessed consumer promo entry data in the last 30 days?","rt":"Access log, last 30 days","think":"Checking the access records","blocks":[{"t":"table","cols":["User role","Table",{"hs":1,"x":"Access"},"Date"],"rows":[[{"ic":"person","cls":"","x":"Sales Manager"},{"m":"PROMO_ENTRIES","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 21"}],[{"ic":"chart","cls":"c2","x":"Marketing Analyst"},{"m":"CONSUMERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 18"}],[{"ic":"shield","cls":"c3","x":"Finance Officer"},{"m":"PROMO_ENTRIES","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 14"}],[{"ic":"gear","cls":"c4","x":"Reporting Service"},{"m":"CONSUMERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 02"}]]},{"t":"note","x":"Every read and change is recorded, down to the column, so audit and compliance questions have a ready answer."}],"before":"audit requests mean pulling logs from different systems by hand.","now":"one question shows who accessed what, and when.","pills":["Access History","Snowflake Horizon governance"]},{"title":"Give a team exactly the access it needs","prompt":"Create read-only access to sales and shipments for the finance team, nothing else.","rt":"Access granted","think":"Setting up the access","blocks":[{"t":"p","x":"Done. Here is what the finance team can and cannot do:"},{"t":"checks","items":[["ok","Can read SALES_SUMMARY and SHIPMENTS"],["no","Cannot change or delete any data"],["no","Cannot see customer personal data"],["ok","Every query they run is logged"]]}],"before":"access requests go back and forth for days.","now":"describe the access in plain English and review it before it goes live.","pills":["Role-based access control","Cortex Code"]}],"general|it":[{"title":"Analytics and dashboards just by asking","prompt":"Which regions had the biggest drop in sales this quarter? Turn it into a dashboard for the leadership team.","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Region C had the biggest drop in sales this quarter, followed by Region A and Region F.","typed":1},{"t":"dash","title":"Leadership: Sales Health","shared":"Shared with the leadership team","blocks":[{"t":"kpis","items":[["Regions flagged","3","Down from last quarter","up"],["Biggest drop","Region C","-4.9%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in sales, this quarter vs last","rows":[["Region C",92,"-4.9%"],["Region A",70,"-3.6%"],["Region F",50,"-2.5%"],["Region D",26,"-1.3%"]],"rank":1}]}],"before":"wait days for IT to build a report.","now":"ask and get the answer and dashboard in minutes.","pills":["Snowflake CoWork","Cortex Analyst","Cortex Code"]},{"title":"One weekly KPI dashboard from every system","prompt":"Pull our weekly numbers from ERP, CRM, and the spreadsheets into one dashboard that updates every Monday.","rt":"Weekly KPI dashboard","blocks":[{"t":"dash","title":"Leadership: Weekly KPIs","shared":"Updates every Monday","blocks":[{"t":"kpis","items":[["Sales vs target","On track","Up this week","ok"],["New customers","Up","Best week this month","ok"],["Overdue invoices","Down","Improving","ok"]]}]},{"t":"summary","items":["ERP connected","CRM connected","Spreadsheets connected"]}],"before":"someone spends Monday morning copying numbers into a report.","now":"the dashboard updates itself every Monday.","pills":["Snowflake CoWork","Cortex Code"],"think":"Connecting your systems"},{"title":"Less infrastructure to manage","prompt":"What would my team stop doing if we ran our analytics on Snowflake?","rt":"What your team stops doing","think":"Checking what Snowflake handles for you","blocks":[{"t":"checks","items":[["ok","No servers to buy or manage"],["ok","No patching or upgrades"],["ok","No database tuning for performance"],["ok","No capacity planning for month-end"]]},{"t":"note","x":"Snowflake runs and scales the platform for you, so your team can spend that time on new projects."}],"before":"time spent keeping servers, patches, and upgrades running.","now":"that work is handled for you, so the team can focus on new projects.","pills":["Fully managed by Snowflake"]}],"general|de":[{"title":"Fix a broken pipeline by asking","prompt":"Last night's ERP load failed. Find out why, fix it, and rerun it.","rt":"Pipeline fix","think":"Checking last night's run","blocks":[{"t":"steps","items":[["Found","The ERP file arrived with a renamed column: CUST_NO is now CUSTOMER_ID."],["Fixed","Updated the load to use the new column name, and added a check for future column changes."],["Rerun","Reloaded last night's data. Row counts match the source."]]},{"t":"summary","items":["Pipeline healthy","Next run tonight"]}],"before":"hours digging through logs to find what broke.","now":"ask, review the fix, and rerun in minutes.","pills":["Cortex Code"]},{"title":"Bring data together from every source","prompt":"Combine ERP, CRM, and spreadsheet data into one table, refreshed hourly.","rt":"New pipeline","think":"Connecting the sources","blocks":[{"t":"flow","src":["ERP","CRM","Spreadsheets"],"tgt":"WEEKLY_KPIS","sub":"Refreshed hourly"},{"t":"checks","items":[["ok","All sources connected"],["ok","Refresh scheduled every hour"],["ok","Alert set if a refresh fails"]]}],"before":"separate scripts and manual exports for each system.","now":"one table that keeps itself up to date.","pills":["Openflow","Cortex Code"]},{"title":"Data quality checks","prompt":"Add checks for duplicates, missing values, and freshness on SALES, and alert me if anything fails.","rt":"Check results","think":"Setting up the checks","blocks":[{"t":"table","cols":["Check","Result","Status"],"rows":[["Duplicates","None found",{"b":"ok","x":"Passed"}],["Missing values","12 rows missing CUSTOMER_ID",{"b":"warn","x":"Review"}],["Freshness","Updated 20 minutes ago",{"b":"ok","x":"Passed"}],["Row count","Within normal range",{"b":"ok","x":"Passed"}]]},{"t":"note","x":"The checks run on a schedule and alert you as soon as one fails."}],"before":"bad data is found by users after reports go out.","now":"checks run on their own and alert you first.","pills":["Data metric functions"]}],"general|da":[{"title":"Answers without waiting on IT","prompt":"Which regions had the biggest drop in sales this quarter?","rt":"Answer","think":"Working on it","blocks":[{"t":"p","x":"Region C had the biggest drop in sales this quarter, followed by Region A and Region F.","typed":1},{"t":"bars","title":"Change in sales, this quarter vs last","rows":[["Region C",92,"-4.9%"],["Region A",70,"-3.6%"],["Region F",50,"-2.5%"],["Region D",26,"-1.3%"]],"rank":1}],"before":"send a request and wait for IT to pull the numbers.","now":"ask in plain English and get the answer yourself.","pills":["Snowflake CoWork","Cortex Analyst"]},{"title":"Turn a manual Excel report into a live dashboard","prompt":"Turn our weekly management spreadsheet into a live dashboard that updates itself every morning.","rt":"Live dashboard","think":"Building the dashboard","blocks":[{"t":"dash","title":"Weekly Management Report, live","shared":"Refreshes every morning","blocks":[{"t":"kpis","items":[["Regions flagged","3","Down from last quarter","up"],["Biggest drop","Region C","-4.9%","up"],["Refreshed","Daily","Automatic","ok"]]},{"t":"bars","title":"Change in sales, this quarter vs last","rows":[["Region C",92,"-4.9%"],["Region A",70,"-3.6%"],["Region F",50,"-2.5%"],["Region D",26,"-1.3%"]],"rank":1}]}],"before":"hours each week copying and pasting into Excel.","now":"a live dashboard that refreshes on its own.","pills":["Cortex Code","Streamlit in Snowflake"]},{"title":"Make sense of text and documents","prompt":"Group this month's customer feedback by topic and sentiment.","rt":"Customer feedback by topic","think":"Reading every comment","blocks":[{"t":"summary","items":["Top topic: Billing","Mostly negative: Support"]},{"t":"table","cols":["Topic","Example","Sentiment"],"rows":[[{"x":"Billing","strong":1},{"d":"The invoice amount was wrong"},{"b":"bad","x":"Negative"}],[{"x":"Support","strong":1},{"d":"My issue was fixed the same day"},{"b":"ok","x":"Positive"}],[{"x":"Delivery","strong":1},{"d":"My order arrived late"},{"b":"bad","x":"Negative"}],[{"x":"Product","strong":1},{"d":"Asked about a new feature"},{"b":"warn","x":"Neutral"}]]}],"before":"reading through comments one by one.","now":"every comment sorted by topic and sentiment in minutes.","pills":["Cortex AI Functions"]}],"general|sec":[{"title":"Find and protect sensitive data","prompt":"Find every column with customer personal data and hide it from everyone outside HR and Finance.","rt":"Sensitive columns found","think":"Scanning every table","blocks":[{"t":"summary","items":["4 columns found","All now masked"]},{"t":"table","cols":["Column","Detected as","Status"],"rows":[[{"m":"CUSTOMERS.FULL_NAME","d":1},"Name",{"b":"ok","x":"Masked"}],[{"m":"CUSTOMERS.MOBILE_NO","d":1},"Phone number",{"b":"ok","x":"Masked"}],[{"m":"CUSTOMERS.EMAIL","d":1},"Email",{"b":"ok","x":"Masked"}],[{"m":"EMPLOYEES.TIN","d":1},"Tax ID",{"b":"ok","x":"Masked"}]]},{"t":"p","x":"What everyone else now sees:","small":1},{"t":"table","cols":["Name","Phone number"],"rows":[[{"m":"J*** D***"},{"m":"09** *** **12"}],[{"m":"M*** S***"},{"m":"09** *** **48"}]]}],"before":"sensitive columns are found by hand, and some get missed.","now":"personal data is found and hidden automatically.","pills":["Sensitive data classification","Masking policies"]},{"title":"Who accessed what","prompt":"Who accessed customer and employee data in the last 30 days?","rt":"Access log, last 30 days","think":"Checking the access records","blocks":[{"t":"table","cols":["User role","Table",{"hs":1,"x":"Access"},"Date"],"rows":[[{"ic":"person","cls":"","x":"Sales Manager"},{"m":"CUSTOMERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 21"}],[{"ic":"chart","cls":"c2","x":"Business Analyst"},{"m":"CUSTOMERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 18"}],[{"ic":"shield","cls":"c3","x":"HR Officer"},{"m":"EMPLOYEES","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 14"}],[{"ic":"gear","cls":"c4","x":"Reporting Service"},{"m":"CUSTOMERS","d":1},{"b":"info","x":"Read","hs":1},{"dt":"Oct 02"}]]},{"t":"note","x":"Every read and change is recorded, down to the column, so audit and compliance questions have a ready answer."}],"before":"audit requests mean pulling logs from different systems by hand.","now":"one question shows who accessed what, and when.","pills":["Access History","Snowflake Horizon governance"]},{"title":"Give a team exactly the access it needs","prompt":"Create read-only access to sales and inventory for the finance team, nothing else.","rt":"Access granted","think":"Setting up the access","blocks":[{"t":"p","x":"Done. Here is what the finance team can and cannot do:"},{"t":"checks","items":[["ok","Can read SALES and INVENTORY"],["no","Cannot change or delete any data"],["no","Cannot see customer personal data"],["ok","Every query they run is logged"]]}],"before":"access requests go back and forth for days.","now":"describe the access in plain English and review it before it goes live.","pills":["Role-based access control","Cortex Code"]}]}}</script>
+<script>
+(function(){
+  "use strict";
+  var DATA;
+  try { DATA = JSON.parse(document.getElementById("sf-data").textContent); } catch (e) { return; }
+  var IND = ["banking","retail","restaurants","cpg","general"], ROLE = ["it","de","da","sec"];
+  var qs = new URLSearchParams(window.location.search);
+  function clean(v){ if (!v) return ""; v = String(v).replace(/[\u0000-\u001F\u007F-\u009F<>]/g, "").replace(/\s+/g, " ").trim(); return v.slice(0, 60).trim(); }
+  function pick(v, list, d){ v = (v || "").toLowerCase().trim(); return list.indexOf(v) >= 0 ? v : d; }
+  var co = clean(qs.get("c")), nm = clean(qs.get("n"));
+  var ind = pick(qs.get("i"), IND, "general"), role = pick(qs.get("r"), ROLE, "it");
+  function poss(s){ return s.slice(-1).toLowerCase() === "s" ? s + "'" : s + "'s"; }
+  function byId(id){ return document.getElementById(id); }
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined && text !== null) e.textContent = text; return e; }
+  function clear(n){ while (n.firstChild) n.removeChild(n.firstChild); }
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function icon(name, cls){ var s = document.createElementNS(SVGNS, "svg"); s.setAttribute("class", "ri" + (cls ? " " + cls : "")); s.setAttribute("width","18"); s.setAttribute("height","18"); s.setAttribute("aria-hidden","true"); var u = document.createElementNS(SVGNS, "use"); u.setAttribute("href", "#i-" + name); s.appendChild(u); return s; }
+  var BMAP = {bad:"high", warn:"med", ok:"low", info:"info"}, RMAP = {bad:"hi", warn:"md", ok:"lo"};
+  var CK = {ok:["ok","\u2713"], warn:["wait","!"], no:["no","\u2715"]};
+  function cell(c){
+    var td;
+    if (typeof c === "string") return el("td", "", c);
+    if (c.m !== undefined) return el("td", "mono" + (c.d ? " desc" : ""), c.m);
+    if (c.b) { td = el("td", c.hs ? "hide-sm" : ""); td.appendChild(el("span", "risk " + BMAP[c.b], c.x)); return td; }
+    if (c.ic) { td = el("td"); var sp = el("span", "role"); sp.appendChild(icon(c.ic, c.cls)); sp.appendChild(document.createTextNode(c.x)); td.appendChild(sp); return td; }
+    if (c.dt) return el("td", "datec", c.dt);
+    if (typeof c.d === "string") return el("td", "desc", c.d);
+    if (c.strong) return el("td", "strong", c.x);
+    return el("td", "", c.x || "");
+  }
+  function blk(b){
+    var w, i;
+    switch (b.t) {
+      case "p": return el("p", (b.small ? "note" : "answer") + (b.typed ? " typed" : ""), b.x);
+      case "note": return el("p", "note", b.x);
+      case "kpis": w = el("div", "kpis"); b.items.forEach(function(k){ var d = el("div","kpi"); d.appendChild(el("div","k",k[0])); d.appendChild(el("div","v",k[1])); d.appendChild(el("div","d " + k[3], k[2])); w.appendChild(d); }); return w;
+      case "bars": w = document.createDocumentFragment(); if (b.title) w.appendChild(el("p","chart-title",b.title)); var bs = el("div","bars");
+        b.rows.forEach(function(r, ix){ var row = el("div","bar-row" + (b.rank ? "" : " norank")); if (b.rank) row.appendChild(el("span","rank", String(ix+1))); row.appendChild(el("span","",r[0])); var tr = el("div","bar-track"); var bar = el("div","bar" + (ix === 0 ? " top" : "")); bar.style.width = Math.max(0, Math.min(100, +r[1])) + "%"; tr.appendChild(bar); row.appendChild(tr); row.appendChild(el("span","bar-val",r[2])); bs.appendChild(row); });
+        w.appendChild(bs); return w;
+      case "dash": w = el("div","dash"); var bar2 = el("div","dash-bar"); for (i=0;i<3;i++) bar2.appendChild(el("span","w")); bar2.appendChild(el("span","ttl",b.title)); bar2.appendChild(el("span","shared",b.shared)); w.appendChild(bar2); var inn = el("div","dash-in"); b.blocks.forEach(function(x){ inn.appendChild(blk(x)); }); w.appendChild(inn); return w;
+      case "table": w = el("div","table-wrap"); var t = el("table","stack"), th = el("thead"), hr = el("tr");
+        b.cols.forEach(function(c){ hr.appendChild(typeof c === "string" ? el("th","",c) : el("th","hide-sm",c.x)); }); th.appendChild(hr); t.appendChild(th); var tb = el("tbody");
+        b.rows.forEach(function(r){ var tr2 = el("tr"); for (var j=0;j<r.length;j++){ var c = r[j]; if (c && c.b && RMAP[c.b] && !tr2.className) tr2.className = RMAP[c.b]; tr2.appendChild(cell(c)); } tb.appendChild(tr2); });
+        t.appendChild(tb); w.appendChild(t); return w;
+      case "summary": w = el("div","summary"); b.items.forEach(function(x){ w.appendChild(el("span","",x)); }); return w;
+      case "checks": w = el("ul","checks"); b.items.forEach(function(x){ var li = el("li"); li.appendChild(el("span","ck " + CK[x[0]][0], CK[x[0]][1])); li.appendChild(document.createTextNode(x[1])); w.appendChild(li); }); return w;
+      case "steps": w = el("ol","steps"); b.items.forEach(function(x){ var li = el("li"); li.appendChild(el("span","st-k",x[0])); li.appendChild(el("span","",x[1])); w.appendChild(li); }); return w;
+      case "flow": w = el("div","mflow"); var s = el("div","msrc"); b.src.forEach(function(x){ s.appendChild(el("span","",x)); }); w.appendChild(s); var a = el("div","marrow"); a.setAttribute("aria-hidden","true"); w.appendChild(a); var g = el("div","mtgt"); g.appendChild(el("span","mono",b.tgt)); g.appendChild(el("small","",b.sub)); w.appendChild(g); return w;
+      case "hours": w = el("div","hours"); w.setAttribute("aria-hidden","true"); b.items.forEach(function(x){ var d = el("div"); var bar = el("i", x[2] ? "pk" : ""); bar.style.height = Math.max(0, Math.min(100, +x[1])) + "%"; d.appendChild(bar); d.appendChild(document.createTextNode(x[0])); w.appendChild(d); }); return w;
+    }
+    return document.createTextNode("");
+  }
+  function fill(root, f, v){ var n = root.querySelector('[data-f="' + f + '"]'); if (n) n.textContent = v; return n; }
+  function blocksInto(n, blocks){ if (!n) return; clear(n); blocks.forEach(function(b){ n.appendChild(blk(b)); }); }
+  // Company and name
+  if (co) {
+    document.title = "Snowflake x " + co;
+    byId("hdr-co").textContent = co; byId("hdr-x").hidden = false;
+    byId("hero-co").textContent = poss(co) + " team";
+    byId("c1-co").textContent = poss(co);
+  }
+  if (nm) { byId("hdr-for").textContent = "for " + nm; byId("hdr-for").hidden = false; }
+  var I = DATA.ind[ind], C = DATA.cards[ind + "|" + role];
+  if (!I || !C) return;
+  var src = byId("c1-src"); src.querySelectorAll(".chip").forEach(function(n){ n.remove(); }); I.chips.forEach(function(x){ src.appendChild(el("div","chip",x)); });
+  var cu = byId("cust"); clear(cu); I.customers.forEach(function(x){ var d = el("div","namechip",x[0]); if (x[1]) d.appendChild(el("small","",x[1])); cu.appendChild(d); });
+  C.forEach(function(c, ix){
+    var r = byId("uc" + (ix + 1)); if (!r) return;
+    fill(r,"title",c.title); fill(r,"prompt",c.prompt); fill(r,"before",c.before); fill(r,"now",c.now); fill(r,"rt",c.rt); fill(r,"think",c.think);
+    var p = r.querySelector('[data-f="pills"]'); clear(p); c.pills.forEach(function(x){ p.appendChild(el("span","pill",x)); });
+    blocksInto(r.querySelector('[data-f="reveal"]'), c.blocks);
+  });
+  I.tabs.forEach(function(t, ix){
+    var n = ix + 1; var lab = document.querySelector('[data-f="tl' + n + '"]'); if (lab) lab.textContent = t[0];
+    var inp = byId("tab-" + n); if (inp) inp.setAttribute("aria-label", t[0]);
+    var pn = byId("panel-" + n); if (!pn) return;
+    fill(pn,"pt",t[0]); fill(pn,"pp",t[1]); fill(pn,"prt",t[2]); blocksInto(pn.querySelector('[data-f="pb"]'), t[3]);
+  });
+})();
+</script>
+</body>
+</html>
