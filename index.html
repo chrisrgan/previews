@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <meta name="snowflake-source" content="cortex-agent-authored">
-<meta name="sf-version" content="v5 use case catalog">
+<meta name="sf-version" content="v5.1 use case catalog">
 <meta name="color-scheme" content="light">
 <title>Snowflake</title>
 <style>
@@ -318,7 +318,25 @@ td.strong{font-weight:700;color:var(--navy);}
 .more[open]>summary::before{content:"- ";}
 .more #more-list{padding:0 clamp(8px,2vw,16px) 8px;}
 .card h3{overflow-wrap:anywhere;}
-.bubble,.answer,.note,td,th,.chip,.pill{overflow-wrap:anywhere;}
+.bubble,.answer,.note,.chip,.pill{overflow-wrap:anywhere;}
+td,th{overflow-wrap:break-word;}
+/* v5.1 fix 1: bar value labels on one line */
+.bar-val{white-space:nowrap !important;overflow-wrap:normal !important;max-width:none !important;min-width:max-content;}
+.bar-row{grid-template-columns:22px minmax(56px,max-content) minmax(40px,1fr) max-content;}
+.bar-row.norank{grid-template-columns:minmax(56px,max-content) minmax(40px,1fr) max-content;}
+.bar-row > span:not(.rank):not(.bar-val){max-width:min(40vw,220px);overflow-wrap:break-word;}
+@media (max-width: 640px){
+  .bar-row{grid-template-columns:20px minmax(56px,max-content) minmax(40px,1fr) max-content;}
+  .bar-row.norank{grid-template-columns:minmax(56px,max-content) minmax(40px,1fr) max-content;}
+  .bar-row > span:not(.rank):not(.bar-val){max-width:38vw;}
+}
+/* v5.1 fix 2: stacked tables as labelled single-column lists */
+@media (max-width: 640px){
+  table.stack tr{display:grid;grid-template-columns:1fr;gap:6px;}
+  table.stack td,table.stack td.desc{grid-column:1;order:0;display:block;min-width:0;}
+  table.stack td[data-label]::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:1px;}
+  table.stack td .risk{white-space:nowrap;}
+}
 </style>
 </head>
 <body>
@@ -459,7 +477,7 @@ td.strong{font-weight:700;color:var(--navy);}
       case "dash": w = el("div","dash"); var bar2 = el("div","dash-bar"); for (i=0;i<3;i++) bar2.appendChild(el("span","w")); bar2.appendChild(el("span","ttl",b.title)); bar2.appendChild(el("span","shared",b.shared)); w.appendChild(bar2); var inn = el("div","dash-in"); b.blocks.forEach(function(x){ inn.appendChild(blk(x)); }); w.appendChild(inn); return w;
       case "table": w = el("div","table-wrap"); var t = el("table","stack"), th = el("thead"), hr = el("tr");
         b.cols.forEach(function(c){ hr.appendChild(typeof c === "string" ? el("th","",c) : el("th","hide-sm",c.x)); }); th.appendChild(hr); t.appendChild(th); var tb = el("tbody");
-        b.rows.forEach(function(r){ var tr2 = el("tr"); for (var j=0;j<r.length;j++){ var c = r[j]; if (c && c.b && RMAP[c.b] && !tr2.className) tr2.className = RMAP[c.b]; tr2.appendChild(cell(c)); } tb.appendChild(tr2); });
+        b.rows.forEach(function(r){ var tr2 = el("tr"); for (var j=0;j<r.length;j++){ var c = r[j]; if (c && c.b && RMAP[c.b] && !tr2.className) tr2.className = RMAP[c.b]; var cc = cell(c), hd = b.cols[j]; if (hd !== undefined) cc.setAttribute("data-label", typeof hd === "string" ? hd : (hd.x || "")); tr2.appendChild(cc); } tb.appendChild(tr2); });
         t.appendChild(tb); w.appendChild(t); return w;
       case "summary": w = el("div","summary"); b.items.forEach(function(x){ w.appendChild(el("span","",x)); }); return w;
       case "checks": w = el("ul","checks"); b.items.forEach(function(x){ var li = el("li"); li.appendChild(el("span","ck " + CK[x[0]][0], CK[x[0]][1])); li.appendChild(document.createTextNode(x[1])); w.appendChild(li); }); return w;
