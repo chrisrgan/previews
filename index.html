@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="snowflake-source" content="cortex-agent-authored">
+<!-- smart page v5.2: auto region currency (PHP for PH visitors, USD otherwise), optional cur=php|usd override -->
 <meta name="referrer" content="no-referrer">
 <meta name="snowflake-source" content="cortex-agent-authored">
 <meta name="sf-version" content="v5.1 use case catalog">
@@ -442,6 +444,82 @@ td,th{overflow-wrap:break-word;}
   try { DATA = JSON.parse(document.getElementById("sf-data").textContent); } catch (e) { return; }
   var IND = Object.keys(DATA.ind), ROLE = ["it","de","da","sec","fin","ops","exec","mkt","ds"];
   var qs = new URLSearchParams(window.location.search);
+  /* v5.2 region localization: PH visitors see the page unchanged; everyone else sees USD and neutral wording. */
+  var CUR = (function(){
+    var o = (qs.get("cur") || "").toLowerCase().trim();
+    if (o === "php" || o === "usd") return o;
+    try { if ((Intl.DateTimeFormat().resolvedOptions().timeZone || "") === "Asia/Manila") return "php"; } catch (e) {}
+    var L = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ""];
+    for (var li = 0; li < L.length; li++) { if (/-PH$/i.test(L[li] || "")) return "php"; }
+    return "usd";
+  })();
+  function localize(D){
+    var RATE = 58, NUM = /^([+-]?)(\d[\d,]*(?:\.\d+)?)\s?([kKMB])?$/;
+    var MUL = {k:1e3, K:1e3, M:1e6, B:1e9, million:1e6, billion:1e9};
+    function r1(x){ return String(Math.round(x * 10) / 10); }
+    function usd(n){
+      var v = n / RATE, a = Math.abs(v), s;
+      if (a >= 1e9) s = r1(v / 1e9) + "B";
+      else if (a >= 1e6) s = r1(v / 1e6) + "M";
+      else if (a >= 1e5) s = Math.round(v / 1e3) + "K";
+      else if (a >= 1e3) s = r1(v / 1e3) + "K";
+      else if (a >= 100) s = String(Math.round(v));
+      else if (a >= 10) s = r1(v);
+      else s = (Math.round(v * 100) / 100).toFixed(2);
+      return "US$" + s;
+    }
+    function amt(num, suf){ return usd(parseFloat(String(num).replace(/,/g, "")) * (MUL[suf] || 1)); }
+    function cellNum(x){ var m = typeof x === "string" ? x.trim().match(NUM) : null; return m ? m[1] + amt(m[2], m[3]) : x; }
+    var TERMS = [
+      [/\bGCash\s*(?:and|or|\/)\s*Maya\b/g, "e-wallets"], [/\bGCash\b/g, "E-wallet A"], [/\bGCASH\b/g, "E-WALLET A"], [/\bgcash\b/g, "e-wallet"],
+      [/\bMaya\b/g, "E-wallet B"], [/\bMAYA\b/g, "E-WALLET B"],
+      [/\bBIR\b/g, "tax authority"], [/\bBir\b/g, "Tax authority"], [/\bBSP\b/gi, "central bank"], [/\bAMLC\b/g, "AML regulator"],
+      [/\bInsurance Commission\b/g, "insurance regulator"], [/\bSEC PH\b/g, "securities regulator"], [/\bPEZA\b/gi, "economic zone"],
+      [/\bPhilHealth\b/gi, "national health insurance"], [/\bDOH\b/g, "health department"], [/\bPRC\b/g, "licensing board"],
+      [/\bLTO\b/g, "transport office"], [/\bERC\b/g, "energy regulator"], [/\bDOE\b/g, "energy department"],
+      [/\bCHED\b/g, "higher education regulator"], [/\bDepEd\b/g, "education department"], [/\bMCPI\b/g, "microfinance"],
+      [/\b13th[- ]month(?: pay)?\b/gi, "year-end bonus"],
+      [/\bSari-sari stores\b/gi, "Neighborhood stores"], [/\bsari-sari stores\b/g, "neighborhood stores"],
+      [/\bSari-sari\b/gi, "Neighborhood store"], [/\bsari-sari\b/g, "neighborhood store"],
+      [/\bBARANGAYS?\b/g, "DISTRICT"], [/\bBarangays\b/g, "Districts"], [/\bbarangays\b/g, "districts"], [/\bBarangay\b/g, "District"], [/\bbarangay\b/g, "district"],
+      [/\b(?:North(?:ern)? Luzon|Luzon North)\b/g, "North region"], [/\bCentral Luzon\b/g, "Central region"],
+      [/\b(?:South(?:ern)? Luzon|Luzon South)\b/g, "South region"], [/\bCalabarzon\b/g, "South region"],
+      [/\bMetro Manila\b/g, "Capital region"], [/\bNCR\b/g, "Capital region"], [/\bRegion VII\b/g, "Central region"],
+      [/\bLuzon\b/g, "North region"], [/\bVisayas\b/g, "Central region"], [/\bMindanao\b/g, "South region"]
+    ];
+    function fix(s){
+      s = s.replace(/(\d[\d,]*(?:\.\d+)?)\s?([kKMB])?\s?to\s?(\d[\d,]*(?:\.\d+)?)\s?([kKMB])?\s?pesos\b/gi, function(_, a, b, c, d){ return amt(a, b) + " to " + amt(c, d); })
+        .replace(/₱\s?(\d[\d,]*(?:\.\d+)?)(?:\s?(million|billion)\b|([kKMB])(?![A-Za-z]))?/g, function(_, n, w, k){ return amt(n, w || k); })
+        .replace(/(\d[\d,]*(?:\.\d+)?)\s?(?:(million|billion)\s|([kKMB])\s?)?(?:pesos?|PHP)\b/gi, function(_, n, w, k){ return amt(n, w || k); })
+        .replace(/\(millions of pesos\)/gi, "(US$)").replace(/\((?:pesos|PHP)\)/gi, "(US$)")
+        .replace(/\bPesos per\b/g, "US$ per").replace(/\bper peso\b/gi, "per dollar")
+        .replace(/\bpesos?\b/gi, "US$").replace(/\bPHP\b/g, "USD").replace(/₱/g, "US$");
+      for (var i = 0; i < TERMS.length; i++) s = s.replace(TERMS[i][0], TERMS[i][1]);
+      return s;
+    }
+    function blocks(o){
+      if (!o || typeof o !== "object") return;
+      if (o.t === "table" && o.cols && o.rows) {
+        o.cols.forEach(function(c, ci){ if (typeof c === "string" && /\((?:pesos|PHP)\)/i.test(c)) o.rows.forEach(function(r){ r[ci] = cellNum(r[ci]); }); });
+      }
+      if (o.t === "bars" && o.rows && typeof o.title === "string" && /\(.*(?:pesos|PHP).*\)/i.test(o.title)) {
+        o.rows.forEach(function(r){ r[2] = cellNum(r[2]); });
+      }
+      if (o.t === "kpis" && o.items) {
+        o.items.forEach(function(it){ if (typeof it[2] === "string" && /^pesos\b/i.test(it[2]) && NUM.test(String(it[1]).trim())) { it[1] = cellNum(it[1]); it[2] = it[2].replace(/^pesos\/?\s*/i, "per "); } });
+      }
+      for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) blocks(o[k]);
+    }
+    function walk(o){
+      if (typeof o === "string") return /^[a-z0-9]+(?:-[a-z0-9]+)+$/.test(o) ? o : fix(o);
+      if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) o[i] = walk(o[i]); return o; }
+      if (o && typeof o === "object") { for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) o[k] = walk(o[k]); }
+      return o;
+    }
+    blocks(D);
+    return walk(D);
+  }
+  if (CUR === "usd") DATA = localize(DATA);
   function clean(v){ if (!v) return ""; v = String(v).replace(/[\u0000-\u001F\u007F-\u009F<>]/g, "").replace(/\s+/g, " ").trim(); return v.slice(0, 60).trim(); }
   function pick(v, list, d){ v = (v || "").toLowerCase().trim(); return list.indexOf(v) >= 0 ? v : d; }
   var co = clean(qs.get("c")), nm = clean(qs.get("n"));
