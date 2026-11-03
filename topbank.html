@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Bank x Snowflake | Prepared for Michael</title>
+<style>
+:root{--blue:#29B5E8;--navy:#11567F;--dark:#0B2545;--bg:#F4F8FB;--card:#fff;--muted:#5B6B7C;--line:#E3EBF2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.55}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:56px 20px 64px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.tag{display:inline-block;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:20px;font-size:13px;letter-spacing:.3px;margin-bottom:16px}
+h1{font-size:34px;line-height:1.2;margin-bottom:12px}
+header p{font-size:17px;max-width:700px;opacity:.95}
+.chips{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chips span.lbl{font-size:13px;opacity:.85;margin-right:4px}
+.chip{background:#fff;color:var(--navy);font-weight:600;font-size:13px;padding:6px 12px;border-radius:20px}
+main{margin-top:-32px;padding-bottom:40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:0 4px 14px rgba(17,86,127,.06)}
+.card.lead{grid-column:1/-1}
+.num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:14px;margin-bottom:10px}
+.card h2{font-size:21px;margin-bottom:14px;color:var(--navy)}
+.sec{margin-bottom:12px}
+.sec b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--blue);margin-bottom:3px}
+.sec p{font-size:15px;color:var(--dark)}
+.leadbody{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+.mock{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px}
+.mock h3{font-size:14px;color:var(--navy);margin-bottom:4px}
+.mock .note{font-size:11px;color:var(--muted);margin-bottom:14px}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px}
+.bar .lab{width:120px;color:var(--muted)}
+.bar .track{flex:1;background:#E3EBF2;border-radius:6px;height:14px;overflow:hidden}
+.bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--navy));border-radius:6px}
+.bar .val{width:44px;text-align:right;font-weight:600}
+.ask{margin-top:14px;background:#fff;border:1px dashed var(--blue);border-radius:10px;padding:12px;font-size:13px}
+.ask .q{color:var(--navy);font-weight:600;margin-bottom:4px}
+.ask .a{color:var(--muted)}
+.cta{margin-top:28px;background:var(--dark);color:#fff;border-radius:14px;padding:32px;text-align:center}
+.cta h2{font-size:24px;margin-bottom:8px}
+.cta p{opacity:.9;margin-bottom:18px}
+.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;padding:12px 24px;border-radius:30px}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:20px}
+@media(max-width:720px){h1{font-size:26px}.leadbody{grid-template-columns:1fr}.bar .lab{width:96px}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<span class="tag">Prepared for Michael, CIO</span>
+<h1>Data and AI use cases for Top Bank</h1>
+<p>Four ways Top Bank could turn customer, loan and transaction data into faster decisions, lower risk and less manual work.</p>
+<div class="chips"><span class="lbl">Trusted by PH financial services teams like</span><span class="chip">Union Bank</span><span class="chip">Credit Access (OnePuhunan)</span></div>
+</div>
+</header>
+<main>
+<div class="wrap">
+<div class="grid">
+
+<div class="card lead">
+<span class="num">1</span>
+<h2>Customer analytics: one view of every customer</h2>
+<div class="leadbody">
+<div>
+<div class="sec"><b>The problem</b><p>Deposits, loans, cards and app activity sit in separate systems, so it is hard to see the full relationship with each customer, who is drifting away, or what they are likely to need next.</p></div>
+<div class="sec"><b>On Snowflake</b><p>Core banking, loan, digital channel and branch data come together in one governed place. Segments, churn scores and next best offers are built once and shared with marketing, branches and digital teams. With Snowflake Intelligence, teams can ask questions in plain English instead of waiting for a report.</p></div>
+<div class="sec"><b>The outcome</b><p>Clear segments, earlier warning on customers likely to leave, and better targeted cross-sell offers, without IT building a new report for every request.</p></div>
+</div>
+<div class="mock">
+<h3>Cross-sell readiness by segment</h3>
+<div class="note">Illustrative only, not real Top Bank or customer data</div>
+<div class="bar"><span class="lab">Salaried, app-active</span><span class="track"><span class="fill" style="width:78%"></span></span><span class="val">78</span></div>
+<div class="bar"><span class="lab">MSME owners</span><span class="track"><span class="fill" style="width:64%"></span></span><span class="val">64</span></div>
+<div class="bar"><span class="lab">OFW families</span><span class="track"><span class="fill" style="width:57%"></span></span><span class="val">57</span></div>
+<div class="bar"><span class="lab">Dormant savers</span><span class="track"><span class="fill" style="width:22%"></span></span><span class="val">22</span></div>
+<div class="ask"><div class="q">"Which MSME customers with a deposit above PHP 500K have no loan with us yet?"</div><div class="a">Answered in plain English on governed data, with the list ready to share with relationship managers.</div></div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<span class="num">2</span>
+<h2>Credit risk and collections</h2>
+<div class="sec"><b>The problem</b><p>Late payments are often spotted only after they happen, and collections teams work from static lists.</p></div>
+<div class="sec"><b>On Snowflake</b><p>Repayment history, account behavior and channel activity feed a risk model that scores accounts daily, so collectors can focus on who to call first.</p></div>
+<div class="sec"><b>The outcome</b><p>Earlier action on accounts likely to miss payments and a cleaner loan book.</p></div>
+</div>
+
+<div class="card">
+<span class="num">3</span>
+<h2>Fraud monitoring for AFASA</h2>
+<div class="sec"><b>The problem</b><p>AFASA raises the bar on detecting and acting on suspicious transactions, but signals sit across channels and systems.</p></div>
+<div class="sec"><b>On Snowflake</b><p>Transactions, device and login data land in one place in near real time. Anomaly detection flags unusual activity, and investigators can review cases with full context.</p></div>
+<div class="sec"><b>The outcome</b><p>Faster detection, clearer audit trails and less manual review.</p></div>
+</div>
+
+<div class="card">
+<span class="num">4</span>
+<h2>Faster BSP reporting</h2>
+<div class="sec"><b>The problem</b><p>Regulatory reports often mean pulling data from many systems into spreadsheets, then checking it by hand.</p></div>
+<div class="sec"><b>On Snowflake</b><p>Report data is prepared once from governed sources. Cortex AI helps with reconciliations, checks and first drafts of commentary.</p></div>
+<div class="sec"><b>The outcome</b><p>Less manual prep, fewer errors and more time for the team to focus on analysis.</p></div>
+</div>
+
+</div>
+
+<div class="cta">
+<h2>Want to see this on your own data?</h2>
+<p>Let's set up a 30-minute intro and pick the use case that matters most to Top Bank.</p>
+<a class="btn" href="mailto:christopher.gan@snowflake.com?subject=Top%20Bank%20x%20Snowflake%20intro">Email Christopher Gan</a>
+<p style="margin-top:12px;font-size:13px;opacity:.8">christopher.gan@snowflake.com</p>
+</div>
+</div>
+</main>
+<footer>Prepared by Snowflake for Top Bank. Figures shown are illustrative.</footer>
+</body>
+</html>
