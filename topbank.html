@@ -1,118 +1,621 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Top Bank x Snowflake | Prepared for Michael</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="snowflake-source" content="cortex-agent-authored">
+<!-- bespoke Top Bank page built on smart page v5.2 shell. PHP only, no URL params. -->
+<meta name="referrer" content="no-referrer">
+<meta name="snowflake-source" content="cortex-agent-authored">
+<meta name="sf-version" content="bespoke topbank (v5.2 shell)">
+<meta name="color-scheme" content="light">
+<title>Snowflake x Top Bank</title>
 <style>
-:root{--blue:#29B5E8;--navy:#11567F;--dark:#0B2545;--bg:#F4F8FB;--card:#fff;--muted:#5B6B7C;--line:#E3EBF2}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.55}
-header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:56px 20px 64px}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-.tag{display:inline-block;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:20px;font-size:13px;letter-spacing:.3px;margin-bottom:16px}
-h1{font-size:34px;line-height:1.2;margin-bottom:12px}
-header p{font-size:17px;max-width:700px;opacity:.95}
-.chips{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.chips span.lbl{font-size:13px;opacity:.85;margin-right:4px}
-.chip{background:#fff;color:var(--navy);font-weight:600;font-size:13px;padding:6px 12px;border-radius:20px}
-main{margin-top:-32px;padding-bottom:40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:0 4px 14px rgba(17,86,127,.06)}
-.card.lead{grid-column:1/-1}
-.num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:14px;margin-bottom:10px}
-.card h2{font-size:21px;margin-bottom:14px;color:var(--navy)}
-.sec{margin-bottom:12px}
-.sec b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--blue);margin-bottom:3px}
-.sec p{font-size:15px;color:var(--dark)}
-.leadbody{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
-.mock{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px}
-.mock h3{font-size:14px;color:var(--navy);margin-bottom:4px}
-.mock .note{font-size:11px;color:var(--muted);margin-bottom:14px}
-.bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px}
-.bar .lab{width:120px;color:var(--muted)}
-.bar .track{flex:1;background:#E3EBF2;border-radius:6px;height:14px;overflow:hidden}
-.bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--navy));border-radius:6px}
-.bar .val{width:44px;text-align:right;font-weight:600}
-.ask{margin-top:14px;background:#fff;border:1px dashed var(--blue);border-radius:10px;padding:12px;font-size:13px}
-.ask .q{color:var(--navy);font-weight:600;margin-bottom:4px}
-.ask .a{color:var(--muted)}
-.cta{margin-top:28px;background:var(--dark);color:#fff;border-radius:14px;padding:32px;text-align:center}
-.cta h2{font-size:24px;margin-bottom:8px}
-.cta p{opacity:.9;margin-bottom:18px}
-.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;padding:12px 24px;border-radius:30px}
-footer{text-align:center;font-size:12px;color:var(--muted);padding:20px}
-@media(max-width:720px){h1{font-size:26px}.leadbody{grid-template-columns:1fr}.bar .lab{width:96px}}
+:root{
+  --blue:#29B5E8; --navy:#11567F; --text:#2B2F33; --muted:#5B6670;
+  --line:#E3E8EC; --tint:#F2FAFD; --tint2:#E8F6FC; --white:#FFFFFF;
+  --amber:#A86400; --amber-bg:#FFF4E0; --red:#B3261E; --red-bg:#FDECEA;
+  --green:#1E7B4F; --green-bg:#E6F4EC;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--white);}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;width:100%;margin:0 auto;padding:0 clamp(16px,4vw,32px);}
+svg{max-width:100%;}
+.sprite{position:absolute;width:0;height:0;overflow:hidden;}
+
+/* Header */
+.topbar{border-bottom:1px solid var(--line);background:#fff;}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;padding-top:16px;padding-bottom:16px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.brand .wm{font-weight:800;color:var(--navy);font-size:18px;letter-spacing:.2px;}
+.brand .sep{width:1px;height:20px;background:var(--line);display:inline-block;}
+.brand .for{color:var(--muted);font-size:14.5px;}
+.brand .names{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap;}
+.brand .wm .x{color:var(--muted);font-weight:500;}
+.prepared{font-size:13px;color:var(--navy);background:var(--tint2);border:1px solid #CDEBF7;border-radius:999px;padding:4px 12px;white-space:nowrap;}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--tint) 0%,var(--white) 100%);}
+.hero .wrap{padding-top:clamp(36px,6vw,72px);padding-bottom:clamp(24px,4vw,44px);}
+h1{font-size:clamp(28px,4.6vw,46px);line-height:1.15;color:var(--navy);margin:0 0 14px;letter-spacing:-.5px;max-width:860px;}
+h1 .hl{color:var(--blue);}
+.sub{font-size:clamp(16px,2vw,19px);color:var(--muted);margin:0;max-width:720px;}
+
+section{padding:clamp(24px,4.5vw,44px) 0;}
+h2{font-size:clamp(20px,2.6vw,26px);color:var(--navy);margin:0 0 6px;letter-spacing:-.2px;}
+.section-sub{color:var(--muted);margin:0 0 22px;}
+
+/* Cards */
+.card{position:relative;border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,28px);margin-bottom:24px;background:#fff;box-shadow:0 1px 2px rgba(17,86,127,.04),0 8px 24px rgba(17,86,127,.06);}
+.card-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.card h3{margin:0;font-size:clamp(18px,2.2vw,22px);color:var(--navy);}
+.card-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:start;}
+
+/* Card 1: explainer */
+.explain p.lead{font-size:clamp(16px,1.9vw,18px);margin:0 0 18px;max-width:820px;}
+.explain p.lead b{color:var(--navy);}
+.flow{display:grid;grid-template-columns:minmax(0,1fr) 64px minmax(0,1.05fr) 64px minmax(0,1fr);align-items:center;gap:0;background:var(--tint);border:1px solid #DDF0F8;border-radius:14px;padding:18px;}
+.col{display:flex;flex-direction:column;gap:8px;}
+.col .cap{font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:#9FB3C1;flex:0 0 auto;}
+.outcomes .chip{border-color:#CDEBF7;color:var(--navy);}
+.outcomes .chip::before{background:var(--blue);}
+.core{background:#fff;border:2px solid var(--blue);border-radius:16px;padding:18px 14px;text-align:center;box-shadow:0 6px 20px rgba(41,181,232,.18);}
+.core .sf-big{display:block;margin:0 auto 6px;animation:spin 18s linear infinite;}
+.core .t1{font-weight:800;color:var(--navy);font-size:17px;}
+.core .t2{font-size:14px;color:var(--muted);}
+.pipe{position:relative;height:4px;margin:0 6px;background:linear-gradient(90deg,#CDEBF7,#9EDBF3);border-radius:4px;overflow:visible;}
+.pipe i{position:absolute;top:50%;left:0;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(41,181,232,.18);animation:flowx 2.4s linear infinite;opacity:0;}
+.pipe i:nth-child(2){animation-delay:.8s}
+.pipe i:nth-child(3){animation-delay:1.6s}
+.points{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.points span{font-size:13.5px;color:var(--navy);background:#fff;border:1px solid #CDEBF7;border-radius:999px;padding:5px 12px;}
+
+/* Chat + run button */
+.chat{display:flex;flex-direction:column;gap:12px;}
+.who{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.6px;}
+.bubble{align-self:flex-start;background:var(--blue);color:#fff;border-radius:18px 18px 18px 4px;padding:14px 16px;font-size:15.5px;line-height:1.5;max-width:100%;box-shadow:0 4px 14px rgba(41,181,232,.25);}
+.run{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.runbtn{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;background:var(--navy);color:#fff;font-weight:700;font-size:14px;border-radius:999px;padding:9px 18px;box-shadow:0 4px 12px rgba(17,86,127,.22);transition:transform .15s ease,background .15s ease;}
+.runbtn::before{content:"";width:0;height:0;border-left:9px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
+.runbtn:hover{background:#0D4566;transform:translateY(-1px);}
+.run:focus-visible ~ .card-body .runbtn{outline:3px solid var(--blue);outline-offset:3px;}
+.run:checked ~ .card-body .runbtn{background:#fff;color:var(--navy);border:1px solid #CDEBF7;box-shadow:none;font-size:0;padding:9px 18px;}
+.run:checked ~ .card-body .runbtn::before{border-left-color:var(--navy);border-left-width:0;width:10px;height:10px;border:0;background:var(--navy);border-radius:2px;}
+.run:checked ~ .card-body .runbtn::after{content:"Hide result";font-size:14px;}
+.beforenow{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 10px 10px 0;padding:12px 14px;font-size:14.5px;}
+.beforenow p{margin:0;}
+.beforenow p + p{margin-top:6px;}
+.beforenow b{color:var(--navy);}
+.label{display:flex;flex-wrap:wrap;gap:6px;}
+.pill{font-size:12px;color:var(--navy);background:#fff;border:1px solid #CDEBF7;border-radius:999px;padding:3px 10px;}
+
+/* Result panel */
+.result{position:relative;border:1px solid var(--line);border-radius:14px;background:#FBFDFE;padding:16px;min-height:120px;}
+.result-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.result-title{font-size:13px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--blue);display:inline-block;}
+.sample{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:#EEF2F5;border-radius:6px;padding:3px 8px;}
+.placeholder{display:none;}
+.run ~ .card-body .placeholder{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;min-height:180px;border:1.5px dashed #CDEBF7;border-radius:12px;color:var(--muted);font-size:14px;text-align:center;padding:16px;}
+.run ~ .card-body .placeholder::before{content:"";width:34px;height:34px;border-radius:50%;background:var(--tint2);border:2px solid #CDEBF7;}
+.run ~ .card-body .placeholder::after{content:"Press \"Run this prompt\" to see the answer";}
+.run ~ .card-body .out{display:none;}
+.run:checked ~ .card-body .placeholder{display:none;}
+.run:checked ~ .card-body .out{display:block;}
+.thinking{display:none;}
+.run:checked ~ .card-body .thinking{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);animation:fadeout .25s ease 1.1s forwards;}
+.thinking i{width:7px;height:7px;border-radius:50%;background:var(--blue);opacity:.35;animation:bounce 1s ease-in-out infinite;}
+.thinking i:nth-child(2){animation-delay:.15s}
+.thinking i:nth-child(3){animation-delay:.3s}
+.run:checked ~ .card-body .reveal{animation:rise .55s ease-out 1.2s both;}
+.run:checked ~ .card-body .typed{animation:type 1.1s steps(40,end) 1.25s both;}
+.answer{font-size:14.5px;margin:0 0 14px;}
+
+/* Dashboard */
+.dash{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;}
+.dash-bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--tint);border-bottom:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--navy);flex-wrap:wrap;}
+.dash-bar .w{width:8px;height:8px;border-radius:50%;background:#CFE3EC;display:inline-block;}
+.dash-bar .ttl{margin-left:6px;}
+.dash-bar .shared{margin-left:auto;font-weight:500;color:var(--muted);font-size:12px;}
+.dash-in{padding:12px;}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px;}
+.kpi{background:var(--tint);border-radius:10px;padding:10px;border:1px solid #E1F2F9;}
+.kpi .k{font-size:11px;color:var(--muted);}
+.kpi .v{font-size:18px;font-weight:800;color:var(--navy);line-height:1.2;}
+.kpi .d{font-size:11px;font-weight:700;}
+.kpi .d.up{color:var(--red);}
+.kpi .d.ok{color:var(--green);}
+.chart-title{font-size:12px;font-weight:700;color:var(--muted);margin:0 0 8px;}
+.bars{display:flex;flex-direction:column;gap:8px;}
+.bar-row{display:grid;grid-template-columns:22px 70px 1fr 50px;gap:8px;align-items:center;font-size:13px;}
+.rank{width:22px;height:22px;border-radius:50%;background:var(--tint2);color:var(--navy);font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.bar-track{background:#EAF1F5;border-radius:6px;height:14px;overflow:hidden;}
+.bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#7FD3F2,var(--blue));transform-origin:left;}
+.bar.top{background:linear-gradient(90deg,var(--blue),var(--navy));}
+.run:checked ~ .card-body .bar{animation:grow .9s cubic-bezier(.2,.8,.2,1) 1.4s both;}
+.bar-val{color:var(--navy);font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:12.5px;}
+.w92{width:92%}.w70{width:70%}.w55{width:55%}.w30{width:30%}
+
+/* Tables */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:#fff;}
+table{border-collapse:collapse;width:100%;font-size:13.5px;}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle;}
+th{background:var(--tint);color:var(--navy);font-weight:700;font-size:12px;letter-spacing:.3px;text-transform:uppercase;}
+tr:last-child td{border-bottom:none;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;white-space:nowrap;}
+.risk{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap;}
+.risk::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;}
+.risk.high{color:var(--red);background:var(--red-bg);}
+.risk.med{color:var(--amber);background:var(--amber-bg);}
+.risk.low{color:var(--green);background:var(--green-bg);}
+tr.hi td:first-child{box-shadow:inset 3px 0 0 var(--red);}
+tr.md td:first-child{box-shadow:inset 3px 0 0 #E59A2F;}
+tr.lo td:first-child{box-shadow:inset 3px 0 0 #4CAF7D;}
+.summary{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.summary span{font-size:12px;font-weight:700;border-radius:8px;padding:4px 10px;background:#fff;border:1px solid var(--line);color:var(--navy);}
+.note{font-size:12.5px;color:var(--muted);margin:10px 0 0;}
+.role{display:flex;align-items:center;gap:10px;font-weight:600;}
+.ri{flex:0 0 auto;width:30px;height:30px;padding:6px;border-radius:50%;background:var(--tint2);color:var(--navy);}
+.ri.c2{background:#EEF0FB;color:#3B4BA8;}
+.ri.c3{background:var(--green-bg);color:var(--green);}
+.ri.c4{background:#F1F3F5;color:#5B6670;}
+.acc{display:inline-block;font-size:11.5px;font-weight:700;color:var(--navy);background:var(--tint2);border-radius:6px;padding:2px 8px;}
+.datec{white-space:nowrap;color:var(--muted);font-size:13px;}
+
+/* Banks strip */
+.strip{background:var(--tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.logos{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+.namechip{background:#fff;border:1px solid #CDEBF7;border-radius:12px;padding:14px 20px;font-weight:700;color:var(--navy);font-size:17px;}
+.namechip small{display:block;font-weight:500;color:var(--muted);font-size:13px;margin-top:2px;}
+
+/* Tabs */
+.tabin{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.tabbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.tabbar label{cursor:pointer;user-select:none;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:700;font-size:14.5px;border-radius:999px;padding:9px 18px;transition:background .15s ease,color .15s ease;}
+.tabbar label:hover{border-color:var(--blue);}
+#tab-1:checked ~ .tabbar label[for="tab-1"],
+#tab-2:checked ~ .tabbar label[for="tab-2"],
+#tab-3:checked ~ .tabbar label[for="tab-3"]{background:var(--navy);color:#fff;border-color:var(--navy);}
+#tab-1:focus-visible ~ .tabbar label[for="tab-1"],
+#tab-2:focus-visible ~ .tabbar label[for="tab-2"],
+#tab-3:focus-visible ~ .tabbar label[for="tab-3"]{outline:3px solid var(--blue);outline-offset:2px;}
+.panel{border:1px solid var(--line);border-radius:14px;background:#fff;padding:clamp(16px,2.6vw,22px);margin-bottom:12px;}
+.tabs .panel{display:none;margin-bottom:0;}
+#tab-1:checked ~ .panels .p-1,
+#tab-2:checked ~ .panels .p-2,
+#tab-3:checked ~ .panels .p-3{display:grid;animation:rise .4s ease-out both;}
+.panel{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:start;}
+.panel-title{margin:0 0 4px;font-size:15px;color:var(--navy);}
+.tabs .panel-title{display:none;}
+.panel .bubble{font-size:15px;}
+.mini{border:1px solid var(--line);border-radius:12px;background:#FBFDFE;padding:14px;}
+.mini .answer{margin-bottom:10px;}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13.5px;}
+.checks li{display:flex;align-items:center;gap:8px;}
+.ck{width:18px;height:18px;border-radius:50%;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.ck.ok{background:var(--green-bg);color:var(--green);}
+.ck.wait{background:var(--amber-bg);color:var(--amber);}
+.hours{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;align-items:end;height:96px;margin-top:6px;}
+.hours div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;font-size:10.5px;color:var(--muted);}
+.hours i{display:block;width:100%;border-radius:4px 4px 0 0;background:#9EDBF3;}
+.hours i.pk{background:var(--navy);}
+.h20{height:20%}.h35{height:35%}.h55{height:55%}.h80{height:80%}.h95{height:95%}.h70{height:70%}.h45{height:45%}.h30{height:30%}
+
+/* Footer */
+.foot{border-top:1px solid var(--line);}
+.fine{font-size:12.5px;color:var(--muted);padding:18px 0 28px;margin:0;}
+
+/* Animations */
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes bounce{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+@keyframes fadeout{to{opacity:0;height:0;margin:0;overflow:hidden}}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes flowx{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:calc(100% - 9px);opacity:0}}
+@keyframes flowy{0%{top:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:calc(100% - 9px);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important;}
+  .run:checked ~ .card-body .thinking{display:none;}
+}
+
+/* Responsive */
+@media (max-width: 860px){
+  .card-body,.panel{grid-template-columns:1fr;}
+}
+@media (max-width: 760px){
+  .flow{grid-template-columns:1fr;padding:14px;}
+  .pipe{width:4px;height:34px;margin:6px auto;background:linear-gradient(180deg,#CDEBF7,#9EDBF3);}
+  .pipe i{left:50%;top:0;margin-left:-4.5px;margin-top:0;animation-name:flowy;}
+  .col{flex-direction:row;flex-wrap:wrap;}
+  .col .cap{width:100%;}
+}
+@media (max-width: 640px){
+  .prepared{white-space:normal;}
+  .kpis{grid-template-columns:1fr 1fr 1fr;}
+  .kpi{padding:8px;}
+  .kpi .v{font-size:15px;}
+  .bar-row{grid-template-columns:20px 58px 1fr 44px;gap:6px;}
+  table{font-size:12.5px;}
+  th,td{padding:8px 8px;}
+  .mono{font-size:11px;}
+  .ri{width:26px;height:26px;padding:5px;}
+  .role{gap:6px;}
+  .hide-sm{display:none;}
+  .card{padding:16px;}
+  .result,.mini{padding:12px;}
+  .kpis{grid-template-columns:1fr;gap:6px;}
+  .kpi{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+  .kpi .k{flex:1 1 auto;}
+  .kpi .d{width:100%;text-align:right;}
+  .bar-row{grid-template-columns:20px 56px minmax(0,1fr) 54px;}
+  .bar-val{font-size:11.5px;}
+  table.stack thead{display:none;}
+  table.stack tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:10px 12px;border-bottom:1px solid var(--line);}
+  table.stack tr:last-child{border-bottom:none;}
+  table.stack td{border:0;padding:0;}
+  table.stack td.desc{grid-column:1 / -1;order:3;font-size:12.5px;color:var(--muted);}
+  table.stack td.mono.desc{font-size:11px;}
+  tr.hi td:first-child,tr.md td:first-child,tr.lo td:first-child{box-shadow:none;}
+  tr.hi{box-shadow:inset 3px 0 0 var(--red);}
+  tr.md{box-shadow:inset 3px 0 0 #E59A2F;}
+  tr.lo{box-shadow:inset 3px 0 0 #4CAF7D;}
+}
+
+/* Smart template additions */
+.risk.info{color:var(--navy);background:var(--tint2);}
+.risk.info::before{background:var(--blue);}
+.ck.no{background:var(--red-bg);color:var(--red);}
+td.strong{font-weight:700;color:var(--navy);}
+.bar-row.norank{grid-template-columns:70px 1fr 56px;}
+.steps{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:10px;}
+.steps li{display:grid;grid-template-columns:70px 1fr;gap:10px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;}
+.st-k{font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#fff;background:var(--navy);border-radius:6px;padding:3px 8px;text-align:center;}
+.steps li:first-child .st-k{background:#B3261E;}
+.steps li:last-child .st-k{background:var(--green);}
+.mflow{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;gap:8px;background:var(--tint);border:1px solid #DDF0F8;border-radius:12px;padding:12px;margin-bottom:12px;}
+.msrc{display:flex;flex-direction:column;gap:6px;}
+.msrc span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600;}
+.marrow{height:4px;background:linear-gradient(90deg,#CDEBF7,var(--blue));border-radius:4px;position:relative;}
+.marrow::after{content:"";position:absolute;right:-2px;top:-5px;border-left:8px solid var(--blue);border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.mtgt{background:#fff;border:2px solid var(--blue);border-radius:12px;padding:12px;text-align:center;}
+.mtgt .mono{display:block;font-weight:700;color:var(--navy);word-break:break-all;}
+.mtgt small{display:block;color:var(--muted);font-size:12px;margin-top:4px;}
+.hdr-for[hidden],.hdr-x[hidden]{display:none;}
+@media (max-width: 640px){
+  .mflow{grid-template-columns:1fr;}
+  .marrow{width:4px;height:24px;margin:0 auto;background:linear-gradient(180deg,#CDEBF7,var(--blue));}
+  .marrow::after{right:auto;left:-5px;top:auto;bottom:-4px;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid var(--blue);border-bottom:0;}
+  .steps li{grid-template-columns:1fr;gap:6px;}
+  .st-k{justify-self:start;}
+  .bar-row.norank{grid-template-columns:56px minmax(0,1fr) 54px;}
+}
+.photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 12px;}
+.ph{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;font-size:12.5px;}
+.ph svg{display:block;width:100%;height:auto;background:var(--tint);}
+.ph .pc{padding:6px 8px;display:flex;flex-direction:column;gap:3px;}
+.ph .pc b{color:var(--navy);font-size:12.5px;}
+.ph.flag{border-color:var(--red);}
+.ph .why{color:var(--red);}
+.scen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 12px;}
+.scen div{border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff;text-align:center;}
+.scen .k{font-size:12px;color:var(--muted);} .scen .v{font-size:20px;font-weight:800;}
+.scen .ok .v{color:var(--green);} .scen .bad .v{color:var(--red);}
+/* overflow guard */
+.card [data-f=reveal]{min-width:0;overflow-wrap:anywhere;}
+.table-wrap{max-width:100%;overflow-x:auto;}
+.kpis,.bars,.bar-row{min-width:0;}
+.bar-val{white-space:normal !important;overflow-wrap:anywhere;min-width:0;max-width:40%;text-align:right;}
+@media (max-width:520px){.photos{grid-template-columns:repeat(2,minmax(0,1fr));}.scen{grid-template-columns:1fr;}}
+.more{margin:8px 0 24px;border:1px solid var(--line);border-radius:14px;background:var(--tint);}
+.more>summary{cursor:pointer;list-style:none;padding:14px 18px;font-weight:700;color:var(--navy);}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::before{content:"+ ";color:var(--blue);}
+.more[open]>summary::before{content:"- ";}
+.more #more-list{padding:0 clamp(8px,2vw,16px) 8px;}
+.card h3{overflow-wrap:anywhere;}
+.bubble,.answer,.note,.chip,.pill{overflow-wrap:anywhere;}
+td,th{overflow-wrap:break-word;}
+/* v5.1 fix 1: bar value labels on one line */
+.bar-val{white-space:nowrap !important;overflow-wrap:normal !important;max-width:none !important;min-width:max-content;}
+.bar-row{grid-template-columns:22px minmax(56px,max-content) minmax(40px,1fr) max-content;}
+.bar-row.norank{grid-template-columns:minmax(56px,max-content) minmax(40px,1fr) max-content;}
+.bar-row > span:not(.rank):not(.bar-val){max-width:min(40vw,220px);overflow-wrap:break-word;}
+@media (max-width: 640px){
+  .bar-row{grid-template-columns:20px minmax(56px,max-content) minmax(40px,1fr) max-content;}
+  .bar-row.norank{grid-template-columns:minmax(56px,max-content) minmax(40px,1fr) max-content;}
+  .bar-row > span:not(.rank):not(.bar-val){max-width:38vw;}
+}
+/* v5.1 fix 2: stacked tables as labelled single-column lists */
+@media (max-width: 640px){
+  table.stack tr{display:grid;grid-template-columns:1fr;gap:6px;}
+  table.stack td,table.stack td.desc{grid-column:1;order:0;display:block;min-width:0;}
+  table.stack td[data-label]::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:1px;}
+  table.stack td .risk{white-space:nowrap;}
+}
+
+/* Top Bank bespoke widgets */
+.seg{display:inline-flex;border:1px solid #CDEBF7;border-radius:999px;padding:3px;background:#fff;margin-bottom:12px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;color:var(--navy);font-weight:700;font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;font-family:inherit}
+.seg button.on{background:var(--navy);color:#fff}
+.cbars .bar-row{cursor:pointer;border-radius:8px;padding:3px 4px;grid-template-columns:130px 1fr 50px}
+.cbars .bar-row:hover,.cbars .bar-row.sel{background:var(--tint2)}
+.run:checked ~ .card-body .cbars .bar{animation:none;transition:width .5s ease}
+.detail{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#FBFDFE;padding:12px;font-size:13.5px}
+.detail b{color:var(--navy)}
+.slider{display:flex;align-items:center;gap:12px;margin:4px 0 12px;font-size:13.5px;flex-wrap:wrap}
+.slider input{flex:1;min-width:160px;accent-color:var(--navy)}
+.slider .sv{font-weight:800;color:var(--navy);min-width:44px}
+tr.off td{opacity:.4}
+.feed{display:flex;flex-direction:column;gap:8px}
+.feed button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 12px;cursor:pointer;font-family:inherit;font-size:13.5px;color:var(--text)}
+.feed button.sel{border-color:var(--blue);background:var(--tint)}
+.why ul{margin:6px 0 0;padding-left:18px}
+.tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:12px}
+.tl div{border-radius:8px;padding:8px;font-size:12px;text-align:center;background:var(--tint);border:1px solid #E1F2F9}
+.tl div b{display:block;color:var(--navy);font-size:15px}
+.tl div.slow{background:var(--amber-bg);border-color:#F3D9A8}
+.tl div.fast{background:var(--green-bg);border-color:#BFE3CF}
+.aibtn{border:0;background:var(--navy);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:8px 16px;cursor:pointer;font-family:inherit;margin-top:10px}
+.cta-box{border:1px solid #CDEBF7;background:var(--tint);border-radius:16px;padding:clamp(20px,3vw,32px);text-align:center;margin:28px 0}
+.cta-box h2{margin-top:0;color:var(--navy)}
+.cta-box a{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:11px 22px;margin-top:6px}
+@media(max-width:640px){.tl{grid-template-columns:repeat(2,minmax(0,1fr))}.cbars .bar-row{grid-template-columns:96px 1fr 44px}}
 </style>
 </head>
 <body>
-<header>
-<div class="wrap">
-<span class="tag">Prepared for Michael, CIO</span>
-<h1>Data and AI use cases for Top Bank</h1>
-<p>Four ways Top Bank could turn customer, loan and transaction data into faster decisions, lower risk and less manual work.</p>
-<div class="chips"><span class="lbl">Trusted by PH financial services teams like</span><span class="chip">Union Bank</span><span class="chip">Credit Access (OnePuhunan)</span></div>
-</div>
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="i-person" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></g></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke-linecap="round"/></g></symbol>
+</svg>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><svg class="sf" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="#29B5E8" stroke-width="2" stroke-linecap="round"><g><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(60 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(120 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g></g></svg><span class="names"><span class="wm">Snowflake<span class="hdr-x" id="hdr-x"> <span class="x">x</span> <span id="hdr-co">Top Bank</span></span></span><span class="for hdr-for" id="hdr-for">for Michael, CIO</span></span></div>
+    <div class="prepared">Prepared with Snowflake CoWork</div>
+  </div>
 </header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Data and AI use cases for <span id="hero-co">Top Bank</span>, <span class="hl">prepared for Michael</span></h1>
+    <p class="sub">Four ways Top Bank could save cost and get more done with the same team, by asking questions of its data in plain English.</p>
+  </div>
+</div>
+
 <main>
-<div class="wrap">
-<div class="grid">
+<section id="cards">
+  <div class="wrap">
+    <article class="card explain" id="what-snowflake-does">
+      <div class="card-head"><span class="num">1</span><h3>What Snowflake does</h3></div>
+      <p class="lead"><b>Snowflake is one secure place for all of <span id="c1-co">Top Bank's</span> data, with AI built in.</b> Anyone on the team can ask questions in plain English and get answers, reports, and dashboards. We run it for you, so there are no servers to manage.</p>
+      <div class="flow" role="img" aria-label="Data from your business systems flows into Snowflake, one secure place with AI, which gives answers, dashboards, reports, and alerts.">
+        <div class="col sources" id="c1-src">
+          <div class="cap">Your data</div>
+          <div class="chip">Core banking</div><div class="chip">Loans</div><div class="chip">Mobile app</div><div class="chip">Branches &amp; ATMs</div>
+        </div>
+        <div class="pipe" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="core">
+          <svg class="sf-big" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="#29B5E8" stroke-width="2" stroke-linecap="round"><g><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(60 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g><g transform="rotate(120 12 12)"><path d="M12 2.5v19"/><path d="M12 6 9.6 3.6M12 6l2.4-2.4M12 18l-2.4 2.4M12 18l2.4 2.4"/></g></g></svg>
+          <div class="t1">Snowflake</div>
+          <div class="t2">One secure place + AI</div>
+        </div>
+        <div class="pipe" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="col outcomes">
+          <div class="cap">What your team gets</div>
+          <div class="chip">Answers</div><div class="chip">Dashboards</div><div class="chip">Reports</div><div class="chip">Alerts</div>
+        </div>
+      </div>
+      <div class="points"><span>Ask in plain English</span><span>Access controls built in</span><span>Nothing to install or maintain</span></div>
+    </article>
 
-<div class="card lead">
-<span class="num">1</span>
-<h2>Customer analytics: one view of every customer</h2>
-<div class="leadbody">
-<div>
-<div class="sec"><b>The problem</b><p>Deposits, loans, cards and app activity sit in separate systems, so it is hard to see the full relationship with each customer, who is drifting away, or what they are likely to need next.</p></div>
-<div class="sec"><b>On Snowflake</b><p>Core banking, loan, digital channel and branch data come together in one governed place. Segments, churn scores and next best offers are built once and shared with marketing, branches and digital teams. With Snowflake Intelligence, teams can ask questions in plain English instead of waiting for a report.</p></div>
-<div class="sec"><b>The outcome</b><p>Clear segments, earlier warning on customers likely to leave, and better targeted cross-sell offers, without IT building a new report for every request.</p></div>
-</div>
-<div class="mock">
-<h3>Cross-sell readiness by segment</h3>
-<div class="note">Illustrative only, not real Top Bank or customer data</div>
-<div class="bar"><span class="lab">Salaried, app-active</span><span class="track"><span class="fill" style="width:78%"></span></span><span class="val">78</span></div>
-<div class="bar"><span class="lab">MSME owners</span><span class="track"><span class="fill" style="width:64%"></span></span><span class="val">64</span></div>
-<div class="bar"><span class="lab">OFW families</span><span class="track"><span class="fill" style="width:57%"></span></span><span class="val">57</span></div>
-<div class="bar"><span class="lab">Dormant savers</span><span class="track"><span class="fill" style="width:22%"></span></span><span class="val">22</span></div>
-<div class="ask"><div class="q">"Which MSME customers with a deposit above PHP 500K have no loan with us yet?"</div><div class="a">Answered in plain English on governed data, with the list ready to share with relationship managers.</div></div>
-</div>
-</div>
-</div>
+    <h2 id="uc-h">Four things Top Bank could ask today</h2>
+    <p class="section-sub">Press "Run this prompt" on each card, then click, toggle and slide to explore the sample answer.</p>
+    <div id="uc-list">
+<article class="card uc" id="uc-2">
+      <input type="checkbox" class="run" id="run-2" aria-label="Run this prompt">
+      <div class="card-head"><span class="num">2</span><h3>Customer analytics: one view of every customer</h3></div>
+      <div class="card-body">
+        <div class="chat">
+          <span class="who">You ask</span>
+          <div class="bubble">Show me our customer segments, which ones are at risk of leaving, and who is ready for a cross-sell offer.</div>
+          <label class="runbtn" for="run-2">Run this prompt</label>
+          <div class="beforenow"><p><b>Before:</b> Deposits, loans, cards and app data sit in separate systems, so building one customer list takes weeks of IT requests.</p><p><b>Now:</b> One view of each customer. Click a segment to see who to keep and what to offer next.</p></div>
+          <div class="label"><span class="pill">Snowflake Intelligence</span><span class="pill">Cortex AI</span><span class="pill">Churn and cross-sell</span></div>
+        </div>
+        <div class="result">
+          <div class="result-top"><span class="result-title"><span class="dot"></span>Customer segments</span><span class="sample">Sample data</span></div>
+          <div class="placeholder" aria-hidden="true"></div>
+          <div class="out">
+            <div class="thinking"><i></i><i></i><i></i>Joining core banking, loans, cards and app activity...</div>
+            <div class="reveal"><div class="kpis"><div class="kpi"><div class="k">Customers in one view</div><div class="v">412K</div><div class="d ok">all products</div></div><div class="kpi"><div class="k">At risk of leaving</div><div class="v">8.4%</div><div class="d up">next 90 days</div></div><div class="kpi"><div class="k">Cross-sell ready</div><div class="v">61K</div><div class="d ok">scored today</div></div></div>
+<div class="seg" role="group" aria-label="View"><button type="button" class="on" data-view="churn">Churn risk</button><button type="button" data-view="xsell">Cross-sell readiness</button></div>
+<p class="chart-title" id="cx-title">Share of segment likely to leave in 90 days (click a segment)</p>
+<div class="bars cbars" id="cx-bars"></div>
+<div class="detail" id="cx-detail" aria-live="polite"></div>
+<p class="note">Follow-up you could ask: "Which MSME customers with deposits above PHP 500K have no loan with us yet?"</p>
+<p class="note">Illustrative numbers only, not real Top Bank or customer data.</p></div>
+          </div>
+        </div>
+      </div>
+    </article>
+<article class="card uc" id="uc-3">
+      <input type="checkbox" class="run" id="run-3" aria-label="Run this prompt">
+      <div class="card-head"><span class="num">3</span><h3>Credit risk and collections: catch missed payments early</h3></div>
+      <div class="card-body">
+        <div class="chat">
+          <span class="who">You ask</span>
+          <div class="bubble">Which loan accounts are most likely to miss their next payment, and who should collections call first?</div>
+          <label class="runbtn" for="run-3">Run this prompt</label>
+          <div class="beforenow"><p><b>Before:</b> Late payments show up only after the due date, and collectors work from a static aging list.</p><p><b>Now:</b> Every account is scored daily. Move the cut-off to see how many accounts and how much balance the team would focus on.</p></div>
+          <div class="label"><span class="pill">Cortex AI</span><span class="pill">Risk scoring</span><span class="pill">Collections queue</span></div>
+        </div>
+        <div class="result">
+          <div class="result-top"><span class="result-title"><span class="dot"></span>Early missed-payment flags</span><span class="sample">Sample data</span></div>
+          <div class="placeholder" aria-hidden="true"></div>
+          <div class="out">
+            <div class="thinking"><i></i><i></i><i></i>Scoring repayment history, balances and app activity...</div>
+            <div class="reveal"><div class="slider"><label for="cr-cut">Flag accounts with risk score of at least</label><input type="range" id="cr-cut" min="40" max="90" step="5" value="60"><span class="sv" id="cr-v">60</span></div>
+<div class="summary"><span id="cr-n"></span><span id="cr-amt"></span></div>
+<div class="table-wrap"><table class="stack"><thead><tr><th>Call order</th><th>Account</th><th>Product</th><th>Balance (PHP)</th><th>Risk score</th><th>Why</th></tr></thead><tbody id="cr-body"></tbody></table></div>
+<p class="note">Illustrative accounts and scores only.</p></div>
+          </div>
+        </div>
+      </div>
+    </article>
+<article class="card uc" id="uc-4">
+      <input type="checkbox" class="run" id="run-4" aria-label="Run this prompt">
+      <div class="card-head"><span class="num">4</span><h3>Fraud monitoring: spot unusual transactions in time for AFASA</h3></div>
+      <div class="card-body">
+        <div class="chat">
+          <span class="who">You ask</span>
+          <div class="bubble">Show me today's unusual transactions and explain why each one was flagged.</div>
+          <label class="runbtn" for="run-4">Run this prompt</label>
+          <div class="beforenow"><p><b>Before:</b> Signals sit in separate card, app and transfer systems, so suspicious activity is often found after the money has moved.</p><p><b>Now:</b> Transactions, device and login data land in one place in near real time. Click an alert to see exactly why it was flagged.</p></div>
+          <div class="label"><span class="pill">Anomaly detection</span><span class="pill">AFASA</span><span class="pill">Case review</span></div>
+        </div>
+        <div class="result">
+          <div class="result-top"><span class="result-title"><span class="dot"></span>Live alert feed</span><span class="sample">Sample data</span></div>
+          <div class="placeholder" aria-hidden="true"></div>
+          <div class="out">
+            <div class="thinking"><i></i><i></i><i></i>Checking transactions against each customer's normal pattern...</div>
+            <div class="reveal"><div class="feed" id="fr-feed"></div>
+<div class="detail why" id="fr-why" aria-live="polite"></div>
+<p class="note">Illustrative alerts only. Thresholds and rules would follow Top Bank's own AFASA and BSP policies.</p></div>
+          </div>
+        </div>
+      </div>
+    </article>
+<article class="card uc" id="uc-5">
+      <input type="checkbox" class="run" id="run-5" aria-label="Run this prompt">
+      <div class="card-head"><span class="num">5</span><h3>BSP reporting: faster regulatory reports</h3></div>
+      <div class="card-body">
+        <div class="chat">
+          <span class="who">You ask</span>
+          <div class="bubble">Prepare this month's BSP report pack, reconcile it to the general ledger and list anything that needs a human check.</div>
+          <label class="runbtn" for="run-5">Run this prompt</label>
+          <div class="beforenow"><p><b>Before:</b> Data is pulled from several systems into spreadsheets, reconciled by hand, then checked again before submission.</p><p><b>Now:</b> Report data is prepared once from governed sources, and Cortex AI handles the manual prep and flags only the exceptions.</p></div>
+          <div class="label"><span class="pill">Cortex AI</span><span class="pill">Governed data</span><span class="pill">Audit trail</span></div>
+        </div>
+        <div class="result">
+          <div class="result-top"><span class="result-title"><span class="dot"></span>Report prep timeline</span><span class="sample">Sample data</span></div>
+          <div class="placeholder" aria-hidden="true"></div>
+          <div class="out">
+            <div class="thinking"><i></i><i></i><i></i>Pulling ledger, loan and deposit data...</div>
+            <div class="reveal"><div class="seg" role="group" aria-label="Timeline"><button type="button" class="on" data-tl="before">Before</button><button type="button" data-tl="after">With Snowflake</button></div>
+<div class="tl" id="bsp-tl"></div>
+<p class="chart-title">Report checklist</p>
+<ul class="checks" id="bsp-checks"></ul>
+<button type="button" class="aibtn" id="bsp-ai">Let AI prepare it</button>
+<p class="note">Illustrative timings only. Final sign-off stays with Top Bank's compliance team.</p></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    </div>
+  </div>
+</section>
 
-<div class="card">
-<span class="num">2</span>
-<h2>Credit risk and collections</h2>
-<div class="sec"><b>The problem</b><p>Late payments are often spotted only after they happen, and collections teams work from static lists.</p></div>
-<div class="sec"><b>On Snowflake</b><p>Repayment history, account behavior and channel activity feed a risk model that scores accounts daily, so collectors can focus on who to call first.</p></div>
-<div class="sec"><b>The outcome</b><p>Earlier action on accounts likely to miss payments and a cleaner loan book.</p></div>
-</div>
+<section class="strip" id="customers">
+  <div class="wrap">
+    <h2>Teams already doing this</h2>
+    <div class="logos" id="cust"><div class="namechip">Union Bank</div><div class="namechip">Credit Access (OnePuhunan)<small>Microfinance lender</small></div></div>
+  </div>
+</section>
 
-<div class="card">
-<span class="num">3</span>
-<h2>Fraud monitoring for AFASA</h2>
-<div class="sec"><b>The problem</b><p>AFASA raises the bar on detecting and acting on suspicious transactions, but signals sit across channels and systems.</p></div>
-<div class="sec"><b>On Snowflake</b><p>Transactions, device and login data land in one place in near real time. Anomaly detection flags unusual activity, and investigators can review cases with full context.</p></div>
-<div class="sec"><b>The outcome</b><p>Faster detection, clearer audit trails and less manual review.</p></div>
-</div>
-
-<div class="card">
-<span class="num">4</span>
-<h2>Faster BSP reporting</h2>
-<div class="sec"><b>The problem</b><p>Regulatory reports often mean pulling data from many systems into spreadsheets, then checking it by hand.</p></div>
-<div class="sec"><b>On Snowflake</b><p>Report data is prepared once from governed sources. Cortex AI helps with reconciliations, checks and first drafts of commentary.</p></div>
-<div class="sec"><b>The outcome</b><p>Less manual prep, fewer errors and more time for the team to focus on analysis.</p></div>
-</div>
-
-</div>
-
-<div class="cta">
-<h2>Want to see this on your own data?</h2>
-<p>Let's set up a 30-minute intro and pick the use case that matters most to Top Bank.</p>
-<a class="btn" href="mailto:christopher.gan@snowflake.com?subject=Top%20Bank%20x%20Snowflake%20intro">Email Christopher Gan</a>
-<p style="margin-top:12px;font-size:13px;opacity:.8">christopher.gan@snowflake.com</p>
-</div>
-</div>
+<section id="next">
+  <div class="wrap">
+    <div class="cta-box">
+      <h2>Want to see this on your own data?</h2>
+      <p class="section-sub">Let's set up a 30-minute intro and pick the use case that matters most to Top Bank.</p>
+      <a href="mailto:christopher.gan@snowflake.com?subject=Top%20Bank%20x%20Snowflake%20intro">Email Christopher Gan</a>
+      <p class="note">christopher.gan@snowflake.com</p>
+    </div>
+  </div>
+</section>
 </main>
-<footer>Prepared by Snowflake for Top Bank. Figures shown are illustrative.</footer>
+
+<footer class="foot">
+  <div class="wrap"><p class="fine">Sample data shown for illustration. All numbers on this page are illustrative and are not Top Bank or customer results.</p></div>
+</footer>
+<script>
+(function(){
+  "use strict";
+  function $(id){ return document.getElementById(id); }
+  function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!==undefined) e.textContent=x; return e; }
+  function clear(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+  /* Card 2: customer segments */
+  var SEG=[
+    {n:"Salaried, app-active",c:6,x:78,cnt:"118K",keep:"Low risk. Keep engaged with payroll-linked perks.",offer:"Personal loan or credit card pre-approval."},
+    {n:"MSME owners",c:9,x:64,cnt:"52K",keep:"Watch falling deposit balances after peak season.",offer:"Working capital line or merchant QR."},
+    {n:"OFW families",c:11,x:57,cnt:"74K",keep:"Remittance drops are an early sign they may move.",offer:"Time deposit or education savings plan."},
+    {n:"Young digital savers",c:14,x:49,cnt:"96K",keep:"Highest churn risk: compare against e-wallet rates.",offer:"Goal-based savings and first credit card."},
+    {n:"Dormant savers",c:21,x:18,cnt:"72K",keep:"Reactivation campaign before they close.",offer:"Not a cross-sell priority yet."}
+  ];
+  var view="churn", sel=0, bars=$("cx-bars");
+  function drawSeg(){
+    clear(bars);
+    SEG.forEach(function(s,i){
+      var v=view==="churn"?s.c:s.x, w=view==="churn"?v*4:v;
+      var r=el("div","bar-row norank"+(i===sel?" sel":"")); r.setAttribute("role","button"); r.setAttribute("tabindex","0");
+      r.appendChild(el("span","",s.n)); var t=el("div","bar-track"); var b=el("div","bar"+(i===sel?" top":"")); b.style.width=Math.min(100,w)+"%"; t.appendChild(b); r.appendChild(t);
+      r.appendChild(el("span","bar-val",view==="churn"?v+"%":String(v)));
+      function pick(){ sel=i; drawSeg(); }
+      r.addEventListener("click",pick); r.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(); } });
+      bars.appendChild(r);
+    });
+    $("cx-title").textContent=view==="churn"?"Share of segment likely to leave in 90 days (click a segment)":"Cross-sell readiness score, 0 to 100 (click a segment)";
+    var s=SEG[sel], d=$("cx-detail"); clear(d);
+    d.appendChild(el("b","",s.n+" ("+s.cnt+" customers)")); d.appendChild(el("div","",view==="churn"?"Retention: "+s.keep:"Next best offer: "+s.offer));
+  }
+  document.querySelectorAll("[data-view]").forEach(function(btn){ btn.addEventListener("click",function(){ view=btn.getAttribute("data-view"); document.querySelectorAll("[data-view]").forEach(function(b){ b.classList.toggle("on",b===btn); }); drawSeg(); }); });
+  drawSeg();
+  /* Card 3: credit risk */
+  var ACC=[["LN-20418","Salary loan",185000,91,"2 late payments, salary credit stopped"],["LN-31877","MSME loan",1250000,84,"Deposits down 60% in 2 months"],["CC-55102","Credit card",96000,78,"Minimum payment only, near limit"],["LN-18833","Auto loan",640000,72,"Missed app logins, partial payment"],["LN-40291","Housing loan",2900000,66,"Payroll employer changed"],["CC-61740","Credit card",42000,58,"Cash advances rising"],["LN-27715","Salary loan",120000,51,"One late payment last year"],["LN-33090","MSME loan",780000,44,"Seasonal dip, normally recovers"]];
+  function fmt(n){ return n>=1e6?"PHP "+(Math.round(n/1e5)/10)+"M":"PHP "+Math.round(n/1e3)+"K"; }
+  function drawCr(){
+    var cut=+$("cr-cut").value, tb=$("cr-body"), k=0, amt=0; $("cr-v").textContent=cut; clear(tb);
+    ACC.forEach(function(a){
+      var on=a[3]>=cut, tr=el("tr",on?(a[3]>=80?"hi":a[3]>=65?"md":"lo"):"off");
+      if(on){ k++; amt+=a[2]; }
+      var cells=[on?String(k):"-",a[0],a[1],a[2].toLocaleString("en-PH"),null,a[4]], hd=["Call order","Account","Product","Balance (PHP)","Risk score","Why"];
+      cells.forEach(function(c,i){ var td=el("td",i===1?"mono":"",c===null?undefined:c); if(c===null){ td.appendChild(el("span","risk "+(a[3]>=80?"high":a[3]>=65?"med":"low"),String(a[3]))); } td.setAttribute("data-label",hd[i]); tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+    $("cr-n").textContent=k+" accounts flagged"; $("cr-amt").textContent=fmt(amt)+" balance to protect";
+  }
+  $("cr-cut").addEventListener("input",drawCr); drawCr();
+  /* Card 4: fraud feed */
+  var AL=[["09:42","PHP 48,500 InstaPay transfer to a new recipient","high",["New device logged in 6 minutes earlier","Recipient account opened 3 days ago","Amount is 9x this customer's usual transfer"],"Hold transfer and confirm with customer by call"],
+          ["10:15","5 card purchases in 4 minutes, online merchants","high",["Card normally used in Cebu, now abroad","Rapid small amounts, typical card testing","Merchant category never used before"],"Block card and send replacement"],
+          ["11:03","Password reset then full balance transfer","med",["Reset from a new phone number","Login at 3 AM, unusual for this customer"],"Step-up verification before release"],
+          ["12:20","Several accounts sending to one mule account","med",["7 unrelated customers paid the same account today","Recipient linked to a past fraud case"],"Flag recipient and review linked accounts"]];
+  var fs=0, feed=$("fr-feed");
+  function drawFr(){
+    clear(feed);
+    AL.forEach(function(a,i){ var b=el("button",i===fs?"sel":""); b.type="button"; b.appendChild(el("span","",a[0]+"  "+a[1])); b.appendChild(el("span","risk "+a[2],a[2]==="high"?"High":"Medium")); b.addEventListener("click",function(){ fs=i; drawFr(); }); feed.appendChild(b); });
+    var a=AL[fs], w=$("fr-why"); clear(w); w.appendChild(el("b","","Why this was flagged")); var ul=el("ul"); a[3].forEach(function(x){ ul.appendChild(el("li","",x)); }); w.appendChild(ul); w.appendChild(el("div","","Suggested action: "+a[4]));
+  }
+  drawFr();
+  /* Card 5: BSP */
+  var TL={before:[["Day 1-3","Pull data from systems","slow"],["Day 4-6","Rebuild in spreadsheets","slow"],["Day 7-8","Reconcile to ledger","slow"],["Day 9","Review","slow"],["Day 10","Submit",""]],
+          after:[["Hour 1","Data already in one place","fast"],["Hour 2","AI drafts schedules","fast"],["Hour 3","Auto-reconciled","fast"],["Day 1","Review exceptions",""],["Day 2","Submit",""]]};
+  function drawTl(k){ var t=$("bsp-tl"); clear(t); TL[k].forEach(function(x){ var d=el("div",x[2]); d.appendChild(el("b","",x[0])); d.appendChild(document.createTextNode(x[1])); t.appendChild(d); }); }
+  document.querySelectorAll("[data-tl]").forEach(function(btn){ btn.addEventListener("click",function(){ drawTl(btn.getAttribute("data-tl")); document.querySelectorAll("[data-tl]").forEach(function(b){ b.classList.toggle("on",b===btn); }); }); });
+  drawTl("before");
+  var CH=[["Loan portfolio schedule filled from source","ok"],["Deposit schedule filled from source","ok"],["Totals reconciled to general ledger","ok"],["3 loans missing industry code, sent for review","warn"],["Commentary drafted for variances above 10%","ok"]];
+  var ck=$("bsp-checks");
+  function drawCk(done){ clear(ck); CH.forEach(function(x){ var li=el("li"); var s=done?x[1]:"no"; li.appendChild(el("span","ck "+(s==="ok"?"ok":s==="warn"?"wait":"no"),s==="ok"?"\u2713":s==="warn"?"!":"\u2715")); li.appendChild(document.createTextNode(x[0])); ck.appendChild(li); }); }
+  drawCk(false);
+  $("bsp-ai").addEventListener("click",function(){ var b=this; b.disabled=true; b.textContent="Preparing..."; setTimeout(function(){ drawCk(true); b.textContent="Done: 1 item needs a human check"; },900); });
+})();
+</script>
 </body>
 </html>
