@@ -5,6 +5,7 @@ A single-page, personalized preview of data and AI use cases, built for specific
 ## How it works
 
 The page is one static file (`index.html`) served by GitHub Pages. It changes based on URL parameters:
+Also includes specific html formatting for a single person
 
 | Parameter | What it does | Example |
 |---|---|---|
