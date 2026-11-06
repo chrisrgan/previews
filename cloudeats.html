@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="snowflake-source" content="cortex-agent-authored">
+<title>CloudEats x Snowflake</title>
+<script type="application/json" id="snowflake-report-metadata">
+{"generated":"2026-11-06","intent":"Custom prospect landing page for Hammad Ahmad (CTO, CloudEats) ",
+"sections":[{"id":"hero","title":"Hero"},{"id":"forecast","title":"Demand forecasting per kitchen per hour","producerNotes":"Illustrative sample data only, generated in-page."},{"id":"usecases","title":"AI-powered workflow per use case","producerNotes":"Illustrative sample data generated in-page with a seeded generator."},{"id":"menu","title":"Menu and brand optimization per app","producerNotes":"Illustrative sample data only."},{"id":"team","title":"Complementing the internal team"},{"id":"customers","title":"Customers"},{"id":"platform","title":"Platform overview diagram"}]}
+</script>
+<style>
+:root{color-scheme:light dark;--sf:#29B5E8;--mid:#11567F;--navy:#0B2A44;
+--bg:light-dark(#f7fbfe,#0a1622);--card:light-dark(#ffffff,#112334);--ink:light-dark(#0f2233,#e6f1f8);--mute:light-dark(#5a6b7b,#9db3c4);--line:light-dark(#dde9f2,#1f3a52)}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Segoe UI",Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+img,svg{max-width:100%;height:auto}
+.wrap{max-width:1040px;width:100%;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+header.top{position:sticky;top:0;z-index:5;background:light-dark(rgba(255,255,255,.9),rgba(10,22,34,.9));border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo span.x{color:var(--mute);font-weight:400}
+.btn{display:inline-block;background:var(--sf);color:#fff;text-decoration:none;font-weight:600;padding:11px 20px;border-radius:999px;border:0;cursor:pointer;font-size:15px}
+.btn.ghost{background:transparent;color:var(--sf);border:1.5px solid var(--sf)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--mid) 60%,var(--sf));color:#fff;padding:clamp(48px,8vw,90px) 0}
+.hero h1{font-size:clamp(30px,5vw,50px);line-height:1.1;margin:.2em 0 .4em;letter-spacing:-.02em}
+.hero p{font-size:clamp(16px,2.2vw,19px);max-width:680px;opacity:.92}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:700;color:#bfe9fa}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 28px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:6px 12px;border-radius:999px;font-size:13px}
+section{padding:clamp(40px,6vw,70px) 0}
+h2{font-size:clamp(24px,3.4vw,34px);margin:0 0 8px;letter-spacing:-.01em}
+.lead{color:var(--mute);max-width:720px;margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h3{margin:10px 0 6px;font-size:18px}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.ic{width:42px;height:42px;border-radius:12px;background:light-dark(#e6f6fd,#14354d);display:grid;place-items:center}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(16px,3vw,26px)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.seg{border:1px solid var(--line);background:transparent;color:var(--ink);padding:7px 14px;border-radius:999px;cursor:pointer;font-size:14px}
+.seg.on{background:var(--sf);border-color:var(--sf);color:#fff}
+.chartbox{width:100%;height:260px}
+.chartbox svg{width:100%;height:100%}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:22px;color:var(--sf)}
+.kpi span{font-size:13px;color:var(--mute)}
+.note{font-size:12px;color:var(--mute);margin-top:10px}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--mute);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.tag{font-size:12px;padding:3px 9px;border-radius:999px;font-weight:600}
+.push{background:light-dark(#dcf5e7,#123b27);color:light-dark(#11733f,#7be0a6)}
+.hold{background:light-dark(#fff2d6,#3d3010);color:light-dark(#8a5d00,#f2c86b)}
+.cut{background:light-dark(#fde2e2,#3f1717);color:light-dark(#a12626,#f19a9a)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;align-items:stretch}
+.step{border-left:3px solid var(--sf);padding:6px 14px}
+.step b{display:block}
+.step span{color:var(--mute);font-size:14px}
+.logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.logos .card b{font-size:20px}
+.cta{background:linear-gradient(135deg,var(--navy),var(--mid));color:#fff;border-radius:22px;padding:clamp(28px,5vw,48px);text-align:center}
+.cta p{opacity:.9;max-width:600px;margin:10px auto 22px}
+.slots{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:22px}
+.slot{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:10px 16px;border-radius:12px;font-size:14px}
+
+.diagram{margin-top:34px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:clamp(16px,3vw,26px)}
+.diagram h3{margin:0 0 4px;font-size:18px}.diagram .sub{opacity:.8;font-size:14px;margin:0 0 18px}
+.dg{display:grid;grid-template-columns:1fr auto 1.1fr auto 1fr;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:8px}
+.src,.out{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 12px;font-size:14px}
+.out{background:rgba(41,181,232,.25)}
+.arrow{font-size:28px;opacity:.85;text-align:center}
+.core{background:#fff;color:#11567F;border-radius:18px;padding:20px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.core b{font-size:22px;display:block;margin:6px 0}.core small{display:block;color:#5a6b7b;font-size:13px;line-height:1.5}
+.core .pill{display:inline-block;background:#e6f6fd;color:#11567F;border-radius:999px;padding:3px 9px;font-size:12px;margin:3px 2px 0}
+@media (max-width:760px){.dg{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.col{flex-direction:row;flex-wrap:wrap}.src,.out{flex:1 1 140px}}
+.uc{cursor:pointer;transition:border-color .2s,transform .2s;text-align:left;font:inherit;color:inherit;width:100%}
+.uc:hover{border-color:var(--sf);transform:translateY(-2px)}
+.uc.open{border-color:var(--sf)}
+.uc .more{font-size:13px;color:var(--sf);font-weight:600;margin-top:10px;display:block}
+.demo{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);cursor:default}
+.uc.open .demo{display:block}
+.mini{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.mini button{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 11px;border-radius:999px;font-size:13px;cursor:pointer}
+.mini button.on{background:var(--sf);color:#fff;border-color:var(--sf)}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:4px 0 10px}.bar i{display:block;height:100%;background:var(--sf);transition:width .4s}
+.out2{font-size:14px;color:var(--ink)}.out2 b{color:var(--sf)}
+input[type=range]{width:100%;accent-color:#29B5E8}
+.ans{background:light-dark(#f1f9fd,#0d2a3e);border-radius:10px;padding:10px 12px;font-size:14px;margin-top:6px}
+
+.ws{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.wsbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:light-dark(#0B2A44,#07131e);color:#cfe9f7;font-size:13px;flex-wrap:wrap}
+.wsbar .dot{width:10px;height:10px;border-radius:50%;background:#ff5f57;box-shadow:16px 0 #febc2e,32px 0 #28c840;margin-right:36px}
+.wsbar code{background:rgba(255,255,255,.1);padding:2px 8px;border-radius:6px;font-size:12px}
+.wstabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);background:light-dark(#f3f8fb,#0d1d2b)}
+.wstabs button{flex:0 0 auto;border:0;background:transparent;color:var(--mute);padding:12px 16px;font:inherit;font-size:14px;cursor:pointer;border-bottom:2px solid transparent}
+.wstabs button.on{color:var(--sf);border-bottom-color:var(--sf);font-weight:600}
+.wsbody{padding:clamp(14px,2.5vw,22px)}
+.pane{display:none}.pane.on{display:block}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.row label{font-size:13px;color:var(--mute);display:flex;align-items:center;gap:6px}
+select,.ws input[type=text]{font:inherit;font-size:14px;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.tg{border:1px solid var(--line);background:transparent;color:var(--ink);padding:6px 12px;border-radius:999px;font-size:13px;cursor:pointer}
+.tg.on{background:var(--sf);border-color:var(--sf);color:#fff}
+.run{background:#11567F;color:#fff;border:0;border-radius:8px;padding:8px 16px;font-weight:600;cursor:pointer}
+.sql{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:light-dark(#0f2233,#050d14);color:#bfe9fa;border-radius:10px;padding:12px 14px;white-space:pre-wrap;overflow-x:auto;margin:0 0 10px}
+.sql .k{color:#7fd3f5;font-weight:700}
+.dt{width:100%;border-collapse:collapse;font-size:13px;min-width:460px}
+.dt th{cursor:pointer;user-select:none;white-space:nowrap}
+.dt th:after{content:" \2195";opacity:.35}
+.dt td,.dt th{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left}
+.dt td.n{text-align:right;font-variant-numeric:tabular-nums}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.svgc{width:100%;height:230px}.svgc svg{width:100%;height:100%;color:var(--mute)}
+.meta{font-size:12px;color:var(--mute);margin:6px 0}
+.ok{color:#1f9d55;font-weight:600}
+.chat{border:1px solid var(--line);border-radius:12px;height:300px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.msg{max-width:85%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.45}
+.msg.u{align-self:flex-end;background:var(--sf);color:#fff}
+.msg.a{align-self:flex-start;background:var(--card);border:1px solid var(--line)}
+.msg.a small{display:block;color:var(--mute);font-size:11px;margin-top:6px}
+.rank{display:grid;grid-template-columns:28px 1fr 90px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rank .b{height:8px;border-radius:5px;background:var(--sf)}
+.rank em{font-style:normal;font-size:12px;color:var(--mute)}
+
+.agent{display:flex;gap:12px;background:light-dark(#eef8fd,#0e2a3d);border:1px solid light-dark(#cdeaf7,#1d4a66);border-radius:14px;padding:14px;margin-top:14px}
+.agent .av{flex:0 0 36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#29B5E8,#11567F);display:grid;place-items:center;color:#fff;font-size:18px}
+.agent .tx{font-size:14px;line-height:1.55;flex:1;min-width:0}
+.agent .tx b{color:light-dark(#11567F,#7fd3f5)}
+.agent h4{margin:0 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.act{border:1px solid var(--sf);color:var(--sf);background:transparent;border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.act.done{background:#1f9d55;border-color:#1f9d55;color:#fff}
+.flag{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.flag:last-child{border-bottom:0}
+.typing:after{content:"▍";animation:bl 1s infinite;color:var(--sf)}@keyframes bl{50%{opacity:0}}
+.apps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.appc{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--bg)}
+.appc .big{font-size:28px;font-weight:700}
+.appc .sm{font-size:13px;color:var(--mute)}
+.stk{display:flex;height:14px;border-radius:8px;overflow:hidden;margin:6px 0}
+.stk i{display:block;height:100%}
+.krow{display:grid;grid-template-columns:70px 1fr 60px;gap:10px;align-items:center;font-size:14px;padding:6px 0}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.legend span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;background:var(--c);vertical-align:-1px}
+.feed{font-size:13px;max-height:170px;overflow:hidden}
+.feed div{padding:6px 0;border-bottom:1px solid var(--line);animation:fi .5s}
+@keyframes fi{from{opacity:0;transform:translateY(-6px)}}
+.shifts{position:relative;font-size:12px}
+.shift{display:grid;grid-template-columns:110px 1fr;gap:8px;align-items:center;margin:5px 0}
+.track{position:relative;height:22px;background:var(--line);border-radius:6px}
+.track i{position:absolute;top:0;height:100%;border-radius:6px;background:#29B5E8;color:#fff;font-style:normal;font-size:11px;display:flex;align-items:center;padding-left:6px;white-space:nowrap;overflow:hidden}
+.track i.x{background:#11567F}
+.msgbox{white-space:pre-wrap;font-size:13px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px}
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.cmp .kpi b{font-size:18px}
+.up{color:#1f9d55}.dn{color:#d14343}
+footer{padding:30px 0;color:var(--mute);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+ <div class="logo">
+  <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><g stroke="#29B5E8" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="3.3" y1="7" x2="20.7" y2="17"/><line x1="3.3" y1="17" x2="20.7" y2="7"/></g></svg>
+  Snowflake <span class="x">x</span> CloudEats
+ </div>
+</div></header>
+
+<div class="hero" id="hero"><div class="wrap">
+ <div class="eyebrow">Prepared for Hammad Ahmad, CTO</div>
+ <h1>Know every kitchen's next rush before it hits.</h1>
+ <p>CloudEats already has a strong internal data team. This page shows where Snowflake can sit alongside them: one governed home for every delivery app, POS and kitchen feed, so forecasting, staffing and menu decisions run faster with AI built on the data you already have.</p>
+ <div class="chips"><span class="chip">Per-kitchen, per-hour demand</span><span class="chip">GrabFood + foodpanda in one view</span><span class="chip">AI on your own data</span><span class="chip">Works with your stack</span></div>
+ <a class="btn" href="#forecast">See it in action</a>
+ <div class="diagram" id="platform">
+  <h3>What Snowflake is, in one picture</h3>
+  <p class="sub">Every CloudEats data source lands in one governed place. Your team and AI work from the same numbers.</p>
+  <div class="dg">
+   <div class="col"><div class="src">GrabFood</div><div class="src">foodpanda</div><div class="src">Own app / POS</div><div class="src">Kitchen ops</div><div class="src">Inventory</div><div class="src">Staffing</div><div class="src">Marketing</div></div>
+   <div class="arrow">&rarr;</div>
+   <div class="core"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><g stroke="#29B5E8" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="3.3" y1="7" x2="20.7" y2="17"/><line x1="3.3" y1="17" x2="20.7" y2="7"/></g></svg><b>Snowflake</b><small>One AI Data Platform for all kitchens, brands and markets</small><span class="pill">Store</span><span class="pill">Govern</span><span class="pill">Share</span><span class="pill">AI built in</span></div>
+   <div class="arrow">&rarr;</div>
+   <div class="col"><div class="out">AI forecasts</div><div class="out">Dashboards</div><div class="out">Reports</div><div class="out">AI assistant</div><div class="out">Better decisions</div></div>
+  </div>
+ </div>
+</div></div>
+
+<section id="forecast"><div class="wrap">
+ <h2>Order demand, per kitchen, per hour</h2>
+ <p class="lead">Pick a kitchen and day. The forecast blends order history, delivery-app promos, weather and paydays (15th / 30th) to predict hourly orders, then turns it into prep and staffing calls.</p>
+ <div class="panel">
+  <div class="controls" id="kitchens"></div>
+  <div class="controls" id="days"></div>
+  <div class="chartbox" id="chart"></div>
+  <div class="kpis">
+   <div class="kpi"><b id="kPeak">-</b><span>Predicted peak hour</span></div>
+   <div class="kpi"><b id="kOrders">-</b><span>Forecast orders today</span></div>
+   <div class="kpi"><b id="kStaff">-</b><span>Crew needed at peak</span></div>
+   <div class="kpi"><b id="kPrep">-</b><span>Start prep by</span></div>
+  </div>
+  <div class="note">Illustrative sample data for discussion, not CloudEats actuals.</div>
+ </div>
+</div></section>
+
+<section id="usecases" style="padding-top:0"><div class="wrap">
+ <h2>Where we can help: AI that works alongside your team</h2>
+ <p class="lead">Each tab is an AI assistant workflow, not a dashboard: it reads all your order data, explains what's happening, recommends what to do, and lets you ask or test ideas in plain language. Everything below uses <b>illustrative sample data</b> (4 kitchens, 3 apps, 7 days, hourly), not CloudEats actuals.</p>
+ <div class="ws">
+  <div class="wsbar"><span class="dot"></span>CLOUDEATS_PH <code>DB: CLOUDEATS.ANALYTICS</code><code>WH: KITCHEN_WH (XS)</code><span style="margin-left:auto">Illustrative demo</span></div>
+  <div class="wstabs" id="wsTabs">
+   <button class="on" data-p="p1">📲 All apps, one place</button><button data-p="p2">📈 AI demand forecast</button><button data-p="p3">👩‍🍳 AI prep &amp; staffing</button><button data-p="p4">🍔 Menu what-ifs</button><button data-p="p5">✨ Ask Cortex AI</button>
+  </div>
+  <div class="wsbody">
+   <div class="pane on" id="p1">
+    <div class="row"><label>Day <select id="uD"></select></label><span class="meta">GrabFood, foodpanda and your own channel, landing in one place automatically. No exports.</span></div>
+    <div class="apps3" id="uApps"></div>
+    <div style="margin-top:16px"><b style="font-size:14px">Orders by kitchen, all apps</b> <span class="legend"><span style="--c:#00B14F">GrabFood</span><span style="--c:#D70F64">foodpanda</span><span style="--c:#29B5E8">Own channel</span></span></div>
+    <div id="uK"></div>
+    <div class="split" style="margin-top:12px">
+     <div><b style="font-size:14px">Live order stream</b><div class="feed" id="uFeed"></div></div>
+     <div class="agent" style="margin-top:0"><div class="av">✨</div><div class="tx"><h4>AI daily brief</h4><div id="uBrief"></div></div></div>
+    </div>
+   </div>
+   <div class="pane" id="p2">
+    <div class="row"><label>Kitchen <select id="fcK"><option>BGC</option><option>Makati</option><option>QC</option><option>Pasig</option></select></label>
+     <label>Day <select id="fcD"></select></label>
+     <button class="tg" data-f="rain">🌧 Heavy rain</button><button class="tg" data-f="pay">💸 Payday</button><button class="tg" data-f="promo">🏷 App promo</button></div>
+    <div class="svgc" id="fcChart" style="height:230px"></div>
+    <div class="meta">Grey = same day last week · Line = AI forecast with confidence band</div>
+    <div class="agent"><div class="av">✨</div><div class="tx"><h4>Forecast agent</h4><div id="fcAI"></div>
+     <div id="fcFlags" style="margin-top:8px"></div>
+     <div class="acts" id="fcActs"></div></div></div>
+    <div class="row" style="margin-top:12px" id="fcChips"></div>
+    <div class="agent" id="fcAnsWrap" style="display:none"><div class="av">✨</div><div class="tx" id="fcAns"></div></div>
+   </div>
+   <div class="pane" id="p3">
+    <div class="row"><label>Kitchen <select id="psK"><option>BGC</option><option>Makati</option><option>QC</option><option>Pasig</option></select></label>
+     <label>Day <select id="psD"></select></label><button class="run" id="psGo">✨ Plan my day</button></div>
+    <div class="agent"><div class="av">✨</div><div class="tx"><h4>Kitchen planning copilot</h4><div id="psAI">Pick a kitchen and day, then tap <b>Plan my day</b>. I'll use the forecast to build the roster and prep plan.</div>
+     <div class="acts" id="psAdj"></div></div></div>
+    <div id="psPlan" style="display:none">
+     <div class="split" style="margin-top:14px">
+      <div><b style="font-size:14px">AI-suggested roster</b><div class="shifts" id="psShifts"></div></div>
+      <div><b style="font-size:14px">Prep list (ready 2 hrs before each peak)</b><div class="table-wrap"><table class="dt" id="psPrep"></table></div></div>
+     </div>
+     <div class="cmp"><div class="kpi"><b id="psCrew">-</b><span>Crew-hours</span></div><div class="kpi"><b id="psSave">-</b><span>vs usual flat roster</span></div><div class="kpi"><b id="psWaste">-</b><span>Food waste avoided</span></div></div>
+     <div class="acts"><button class="act" id="psMsg">✉️ Draft message to kitchen lead</button></div>
+     <div class="msgbox" id="psMsgBox" style="display:none"></div>
+    </div>
+   </div>
+   <div class="pane" id="p4">
+    <p class="meta" style="margin-top:0">Ask "what if" and the AI simulates the impact on orders and profit before you change anything on the apps.</p>
+    <div class="row" id="wiChips"></div>
+    <div class="row"><b style="font-size:14px">Or build one:</b>
+     <label>App <select id="wiA"><option>GrabFood</option><option>foodpanda</option><option>Own channel</option></select></label>
+     <label>Item <select id="wiI"></select></label>
+     <label>Change <select id="wiC"><option value="price">Raise price</option><option value="cut">Cut price</option><option value="promo">Run a promo</option><option value="hide">Hide item</option></select></label>
+     <label>By <select id="wiV"><option>10</option><option selected>20</option><option>30</option></select> <span id="wiU">PHP</span></label>
+     <label>When <select id="wiW"><option>All week</option><option>Friday night</option><option>Weekend</option><option>Lunch</option></select></label>
+     <button class="run" id="wiGo">✨ Simulate</button></div>
+    <div class="agent"><div class="av">✨</div><div class="tx"><h4>What-if simulator</h4><div id="wiAI">Pick a scenario above.</div></div></div>
+    <div class="cmp" id="wiCmp"></div>
+    <div class="svgc" id="wiChart" style="height:200px;margin-top:10px"></div>
+   </div>
+   <div class="pane" id="p5">
+    <div class="row" id="aiChips"></div>
+    <div class="chat" id="chat"><div class="msg a">Hi! I'm an AI assistant on CloudEats' sample order data. Ask about kitchens, apps, peak hours, rain, menu items or staffing.<small>Grounded on CLOUDEATS.ANALYTICS (illustrative)</small></div></div>
+    <div class="row" style="margin-top:10px"><input type="text" id="aiIn" placeholder="e.g. Which kitchen grew most this week?" style="flex:1;min-width:200px"><button class="run" id="aiGo">Ask</button></div>
+   </div>
+  </div>
+ </div>
+</div></section>
+
+<section id="menu" style="padding-top:0"><div class="wrap">
+ <h2>What to push on each app</h2>
+ <p class="lead">Same menu, different winners. Toggle the app to see item-level recommendations.</p>
+ <div class="panel">
+  <div class="controls" id="apps"></div>
+  <div class="table-wrap"><table><thead><tr><th>Item</th><th>Brand</th><th>Orders / wk</th><th>Margin</th><th>Action</th></tr></thead><tbody id="menuBody"></tbody></table></div>
+  <div class="note">Illustrative sample data for discussion.</div>
+ </div>
+</div></section>
+
+<section id="team" style="padding-top:0"><div class="wrap">
+ <h2>Built to complement your team, not replace it</h2>
+ <p class="lead">Your engineers keep ownership. Snowflake takes on the heavy lifting so they spend time on models and decisions, not plumbing.</p>
+ <div class="flow">
+  <div class="step"><b>1. Keep what works</b><span>Plug into existing pipelines, tools and BI. No rip-and-replace.</span></div>
+  <div class="step"><b>2. Find the gaps</b><span>Quick review of where data is fragmented, slow or hard to share.</span></div>
+  <div class="step"><b>3. Prove one use case</b><span>Pick a kitchen-level forecast or app-mix view and stand it up together.</span></div>
+  <div class="step"><b>4. Scale across markets</b><span>Same governed setup for PH and the rest of SEA, with per-market access.</span></div>
+ </div>
+</div></section>
+
+<section id="customers" style="padding-top:0"><div class="wrap">
+ <h2>Trusted by food and delivery leaders</h2>
+ <div class="logos">
+  <div class="card"><b>DoorDash</b><p>Runs its delivery marketplace analytics and ML on Snowflake at global scale.</p></div>
+  <div class="card"><b>Grab</b><p>Southeast Asia's superapp, including GrabFood, uses Snowflake as part of its data platform.</p></div>
+  <div class="card"><b>Jollibee</b><p>The Philippines' leading QSR group uses Snowflake for its data and analytics.</p></div>
+ </div>
+</div></section>
+
+
+<footer>Prepared for CloudEats by Snowflake &middot; Sample figures are illustrative only.</footer>
+
+<script>
+(function(){
+ var kitchens={"BGC":1.25,"Makati":1.1,"Quezon City":1.0,"Pasig":0.85};
+ var days={"Weekday":1.0,"Friday":1.25,"Payday (15th/30th)":1.45,"Sunday":1.15};
+ var base=[0,0,0,0,0,0,4,10,16,22,40,95,130,78,40,30,34,55,112,150,120,70,35,12];
+ var st={k:"BGC",d:"Weekday",a:"GrabFood"};
+ function pills(id,obj,key,cb){var el=document.getElementById(id);el.innerHTML="";Object.keys(obj).forEach(function(n){var b=document.createElement("button");b.className="seg"+(st[key]===n?" on":"");b.textContent=n;b.addEventListener("click",function(){st[key]=n;pills(id,obj,key,cb);cb();});el.appendChild(b);});}
+ function draw(){
+  var m=kitchens[st.k]*days[st.d];
+  var h=base.map(function(v,i){return Math.round(v*m*(1+0.04*Math.sin(i*1.7)));});
+  var s=h.slice(8,24),W=700,H=240,pad=28,mx=Math.max.apply(null,s)*1.1,bw=(W-pad*2)/s.length;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">';
+  s.forEach(function(v,i){var bh=(H-pad*1.6)*v/mx,x=pad+i*bw+3,y=H-pad-bh,pk=v===Math.max.apply(null,s);
+   svg+='<rect x="'+x+'" y="'+y+'" width="'+(bw-6)+'" height="'+bh+'" rx="4" fill="'+(pk?'#11567F':'#29B5E8')+'"/>';
+   svg+='<text x="'+(x+(bw-6)/2)+'" y="'+(H-pad+16)+'" font-size="11" text-anchor="middle" fill="currentColor" opacity=".6">'+((i+8)%12||12)+((i+8)<12?'a':'p')+'</text>';});
+  svg+='</svg>';document.getElementById("chart").innerHTML=svg;
+  var peak=s.indexOf(Math.max.apply(null,s))+8,tot=h.reduce(function(a,b){return a+b;},0);
+  function fmt(x){return ((x%12)||12)+(x<12?" AM":" PM");}
+  document.getElementById("kPeak").textContent=fmt(peak);
+  document.getElementById("kOrders").textContent=tot.toLocaleString();
+  document.getElementById("kStaff").textContent=Math.ceil(Math.max.apply(null,s)/18)+" crew";
+  document.getElementById("kPrep").textContent=fmt(peak-2);
+ }
+ var menu={
+  "GrabFood":[["Chicken Inasal Bowl","Brand A","1,240","High","push"],["Korean Fried Chicken","Brand B","980","Med","push"],["Truffle Pasta","Brand C","410","High","hold"],["Breakfast Silog","Brand A","160","Low","cut"]],
+  "foodpanda":[["Korean Fried Chicken","Brand B","1,310","Med","push"],["Milk Tea Combo","Brand D","870","High","push"],["Chicken Inasal Bowl","Brand A","520","High","hold"],["Truffle Pasta","Brand C","140","High","cut"]],
+  "Own channel":[["Family Bundle","Brand A","450","High","push"],["Truffle Pasta","Brand C","380","High","push"],["Milk Tea Combo","Brand D","210","High","hold"],["Breakfast Silog","Brand A","90","Low","cut"]]};
+ var lbl={push:"Push / promo",hold:"Keep",cut:"Rework or drop"};
+ function tbl(){document.getElementById("menuBody").innerHTML=menu[st.a].map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td><span class="tag '+r[4]+'">'+lbl[r[4]]+'</span></td></tr>';}).join("");}
+ pills("kitchens",kitchens,"k",draw);pills("days",days,"d",draw);pills("apps",menu,"a",tbl);draw();tbl();
+})();
+</script>
+
+<script>
+(function(){
+var K=["BGC","Makati","QC","Pasig"],A=["GrabFood","foodpanda","Own channel"],D=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+var KM={BGC:1.3,Makati:1.12,QC:1.0,Pasig:0.8},AM={GrabFood:0.47,foodpanda:0.38,"Own channel":0.15},DM=[0.92,0.9,0.95,1.0,1.22,1.3,1.15];
+var HC=[0,0,0,0,0,0,2,6,10,14,26,62,84,50,26,20,22,36,72,96,78,46,24,9];
+var TK={GrabFood:318,foodpanda:296,"Own channel":372},LATE={BGC:6.1,Makati:8.4,QC:5.2,Pasig:4.6};
+var seed=7;function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647;}
+var R=[];D.forEach(function(d,di){K.forEach(function(k){A.forEach(function(a){for(var h=8;h<24;h++){var o=Math.round(HC[h]*KM[k]*AM[a]*DM[di]*(0.85+rnd()*0.3));R.push({day:d,kitchen:k,app:a,hour:h,orders:o,gmv:Math.round(o*TK[a]*(0.92+rnd()*0.16))});}});});});
+function $(i){return document.getElementById(i);}
+function fmt(n){return Math.round(n).toLocaleString();}
+function hr(h){return ((h%12)||12)+(h<12?"am":"pm");}
+function sum(a,f){return a.reduce(function(s,r){return s+f(r);},0);}
+function grp(rows,key,val){var m={};rows.forEach(function(r){var k=typeof key=="function"?key(r):r[key];m[k]=(m[k]||0)+val(r);});return m;}
+/* tabs */
+document.querySelectorAll("#wsTabs button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("#wsTabs button").forEach(function(x){x.classList.remove("on");});document.querySelectorAll(".pane").forEach(function(x){x.classList.remove("on");});b.classList.add("on");$(b.dataset.p).classList.add("on");});});
+
+document.querySelectorAll("#wsTabs button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("#wsTabs button").forEach(function(x){x.classList.remove("on");});document.querySelectorAll(".pane").forEach(function(x){x.classList.remove("on");});b.classList.add("on");$(b.dataset.p).classList.add("on");});});
+var AC={GrabFood:"#00B14F",foodpanda:"#D70F64","Own channel":"#29B5E8"};
+function say(el,html,cb){el.classList.add("typing");el.innerHTML="Thinking";setTimeout(function(){el.classList.remove("typing");el.innerHTML=html;if(cb)cb();},550);}
+function bars(el,labels,vals,opt){opt=opt||{};var W=560,H=210,p=34,mx=Math.max.apply(null,vals.concat(opt.line||[]).concat(opt.hi||[]))*1.12||1,n=vals.length,bw=(W-p*1.4)/n;
+ var s='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">';
+ for(var g=0;g<=4;g++){var y=H-p-(H-p*1.5)*g/4;s+='<line x1="'+p+'" x2="'+W+'" y1="'+y+'" y2="'+y+'" stroke="currentColor" opacity=".12"/><text x="'+(p-4)+'" y="'+(y+3)+'" font-size="10" text-anchor="end" fill="currentColor">'+fmt(mx*g/4)+'</text>';}
+ vals.forEach(function(v,i){var bh=(H-p*1.5)*v/mx,x=p+i*bw+2,c=opt.colors?opt.colors[i]:(opt.grey?'#9fb3c3':'#29B5E8');s+='<rect x="'+x+'" y="'+(H-p-bh)+'" width="'+Math.max(2,bw-4)+'" height="'+bh+'" rx="3" fill="'+c+'" opacity="'+(opt.grey?.45:1)+'"><title>'+labels[i]+': '+fmt(v)+'</title></rect>';
+  s+='<text x="'+(x+bw/2-2)+'" y="'+(H-p+14)+'" font-size="10" text-anchor="middle" fill="currentColor">'+labels[i]+'</text>';});
+ function pt(a){return a.map(function(v,i){return (p+i*bw+bw/2)+","+(H-p-(H-p*1.5)*v/mx);}).join(" ");}
+ if(opt.hi){s+='<polygon points="'+pt(opt.hi)+' '+pt(opt.lo).split(" ").reverse().join(" ")+'" fill="#29B5E8" opacity=".18"/>';}
+ if(opt.line)s+='<polyline points="'+pt(opt.line)+'" fill="none" stroke="#11567F" stroke-width="3"/>';
+ el.innerHTML=s+'</svg>';}
+function table(el,cols,rows){el.innerHTML='<thead><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join("")+'</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(v){return typeof v=="number"?'<td class="n">'+fmt(v)+'</td>':'<td>'+v+'</td>';}).join("")+'</tr>';}).join("")+'</tbody>';}
+D.forEach(function(d){["uD","fcD","psD"].forEach(function(id){var o=document.createElement("option");o.textContent=d;$(id).appendChild(o);});});
+$("uD").value="Fri";$("fcD").value="Fri";$("psD").value="Fri";
+/* 1 all apps */
+function uni(){var d=$("uD").value,f=R.filter(function(r){return r.day==d;}),t=sum(f,function(r){return r.orders;});
+ var pd=D[(D.indexOf(d)+6)%7],pf=R.filter(function(r){return r.day==pd;});
+ $("uApps").innerHTML=A.map(function(a){var o=sum(f.filter(function(r){return r.app==a;}),function(r){return r.orders;}),po=sum(pf.filter(function(r){return r.app==a;}),function(r){return r.orders;}),g=sum(f.filter(function(r){return r.app==a;}),function(r){return r.gmv;}),ch=Math.round((o/po-1)*100);
+  return '<div class="appc" style="border-top:4px solid '+AC[a]+'"><div class="sm">'+a+'</div><div class="big">'+fmt(o)+'</div><div class="sm">orders · '+Math.round(o/t*100)+'% share</div><div class="sm">PHP '+fmt(g)+' sales · <span class="'+(ch>=0?'up':'dn')+'">'+(ch>=0?'▲':'▼')+Math.abs(ch)+'% vs '+pd+'</span></div></div>';}).join("")+
+  '<div class="appc"><div class="sm">All apps</div><div class="big">'+fmt(t)+'</div><div class="sm">orders across 4 kitchens</div><div class="sm">PHP '+fmt(sum(f,function(r){return r.gmv;}))+' sales</div></div>';
+ var mx=0,ks=K.map(function(k){var o=A.map(function(a){return sum(f.filter(function(r){return r.kitchen==k&&r.app==a;}),function(r){return r.orders;});});var tt=o[0]+o[1]+o[2];mx=Math.max(mx,tt);return [k,o,tt];});
+ $("uK").innerHTML=ks.map(function(x){return '<div class="krow"><b>'+x[0]+'</b><div class="stk" style="width:'+(x[2]/mx*100)+'%">'+x[1].map(function(v,i){return '<i style="width:'+(v/x[2]*100)+'%;background:'+AC[A[i]]+'"></i>';}).join("")+'</div><span class="meta">'+fmt(x[2])+'</span></div>';}).join("");
+ var top=ks.slice().sort(function(a,b){return b[2]-a[2];}),gs=A.map(function(a,i){return [a,sum(f.filter(function(r){return r.app==a;}),function(r){return r.orders;})/sum(pf.filter(function(r){return r.app==a;}),function(r){return r.orders;})-1];}).sort(function(a,b){return b[1]-a[1];});
+ say($("uBrief"),"<b>"+d+" recap:</b> "+fmt(t)+" orders across all apps. <b>"+top[0][0]+"</b> led with "+fmt(top[0][2])+"; "+top[3][0]+" was quietest. <b>"+gs[0][0]+"</b> grew fastest vs "+pd+" ("+(gs[0][1]>=0?"+":"")+Math.round(gs[0][1]*100)+"%). Own channel orders carry no app commission, so each one is worth about 20-30% more margin. Worth a push in "+top[3][0]+".");}
+$("uD").addEventListener("change",uni);
+var FD=["Inasal Bowl","Korean Fried Chicken","Milk Tea Combo","Family Bundle","Beef Tapa Silog","Spicy Ramen"];
+function feed(){var a=A[Math.floor(rnd()*3)],k=K[Math.floor(rnd()*4)],it=FD[Math.floor(rnd()*FD.length)],el=document.createElement("div");
+ el.innerHTML='<span style="color:'+AC[a]+';font-weight:700">●</span> '+a+' · '+k+' · '+it+' · PHP '+(150+Math.floor(rnd()*500));var fd=$("uFeed");fd.insertBefore(el,fd.firstChild);while(fd.children.length>6)fd.removeChild(fd.lastChild);}
+for(var i=0;i<5;i++)feed();setInterval(feed,2200);
+/* 2 forecast */
+var F={rain:false,pay:false,promo:false};
+function fcData(k,d){var base=[];for(var h=8;h<24;h++)base.push(sum(R.filter(function(r){return r.kitchen==k&&r.day==d&&r.hour==h;}),function(r){return r.orders;}));
+ var f=base.map(function(v,i){var h=i+8,m=1.04;if(F.pay)m*=1.28;if(F.promo)m*=1.15;if(F.rain)m*=(h>=17&&h<=21)?0.82:1.06;return Math.round(v*m);});return {base:base,f:f};}
+function fc(){var k=$("fcK").value,d=$("fcD").value,x=fcData(k,d),labs=[];for(var h=8;h<24;h++)labs.push(hr(h));
+ bars($("fcChart"),labs,x.base,{grey:true,line:x.f,hi:x.f.map(function(v){return v*1.1;}),lo:x.f.map(function(v){return v*0.9;})});
+ var t=x.f.reduce(function(a,b){return a+b;},0),b=x.base.reduce(function(a,b){return a+b;},0),ch=Math.round((t/b-1)*100);
+ var idx=x.f.map(function(v,i){return [v,i+8];}).sort(function(a,b){return b[0]-a[0];}),pk=idx[0][1],lp=x.f.slice(0,7).indexOf(Math.max.apply(null,x.f.slice(0,7)))+8;
+ var why=[];if(F.pay)why.push("payday (+28%)");if(F.promo)why.push("the app promo (+15%)");if(F.rain)why.push("rain, which cuts the dinner rush about 18% because fewer riders are out");
+ say($("fcAI"),"I expect <b>"+fmt(t)+" orders</b> at "+k+" on "+d+", <b>"+(ch>=0?"+":"")+ch+"%</b> vs last week. "+(why.length?"Main drivers: "+why.join(", ")+". ":"No special events detected, so this follows the normal "+d+" pattern. ")+"Confidence is "+(F.rain?"medium (weather adds uncertainty)":"high")+".",function(){
+  $("fcFlags").innerHTML='<div class="flag">🔥 <div><b>Dinner peak at '+hr(pk)+'</b>: about '+fmt(idx[0][0])+' orders that hour. Capacity gets tight from '+hr(pk-1)+'.</div></div><div class="flag">🍱 <div><b>Lunch peak at '+hr(lp)+'</b>: '+fmt(x.f[lp-8])+' orders. Start rice and marinades by '+hr(lp-2)+'.</div></div>'+(F.rain?'<div class="flag">🌧 <div><b>Rider shortage risk 6-8pm</b>: expect longer delivery times on GrabFood.</div></div>':'')+(ch>15?'<div class="flag">📦 <div><b>Stock check</b>: chicken and rice needs are about '+ch+'% above a normal '+d+'.</div></div>':'');
+  var acts=["Add "+Math.max(1,Math.round(idx[0][0]/18)-5)+" crew for "+hr(pk-1)+"-"+hr(pk+1),"Order extra stock today",F.rain?"Push own-channel pickup offer":"Turn on a "+hr(15)+" off-peak promo"];
+  $("fcActs").innerHTML=acts.map(function(a){return '<button class="act">'+a+'</button>';}).join("");
+  $("fcActs").querySelectorAll(".act").forEach(function(b){b.addEventListener("click",function(){b.classList.add("done");b.textContent="✓ "+b.textContent.replace(/^✓ /,"")+" (sent to ops)";});});});}
+document.querySelectorAll(".tg[data-f]").forEach(function(b){b.addEventListener("click",function(){F[b.dataset.f]=!F[b.dataset.f];b.classList.toggle("on");fc();});});
+["fcK","fcD"].forEach(function(i){$(i).addEventListener("change",fc);});
+var FQ=["Why is it higher than last week?","What if it rains tonight?","When should I start prep?","Which app will drive the peak?"];
+FQ.forEach(function(q,qi){var b=document.createElement("button");b.className="tg";b.textContent=q;b.addEventListener("click",function(){var k=$("fcK").value,d=$("fcD").value,x=fcData(k,d),pk=x.f.indexOf(Math.max.apply(null,x.f))+8;$("fcAnsWrap").style.display="flex";
+ var a=[(F.pay||F.promo?"Mostly the "+(F.pay?"payday ":"")+(F.pay&&F.promo?"and ":"")+(F.promo?"promo ":"")+"effect. ":"It's in line with recent "+d+"s. ")+"I also see a steady 4% week-on-week growth trend at "+k+".",
+  "Turning on rain: dinner drops about 18% (fewer riders) but 3-5pm orders rise about 6% as people order earlier. Toggle 🌧 above to see it on the chart.",
+  "Start lunch prep by <b>"+hr(9)+"</b> and dinner prep by <b>"+hr(pk-2)+"</b>. Batch rice and fried chicken 2 hours ahead; cook bowls to order.",
+  "<b>GrabFood</b> drives about 47% of the "+hr(pk)+" peak at "+k+", foodpanda about 38%. Own channel is small but highest value per order."][qi];
+ say($("fcAns"),"<b>"+q+"</b><br>"+a);});$("fcChips").appendChild(b);});
+/* 3 prep */
+var PS={cut:false,buf:false};
+function plan(){var k=$("psK").value,d=$("psD").value,x=fcData(k,d).f,cap=PS.cut?20:18,mult=PS.buf?1.1:1;
+ var crew=x.map(function(v){return Math.max(2,Math.ceil(v*mult/cap));}),ch=crew.reduce(function(a,b){return a+b;},0),mxc=Math.max.apply(null,crew),flat=mxc*crew.length,pk=x.indexOf(Math.max.apply(null,x))+8;
+ var core=2,extra=[];var lunch=Math.max.apply(null,crew.slice(2,6)),din=Math.max.apply(null,crew.slice(9,14));
+ var sh=[["Core crew ×"+core,8,24,""],["Lunch crew ×"+Math.max(0,lunch-core),10,14,"x"],["Dinner crew ×"+Math.max(0,din-core),17,22,"x"]];
+ if(PS.buf)sh.push(["Buffer ×1 (rain)",15,19,"x"]);
+ $("psShifts").innerHTML=sh.map(function(s){return '<div class="shift"><span>'+s[0]+'</span><div class="track"><i class="'+s[3]+'" style="left:'+((s[1]-8)/16*100)+'%;width:'+((s[2]-s[1])/16*100)+'%">'+hr(s[1])+'-'+hr(s[2])+'</i></div></div>';}).join("")+'<div class="meta">8am → 12am</div>';
+ var tl=x.slice(2,7).reduce(function(a,b){return a+b;},0),td=x.slice(9,14).reduce(function(a,b){return a+b;},0);
+ table($("psPrep"),["Item","Lunch","Dinner"],[["Cooked rice",Math.round(tl*0.18)+" kg",Math.round(td*0.18)+" kg"],["Marinated chicken",Math.round(tl*0.12)+" kg",Math.round(td*0.12)+" kg"],["Noodles",Math.round(tl*0.05)+" kg",Math.round(td*0.07)+" kg"],["Milk tea base",Math.round(tl*0.08)+" L",Math.round(td*0.06)+" L"]]);
+ $("psCrew").textContent=ch;$("psSave").textContent="-"+Math.round((1-ch/flat)*100)+"% hours";$("psWaste").textContent="~"+Math.round((tl+td)*0.03)+" kg";
+ $("psPlan").style.display="block";$("psMsgBox").style.display="none";
+ say($("psAI"),"Here's my plan for <b>"+k+" on "+d+"</b>. Instead of keeping "+mxc+" crew on all day, run a core of 2 and add <b>"+Math.max(0,lunch-core)+" for lunch</b> and <b>"+Math.max(0,din-core)+" for dinner</b>, timed to the "+hr(pk)+" peak. That's about "+Math.round((1-ch/flat)*100)+"% fewer crew-hours with the same service level. Prep is sized to the forecast, so you cook less that ends up thrown away."+(PS.buf?" I added a rain buffer shift.":"")+(PS.cut?" Assumes crew handle 20 orders/hr (stretch target).":""),function(){
+  $("psAdj").innerHTML='<button class="act'+(PS.buf?' done':'')+'" data-a="buf">🌧 Add rain buffer</button><button class="act'+(PS.cut?' done':'')+'" data-a="cut">✂️ Cut labour 10%</button><button class="act" data-a="why">❓ Why this many at dinner?</button>';
+  $("psAdj").querySelectorAll(".act").forEach(function(b){b.addEventListener("click",function(){var a=b.dataset.a;if(a=="why"){say($("psAI"),"Dinner forecast peaks at <b>"+fmt(Math.max.apply(null,x))+" orders</b> at "+hr(pk)+". One crew member handles about "+cap+" orders an hour, so you need "+din+" on the line to keep prep time under target. Fewer than that and late deliveries rise, which hurts your ranking on the apps.");return;}PS[a]=!PS[a];plan();});});});}
+$("psGo").addEventListener("click",plan);["psK","psD"].forEach(function(i){$(i).addEventListener("change",function(){if($("psPlan").style.display=="block")plan();});});
+$("psMsg").addEventListener("click",function(){var k=$("psK").value,d=$("psD").value,x=fcData(k,d).f,pk=x.indexOf(Math.max.apply(null,x))+8,b=$("psMsgBox");b.style.display="block";b.classList.add("typing");b.textContent="Drafting";
+ setTimeout(function(){b.classList.remove("typing");b.textContent="Hi team "+k+",\n\nHeads up for "+d+": we expect a busy night, peaking around "+hr(pk)+".\n\n- Dinner crew in by 5pm, extra hands until 10pm\n- Rice and chicken batches ready by "+hr(pk-2)+"\n- Prioritise GrabFood and foodpanda tickets 6-9pm; check rider ETAs\n\nShout if you're short on staff or stock. Thanks!\n\n(Drafted by AI from today's forecast)";},700);});
+/* 4 what-if */
+var IT=[["Fried Chicken Bundle",299,0.40,520],["Chicken Inasal Bowl",189,0.42,610],["Korean Fried Chicken",249,0.38,480],["Milk Tea Combo",159,0.58,390],["Truffle Pasta",299,0.51,170],["Ube Cheesecake",139,0.62,140]];
+IT.forEach(function(x,i){var o=document.createElement("option");o.value=i;o.textContent=x[0];$("wiI").appendChild(o);});
+var APPF={GrabFood:1,foodpanda:0.85,"Own channel":0.35},COM={GrabFood:0.30,foodpanda:0.30,"Own channel":0.03},EL={GrabFood:1.3,foodpanda:1.5,"Own channel":0.9},WF={"All week":1,"Friday night":0.18,"Weekend":0.35,"Lunch":0.4};
+function sim(a,i,c,v,w){var it=IT[i],q=it[3]*APPF[a]*WF[w],p=it[1],m=it[2],o2=q,p2=p,inc=0,note="";
+ if(c=="price"){p2=p+v;o2=q*(1-EL[a]*v/p);note="Customers on "+a+" are "+(EL[a]>1.3?"quite":"moderately")+" price-sensitive.";}
+ if(c=="cut"){p2=p-v;o2=q*(1+EL[a]*v/p);note="Lower price pulls in more orders but each earns less.";}
+ if(c=="promo"){p2=p*(1-v/100);o2=q*(1+EL[a]*1.6*v/100);note="Promos also boost your app ranking, so the lift is bigger than a plain price cut.";}
+ if(c=="hide"){o2=0;inc=q*0.45;note="About 45% of these customers switch to another item instead of leaving.";}
+ function gp(o,pr){return o*(pr*(1-COM[a])-p*(1-m));}
+ var b={o:q,rev:q*p,gp:gp(q,p)},n={o:o2+inc,rev:o2*p2+inc*240,gp:gp(o2,p2)+inc*240*0.35*(1-COM[a])};return {b:b,n:n,note:note,it:it};}
+function wi(a,i,c,v,w,title){var r=sim(a,i,+c=="x"?c:c,+v,w),b=r.b,n=r.n;function pc(x,y){var d=Math.round((y/x-1)*100);return '<span class="'+(d>=0?'up':'dn')+'">'+(d>=0?'+':'')+d+'%</span>';}
+ $("wiCmp").innerHTML='<div class="kpi"><b>'+fmt(b.o)+' → '+fmt(n.o)+'</b><span>Orders '+pc(b.o,n.o)+'</span></div><div class="kpi"><b>PHP '+fmt(b.rev)+' → '+fmt(n.rev)+'</b><span>Sales '+pc(b.rev,n.rev)+'</span></div><div class="kpi"><b>PHP '+fmt(b.gp)+' → '+fmt(n.gp)+'</b><span>Profit after commission '+pc(b.gp,n.gp)+'</span></div>';
+ bars($("wiChart"),["Orders now","Orders after","Profit now (÷10)","Profit after (÷10)"],[b.o,n.o,b.gp/10,n.gp/10],{colors:["#9fb3c3","#29B5E8","#9fb3c3","#11567F"]});
+ var good=n.gp>b.gp,dgp=Math.round(n.gp-b.gp);
+ say($("wiAI"),"<b>"+(title||"Scenario")+"</b><br>"+r.note+" Over "+w.toLowerCase()+", I estimate profit "+(good?"goes <b>up</b>":"goes <b>down</b>")+" by about <b>PHP "+fmt(Math.abs(dgp))+"</b>. "+(good?"<b>Recommendation:</b> worth testing in one kitchen for a week, then roll out if it holds.":"<b>Recommendation:</b> I wouldn't do this as-is. "+(c=="promo"?"Try a smaller promo, or run it on your own channel where there's no commission.":c=="hide"?"Keep it but move it lower on the menu instead.":"Try a smaller change."))+"<br><span class='meta'>Simulated on illustrative sample data using price sensitivity learned per app.</span>");}
+var WQ=[["What if we raise the Fried Chicken Bundle price by PHP 20 on GrabFood?","GrabFood",0,"price",20,"All week"],["What if we run a 20% promo on foodpanda Friday night?","foodpanda",2,"promo",20,"Friday night"],["What if we hide Truffle Pasta on foodpanda?","foodpanda",4,"hide",0,"All week"],["What if we cut Milk Tea Combo by PHP 10 on our own channel?","Own channel",3,"cut",10,"All week"]];
+WQ.forEach(function(q){var b=document.createElement("button");b.className="tg";b.textContent=q[0];b.addEventListener("click",function(){$("wiA").value=q[1];$("wiI").value=q[2];$("wiC").value=q[3];if(q[4])$("wiV").value=q[4];$("wiW").value=q[5];unit();wi(q[1],q[2],q[3],q[4],q[5],q[0]);});$("wiChips").appendChild(b);});
+function unit(){var c=$("wiC").value;$("wiU").textContent=c=="promo"?"%":"PHP";$("wiV").disabled=c=="hide";}
+$("wiC").addEventListener("change",unit);
+$("wiGo").addEventListener("click",function(){var a=$("wiA").value,i=+$("wiI").value,c=$("wiC").value,v=+$("wiV").value,w=$("wiW").value;wi(a,i,c,v,w,"What if we "+({price:"raise",cut:"cut",promo:"run a "+v+"% promo on",hide:"hide"}[c])+" "+IT[i][0]+(c=="price"||c=="cut"?" by PHP "+v:"")+" on "+a+" ("+w.toLowerCase()+")?");});
+/* 5 AI chat */
+function kTot(){var g=grp(R,"kitchen",function(r){return r.orders;});return g;}
+function ans(q){q=q.toLowerCase();var g;
+ if(/grow|growth|trend/.test(q)){var a=K.map(function(k){var w=sum(R.filter(function(r){return r.kitchen==k&&(r.day=="Sat"||r.day=="Sun");}),function(r){return r.orders;}),m=sum(R.filter(function(r){return r.kitchen==k&&(r.day=="Mon"||r.day=="Tue");}),function(r){return r.orders;});return [k,Math.round((w/m-1)*100)];}).sort(function(a,b){return b[1]-a[1];});
+  return "Weekend vs early-week lift is strongest at <b>"+a[0][0]+" (+"+a[0][1]+"%)</b>, then "+a[1][0]+" (+"+a[1][1]+"%). Pasig is the flattest, a candidate for weekday promos.";}
+ if(/kitchen|busiest|top|best kitchen/.test(q)&&!/app/.test(q)){g=kTot();var s=K.slice().sort(function(a,b){return g[b]-g[a];});return "Busiest kitchen this week: <b>"+s[0]+"</b> with "+fmt(g[s[0]])+" orders, then "+s[1]+" ("+fmt(g[s[1]])+"). "+s[3]+" is lowest at "+fmt(g[s[3]])+".";}
+ if(/app|grab|panda|channel/.test(q)){g=grp(R,"app",function(r){return r.orders;});var t=sum(R,function(r){return r.orders;});return "Order share: <b>GrabFood "+Math.round(g.GrabFood/t*100)+"%</b>, foodpanda "+Math.round(g.foodpanda/t*100)+"%, own channel "+Math.round(g["Own channel"]/t*100)+"%. Own channel has the highest avg ticket (PHP "+TK["Own channel"]+") and no commission, so growing it lifts margin.";}
+ if(/peak|hour|busy time|rush/.test(q)){g=grp(R,"hour",function(r){return r.orders;});var hs=Object.keys(g).sort(function(a,b){return g[b]-g[a];});return "Peak hours: <b>"+hr(+hs[0])+"</b> and "+hr(+hs[1])+" for dinner, with lunch peaking at 12pm. Start prep by "+hr(+hs[0]-2)+" for the dinner rush.";}
+ if(/rain|weather/.test(q))return "On rainy evenings (illustrative backtest), dinner orders drop about <b>18%</b> because rider supply falls, mostly on GrabFood. Off-peak orders rise about 6%. Suggested: shift 1 crew from dinner to 3-5pm and pre-batch rice bowls.";
+ if(/menu|item|dish|push|promo/.test(q))return "On foodpanda, <b>Korean Fried Chicken</b> and <b>Milk Tea Combo</b> lead; on GrabFood, <b>Chicken Inasal Bowl</b> wins at lunch. Truffle Pasta does best on your own channel, so consider hiding it on foodpanda late at night.";
+ if(/late|delay|complain|review/.test(q))return "Makati has the highest late-delivery rate (<b>"+LATE.Makati+"%</b>), mostly 7-8pm. Top review themes: late delivery (41%), missing items (22%), portion size (12%).";
+ if(/staff|crew|labor|labour/.test(q))return "Switching BGC from a flat roster to forecast-based shifts saves about <b>25-35% of crew-hours</b> on a weekday, while adding 2 crew at the 7pm peak. See the Prep & staffing tab.";
+ return "I can answer questions about kitchens, apps, peak hours, rain, menu items, late deliveries and staffing. Try one of the suggested questions above.";}
+var SQ=["Which kitchen is busiest?","Which app brings the most orders?","When is the dinner peak?","What happens when it rains?","What should we push on each app?","Where are late deliveries worst?","Which kitchen grew most this week?","How much crew time can we save?"];
+SQ.forEach(function(q){var b=document.createElement("button");b.className="tg";b.textContent=q;b.addEventListener("click",function(){ask(q);});$("aiChips").appendChild(b);});
+function ask(q){if(!q)return;var c=$("chat");c.insertAdjacentHTML("beforeend",'<div class="msg u"></div>');c.lastChild.textContent=q;c.insertAdjacentHTML("beforeend",'<div class="msg a">Thinking…</div>');var m=c.lastChild;c.scrollTop=c.scrollHeight;
+ setTimeout(function(){m.innerHTML=ans(q)+"<small>Source: CLOUDEATS.ANALYTICS.ORDERS_HOURLY (illustrative sample data)</small>";c.scrollTop=c.scrollHeight;},600);}
+$("aiGo").addEventListener("click",function(){ask($("aiIn").value.trim());$("aiIn").value="";});
+$("aiIn").addEventListener("keydown",function(e){if(e.key==="Enter"){ask($("aiIn").value.trim());$("aiIn").value="";}});
+
+uni();fc();
+})();
+</script>
+</body>
+</html>
