@@ -8,7 +8,7 @@
 <script type="application/json" id="snowflake-report-metadata">
 {
   "generated": "2026-11-10",
-  "intent": "Bespoke landing page for Linde Philippines data team (data heads, analytics, data engineering, data science), forwarded by Sir Ronald (Head of IT). Aligned with Chris Gan's Nov 9, 2026 email: Snowflake + AWS + CloudMile, data in one place first, start with one use case; Energy Development Corp and PepsiCo references; demand planning, asset maintenance, less manual reporting.",
+  "intent": "Bespoke landing page (v2: no forwarded note, visual card 1, no checklist) for Linde Philippines data team (data heads, analytics, data engineering, data science). Aligned with Chris Gan's Nov 9, 2026 email: Snowflake + AWS + CloudMile, data in one place first, start with one use case; Energy Development Corp and PepsiCo references; demand planning, asset maintenance, less manual reporting.",
   "dataSources": [
     { "type": "file", "path": "Gmail: 'Following up from Data to AI Unwrapped - Linde <> Snowflake' (sent Nov 9, 2026)" }
   ],
@@ -17,7 +17,7 @@
     { "id": "demand-planning", "title": "Demand planning", "producerNotes": "Illustrative sample numbers only, not Linde data." },
     { "id": "asset-maintenance", "title": "Asset maintenance", "producerNotes": "Illustrative sample assets and risk scores." },
     { "id": "cylinder-distribution", "title": "Cylinder & distribution", "producerNotes": "Illustrative sample tanks and cylinder counts." },
-    { "id": "less-manual-reporting", "title": "Less manual reporting + AI-ready checklist", "producerNotes": "Static timeline; checklist is interactive, no storage." }
+    { "id": "less-manual-reporting", "title": "Less manual reporting", "producerNotes": "Static timeline." }
   ]
 }
 </script>
@@ -135,6 +135,35 @@ tr.pick:hover,tr.pick.sel{background:var(--soft)}
 .meter{margin-top:12px;font-weight:800}
 .meter .bar{height:10px;margin-top:6px}
 
+
+/* flow diagram */
+.flow{display:grid;grid-template-columns:1fr 46px 1.1fr 46px 1fr;align-items:center;gap:6px;margin:8px 0 4px}
+.fcol{display:flex;flex-direction:column;gap:8px}
+.fh{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);text-align:center}
+.node{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;font-size:14px;font-weight:700;border:1px solid var(--line);background:var(--soft);color:var(--text);text-decoration:none}
+.node span{font-size:17px}
+.node.out{border-color:rgba(41,181,232,.5)}
+.node.out:hover{background:var(--sf);color:#fff}
+.hub{background:linear-gradient(135deg,var(--sf),var(--navy));color:#fff;border-radius:22px;padding:26px 14px;text-align:center;box-shadow:0 10px 30px rgba(41,181,232,.35)}
+.hub svg{width:54px;height:54px}
+.hub b{display:block;font-size:22px;margin-top:6px}
+.hub small{display:block;opacity:.9;font-size:12.5px;margin-top:2px}
+.hub .aws{margin-top:12px;font-size:12.5px;background:rgba(255,255,255,.15);border-radius:999px;padding:5px 10px;display:inline-block}
+.arrow{display:flex;flex-direction:column;gap:22px;align-items:center}
+.arrow i{display:block;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--sf));position:relative;border-radius:3px;animation:flowpulse 1.8s linear infinite}
+.arrow i::after{content:"";position:absolute;right:-2px;top:-4px;border-left:8px solid var(--sf);border-top:5.5px solid transparent;border-bottom:5.5px solid transparent}
+.arrow i:nth-child(2){animation-delay:.3s}.arrow i:nth-child(3){animation-delay:.6s}
+@keyframes flowpulse{0%{opacity:.35}50%{opacity:1}100%{opacity:.35}}
+@media (max-width:720px){
+  .flow{grid-template-columns:1fr}
+  .fcol{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .fcol .fh{grid-column:1/-1}
+  .arrow{flex-direction:row;justify-content:center;height:30px;gap:10px}
+  .arrow i{width:3px;height:26px;background:linear-gradient(180deg,transparent,var(--sf))}
+  .arrow i::after{right:-4px;top:auto;bottom:-6px;border-left:5.5px solid transparent;border-right:5.5px solid transparent;border-top:8px solid var(--sf);border-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){.arrow i{animation:none}}
+
 /* footer */
 .cta{background:linear-gradient(135deg,var(--ink),var(--navy));color:#fff;border-radius:18px;padding:clamp(20px,4vw,34px);margin:28px 0 10px}
 .cta h2{margin:0 0 8px;font-size:clamp(20px,2.8vw,28px)}
@@ -159,7 +188,6 @@ footer{color:var(--muted);font-size:12.5px;padding:18px 0 40px}
   <span class="eyebrow">Prepared for the Linde Philippines data team</span>
   <h1>Put your gas, plant and delivery data <span>in one place first</span>, then let AI do the heavy lifting.</h1>
   <p class="lead">A quick look at what data heads, analytics, data engineering and data science teams in industrial gases are building on Snowflake, running on AWS with CloudMile. Start with one use case that pays for itself, then build from there.</p>
-  <div class="fwd"><div class="ic">R</div><div><b>Forwarded by Sir Ronald (Head of IT).</b> He asked us to share this with the people who look after Linde's data and cloud platforms. No slides, no sales pitch. Just examples you can react to.</div></div>
   <div class="hero-stats">
     <div class="hs"><b>1 source</b><span>for sales, plant, fleet and finance data</span></div>
     <div class="hs"><b>Days → minutes</b><span>for month-end and ops reports</span></div>
@@ -184,23 +212,39 @@ footer{color:var(--muted);font-size:12.5px;padding:18px 0 40px}
   <div class="card-h"><div class="num">1</div><div>
     <span class="tag">The platform</span>
     <h2>What Snowflake does</h2>
-    <p class="sub">One governed place for all your data, so analytics and AI run on the same numbers everyone trusts.</p>
+    <p class="sub">All of Linde's data in one place on AWS, powering every use case.</p>
   </div></div>
-  <div class="grid3">
-    <div class="tile"><h3>Bring it together</h3><p>SAP/ERP orders, plant historians and SCADA, telemetry, fleet GPS and spreadsheets land in one place. You don't have to rip and replace anything on AWS.</p></div>
-    <div class="tile"><h3>Analyze at any scale</h3><p>Compute that scales up for month-end and back down after. You pay only for what you use, so costs stay predictable.</p></div>
-    <div class="tile"><h3>AI on your data</h3><p>Forecasting, anomaly detection and plain-English questions with Cortex AI. The data never leaves your governed account.</p></div>
-    <div class="tile"><h3>Share securely</h3><p>Give regional, finance or customer teams live, governed views with no file exports and no version drift.</p></div>
-    <div class="tile"><h3>Python, SQL, notebooks</h3><p>Data engineers and data scientists work side by side with Snowpark, notebooks and dbt, on one copy of the data.</p></div>
-    <div class="tile"><h3>Governed by default</h3><p>Role-based access, masking and lineage built in, so IT keeps control while the business moves faster.</p></div>
-  </div>
-  <div class="chips"><span class="lbl">Industrial data</span>
-    <span class="chip">Bulk &amp; packaged gas sales</span><span class="chip">ASU &amp; plant sensors</span><span class="chip">Cylinder tracking</span><span class="chip">Tank telemetry</span><span class="chip">Fleet &amp; routes</span><span class="chip">Power &amp; energy cost</span><span class="chip">Safety &amp; compliance</span>
+  <div class="flow" role="img" aria-label="Linde data sources flow into Snowflake on AWS, then out to demand planning, maintenance, distribution and reporting/AI">
+    <div class="fcol">
+      <div class="fh">Your data</div>
+      <div class="node src"><span>🧾</span>ERP / SAP orders</div>
+      <div class="node src"><span>🏭</span>Plant &amp; ASU sensors</div>
+      <div class="node src"><span>🛢️</span>Tank telemetry</div>
+      <div class="node src"><span>🔖</span>Cylinder scans</div>
+      <div class="node src"><span>🚚</span>Fleet &amp; GPS</div>
+      <div class="node src"><span>📊</span>Spreadsheets</div>
+    </div>
+    <div class="arrow" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="fcol mid">
+      <div class="hub">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><g stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M16 3v26M4.7 9.5l22.6 13M4.7 22.5l22.6-13"/><path d="M12.5 5.5L16 8l3.5-2.5M12.5 26.5L16 24l3.5 2.5"/></g></svg>
+        <b>Snowflake</b>
+        <small>One governed copy · AI built in</small>
+        <div class="aws">on <b>AWS</b> · with <b>CloudMile</b></div>
+      </div>
+    </div>
+    <div class="arrow" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="fcol">
+      <div class="fh">Outcomes</div>
+      <a class="node out" href="#demand-planning"><span>📈</span>Demand planning</a>
+      <a class="node out" href="#asset-maintenance"><span>🔧</span>Maintenance</a>
+      <a class="node out" href="#cylinder-distribution"><span>📦</span>Distribution</a>
+      <a class="node out" href="#less-manual-reporting"><span>🤖</span>Reporting &amp; AI</a>
+    </div>
   </div>
   <div class="chips"><span class="lbl">Trusted by</span>
     <span class="chip cust">Energy Development Corp</span><span class="chip cust">PepsiCo</span>
   </div>
-  <div class="why"><b>Why it matters:</b> we've been helping Energy Development Corp and PepsiCo bring their operations data together, so teams spend less time on manual reports and more time acting on them.</div>
 </section>
 
 <!-- 2 -->
@@ -305,17 +349,6 @@ footer{color:var(--muted);font-size:12.5px;padding:18px 0 40px}
       <div class="step"><i>Day 1</i>Leadership reviews current numbers and acts on them</div>
     </div>
   </div>
-
-  <h3 style="margin:24px 0 8px">Is your data AI-ready? Quick checklist</h3>
-  <ul class="check" id="ai-check">
-    <li><label><input type="checkbox"> Sales, plant and delivery data can be queried in one place</label></li>
-    <li><label><input type="checkbox"> Key metrics (volume, margin, OTIF, uptime) have one agreed definition</label></li>
-    <li><label><input type="checkbox"> Sensor and telemetry data is kept with history, not overwritten</label></li>
-    <li><label><input type="checkbox"> Access is role-based and auditable</label></li>
-    <li><label><input type="checkbox"> Data scientists can work on production data without making copies</label></li>
-    <li><label><input type="checkbox"> One use case is picked that can pay for itself in a quarter</label></li>
-  </ul>
-  <div class="meter"><span id="ai-txt">0 of 6: a great place to start</span><div class="bar"><i id="ai-bar" style="width:0%"></i></div></div>
   <div class="why"><b>The takeaway from the event:</b> AI works best when your data is in one place first. Start with one use case that pays for itself, then build from there.</div>
 </section>
 
@@ -426,16 +459,6 @@ footer{color:var(--muted);font-size:12.5px;padding:18px 0 40px}
     document.getElementById('cd-route').textContent=low? Math.min(low+1,tanks.length)+' stops':'None needed';
   }
   segWire('cd-day',function(v){drawCD(+v);}); drawCD(0);
-
-  // ---------- 5. AI-ready checklist
-  var cbs=document.querySelectorAll('#ai-check input');
-  function drawAI(){
-    var n=0; cbs.forEach(function(c){if(c.checked)n++;});
-    var msg=n<=2?'a great place to start':(n<=4?'good foundations, ready for a first AI use case':'AI-ready, so pick the use case that pays for itself');
-    document.getElementById('ai-txt').textContent=n+' of 6: '+msg;
-    document.getElementById('ai-bar').style.width=(n/6*100)+'%';
-  }
-  cbs.forEach(function(c){c.addEventListener('change',drawAI);});
 })();
 </script>
 </body>
