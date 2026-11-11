@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="snowflake-source" content="cortex-agent-authored">
+<title>Monde Nissin × Snowflake — For Sir Ramil Bernabe</title>
+<script type="application/json" id="snowflake-report-metadata">
+{
+  "generated": "2026-11-11", "version": "v3",
+  "intent": "Bespoke landing page (v5.2 look, standalone) for Sir Ramil Bernabe, CTO of Monde Nissin. Framed around plants, manufacturing and operations, including the ramp-up of the new biscuit and cracker facility. Illustrative data only.",
+  "dataSources": [
+    { "type": "file", "path": "Style base: Drive linde.html v2 (1cz583iexNf4LSzJortjAnqUC97NDS2W8)" }
+  ],
+  "sections": [
+    { "id": "what-snowflake-does", "title": "What Snowflake does", "producerNotes": "Static flow diagram." },
+    { "id": "new-plant-rampup", "title": "New plant ramp-up", "producerNotes": "Illustrative OEE ramp curves, not Monde Nissin data." },
+    { "id": "customer-analytics", "title": "Store-level customer analytics", "producerNotes": "Illustrative outlets, SKUs and figures." },
+    { "id": "maintenance", "title": "Line maintenance", "producerNotes": "Illustrative assets and risk scores." },
+    { "id": "supply-chain", "title": "Supply chain control tower", "producerNotes": "Illustrative nodes, scenarios and figures." },
+    { "id": "one-view", "title": "One view across plants", "producerNotes": "Static timeline." }
+  ]
+}
+</script>
+<style>
+:root{
+  color-scheme: light dark;
+  --sf:#29B5E8; --navy:#11567F; --mid:#0B2D4A; --ink:#0A1F33;
+  --bg: light-dark(#F5F8FB,#071522);
+  --card: light-dark(#FFFFFF,#0E2236);
+  --text: light-dark(#1B2B3A,#E3ECF4);
+  --muted: light-dark(#5B6D7E,#94A8BA);
+  --line: light-dark(#E2E9F0,#1E3A55);
+  --soft: light-dark(#EEF7FC,#12304A);
+  --good:#2BB673; --warn:#F2A900; --bad:#E5484D;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Lato",-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+img,svg{max-width:100%;height:auto}
+a{color:var(--sf)}
+.wrap{max-width:1040px;width:100%;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+.topbar{background:var(--ink);color:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.3px}
+.brand svg{width:26px;height:26px}
+.brand small{font-weight:400;opacity:.7;font-size:13px}
+.partners{font-size:12px;opacity:.85;white-space:nowrap}
+.partners b{color:var(--sf)}
+.hero{background:radial-gradient(1200px 500px at 85% -10%,rgba(41,181,232,.35),transparent 60%),linear-gradient(135deg,var(--ink) 0%,var(--mid) 55%,var(--navy) 100%);color:#fff;padding:clamp(40px,7vw,80px) 0 clamp(36px,6vw,64px)}
+.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--sf);background:rgba(41,181,232,.12);border:1px solid rgba(41,181,232,.35);padding:5px 12px;border-radius:999px}
+.hero h1{font-size:clamp(28px,4.6vw,46px);line-height:1.12;margin:18px 0 14px;font-weight:900;max-width:820px}
+.hero h1 span{color:var(--sf)}
+.hero p.lead{font-size:clamp(16px,2vw,19px);opacity:.9;max-width:720px;margin:0 0 22px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:26px;max-width:820px}
+.hs{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 14px}
+.hs b{display:block;font-size:20px;color:var(--sf)}
+.hs span{font-size:13px;opacity:.85}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:-22px auto 0;position:relative;z-index:2}
+.jump a{background:var(--card);color:var(--text);text-decoration:none;font-size:13px;font-weight:700;padding:9px 14px;border-radius:999px;border:1px solid var(--line);box-shadow:0 4px 14px rgba(10,31,51,.12)}
+.jump a:hover{border-color:var(--sf);color:var(--sf)}
+main{padding:28px 0 40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3.5vw,32px);margin:22px 0;box-shadow:0 6px 24px rgba(10,31,51,.06)}
+.card-h{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px}
+.num{flex:0 0 38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--sf),var(--navy));color:#fff;font-weight:900;display:grid;place-items:center}
+.card h2{margin:0;font-size:clamp(20px,2.6vw,26px);line-height:1.2}
+.card .sub{margin:4px 0 0;color:var(--muted);font-size:15px}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--sf);margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+.chips .lbl{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-right:4px}
+.chip{font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.chip.cust{background:rgba(41,181,232,.12);border-color:rgba(41,181,232,.45);color:light-dark(#0C5F85,#7FD3F2)}
+.why{margin-top:16px;padding:12px 14px;border-left:4px solid var(--sf);background:var(--soft);border-radius:0 10px 10px 0;font-size:14.5px}
+.why b{color:var(--sf)}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:none;color:var(--text);font:inherit;font-size:13px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
+.seg button.on{background:var(--sf);color:#fff}
+.ctrls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:6px 0 14px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.kpi{background:var(--soft);border-radius:12px;padding:12px;border:1px solid var(--line)}
+.kpi b{display:block;font-size:22px}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.chart-box{position:relative;width:100%;height:280px}
+.chart-box>svg{width:100%;height:100%}
+input[type=range]{width:100%;accent-color:var(--sf)}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+tr.pick{cursor:pointer}
+tr.pick:hover,tr.pick.sel{background:var(--soft)}
+.pill{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;color:#fff}
+.p-bad{background:var(--bad)} .p-warn{background:var(--warn);color:#1b1b1b} .p-good{background:var(--good)}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;min-width:80px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sf),var(--navy))}
+.detail{margin-top:12px;font-size:14px;background:var(--soft);border-radius:12px;padding:12px 14px;border:1px solid var(--line);min-height:48px}
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.ln{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--soft)}
+.ln b{display:block;font-size:14px}
+.ln .big{font-size:24px;font-weight:900;margin:4px 0}
+.ln span{font-size:12px;color:var(--muted)}
+.ln.alert{border-color:var(--bad)}
+.ln.alert .big{color:var(--bad)}
+.tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.tl .col{border-radius:14px;padding:16px;border:1px solid var(--line)}
+.tl .before{background:light-dark(#FFF4F4,#2A1518)}
+.tl .after{background:light-dark(#EFFAF4,#0F2A1E)}
+.tl h3{margin:0 0 10px;font-size:15px}
+.step{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:8px 0}
+.step i{flex:0 0 58px;font-style:normal;font-weight:800;font-size:12px;color:var(--muted)}
+.flow{display:grid;grid-template-columns:1fr 46px 1.1fr 46px 1fr;align-items:center;gap:6px;margin:8px 0 4px}
+.fcol{display:flex;flex-direction:column;gap:8px}
+.fh{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);text-align:center}
+.node{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;font-size:14px;font-weight:700;border:1px solid var(--line);background:var(--soft);color:var(--text);text-decoration:none}
+.node span{font-size:17px}
+.node.out{border-color:rgba(41,181,232,.5)}
+.node.out:hover{background:var(--sf);color:#fff}
+.hub{background:linear-gradient(135deg,var(--sf),var(--navy));color:#fff;border-radius:22px;padding:26px 14px;text-align:center;box-shadow:0 10px 30px rgba(41,181,232,.35)}
+.hub svg{width:54px;height:54px}
+.hub b{display:block;font-size:22px;margin-top:6px}
+.hub small{display:block;opacity:.9;font-size:12.5px;margin-top:2px}
+.arrow{display:flex;flex-direction:column;gap:22px;align-items:center}
+.arrow i{display:block;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--sf));position:relative;border-radius:3px;animation:flowpulse 1.8s linear infinite}
+.arrow i::after{content:"";position:absolute;right:-2px;top:-4px;border-left:8px solid var(--sf);border-top:5.5px solid transparent;border-bottom:5.5px solid transparent}
+.arrow i:nth-child(2){animation-delay:.3s}.arrow i:nth-child(3){animation-delay:.6s}
+@keyframes flowpulse{0%{opacity:.35}50%{opacity:1}100%{opacity:.35}}
+@media (max-width:720px){
+  .flow{grid-template-columns:1fr}
+  .fcol{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .fcol .fh{grid-column:1/-1}
+  .arrow{flex-direction:row;justify-content:center;height:30px;gap:10px}
+  .arrow i{width:3px;height:26px;background:linear-gradient(180deg,transparent,var(--sf))}
+  .arrow i::after{right:-4px;top:auto;bottom:-6px;border-left:5.5px solid transparent;border-right:5.5px solid transparent;border-top:8px solid var(--sf);border-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){.arrow i{animation:none}}
+.cta{background:linear-gradient(135deg,var(--ink),var(--navy));color:#fff;border-radius:18px;padding:clamp(20px,4vw,34px);margin:28px 0 10px}
+.cta h2{margin:0 0 8px;font-size:clamp(20px,2.8vw,28px)}
+.cta p{margin:0;opacity:.9;max-width:720px}
+footer{color:var(--muted);font-size:12.5px;padding:18px 0 40px}
+.note{font-size:12px;color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><g stroke="#29B5E8" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M16 3v26M4.7 9.5l22.6 13M4.7 22.5l22.6-13"/><path d="M12.5 5.5L16 8l3.5-2.5M12.5 26.5L16 24l3.5 2.5"/></g></svg>
+    Snowflake <small>for Monde Nissin</small>
+  </div>
+  <div class="partners">Prepared for <b>Sir Ramil Bernabe</b></div>
+</div></div>
+
+<section class="hero"><div class="wrap">
+  <span class="eyebrow">For the Office of the CTO · Plants &amp; Operations</span>
+  <h1>Bring a new plant up to speed <span>with data ready from day one</span>.</h1>
+  <p class="lead">A new biscuit and cracker facility means new lines, sensors, MES and quality data. Here's how food manufacturers put plant, ERP and quality data in one governed place, so ramp-up, maintenance and supply chain decisions happen in hours, not weeks.</p>
+  <div class="hero-stats">
+    <div class="hs"><b>1 view</b><span>across every plant and line</span></div>
+    <div class="hs"><b>Faster ramp-up</b><span>to target OEE on new lines</span></div>
+    <div class="hs"><b>End-to-end</b><span>supply chain visibility, plant to shelf</span></div>
+  </div>
+</div></section>
+
+<div class="wrap">
+  <nav class="jump" aria-label="Sections">
+    <a href="#what-snowflake-does">What Snowflake does</a>
+    <a href="#new-plant-rampup">New plant ramp-up</a>
+    <a href="#customer-analytics">Customer analytics</a>
+    <a href="#maintenance">Line maintenance</a>
+    <a href="#supply-chain">Supply chain control tower</a>
+    <a href="#one-view">One view across plants</a>
+  </nav>
+</div>
+
+<main class="wrap">
+
+<section class="card" id="what-snowflake-does">
+  <div class="card-h"><div class="num">1</div><div>
+    <span class="tag">The platform</span>
+    <h2>What Snowflake does</h2>
+    <p class="sub">Every plant's data in one place, ready for operations, finance and AI.</p>
+  </div></div>
+  <div class="flow" role="img" aria-label="Plant data sources flow into Snowflake, then out to ramp-up, store analytics, maintenance, supply chain and plant-wide reporting">
+    <div class="fcol">
+      <div class="fh">Your plant data</div>
+      <div class="node"><span>⚙️</span>Line PLC / SCADA</div>
+      <div class="node"><span>🏭</span>MES &amp; OEE</div>
+      <div class="node"><span>🧾</span>ERP / SAP</div>
+      <div class="node"><span>🌾</span>Supplier &amp; inbound</div>
+      <div class="node"><span>🔧</span>Maintenance logs</div>
+      <div class="node"><span>🚚</span>Distributor &amp; POS data</div>
+      <div class="node"><span>📊</span>Spreadsheets</div>
+    </div>
+    <div class="arrow" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="fcol">
+      <div class="hub">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><g stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M16 3v26M4.7 9.5l22.6 13M4.7 22.5l22.6-13"/><path d="M12.5 5.5L16 8l3.5-2.5M12.5 26.5L16 24l3.5 2.5"/></g></svg>
+        <b>Snowflake</b>
+        <small>One governed copy · AI built in</small>
+      </div>
+    </div>
+    <div class="arrow" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="fcol">
+      <div class="fh">Outcomes</div>
+      <a class="node out" href="#new-plant-rampup"><span>🚀</span>Plant ramp-up</a>
+      <a class="node out" href="#customer-analytics"><span>🛒</span>Store analytics</a>
+      <a class="node out" href="#maintenance"><span>🔧</span>Maintenance</a>
+      <a class="node out" href="#supply-chain"><span>🔗</span>Supply chain</a>
+      <a class="node out" href="#one-view"><span>🤖</span>Reporting &amp; AI</a>
+    </div>
+  </div>
+  <div class="chips"><span class="lbl">Trusted by</span>
+    <span class="chip cust">PepsiCo</span><span class="chip cust">Kraft Heinz</span><span class="chip cust">Perdue Farms</span><span class="chip cust">CDO Foodsphere</span>
+  </div>
+</section>
+
+<section class="card" id="new-plant-rampup">
+  <div class="card-h"><div class="num">2</div><div>
+    <span class="tag">New facility · Operations</span>
+    <h2>New plant ramp-up: reach target OEE sooner</h2>
+    <p class="sub">Track each new line's ramp against a target curve, and see what's holding it back. Pick a line and toggle the view.</p>
+  </div></div>
+  <div class="ctrls">
+    <div class="seg" id="ru-line" role="group" aria-label="Line">
+      <button type="button" class="on" data-v="cr">Cracker line</button>
+      <button type="button" data-v="sw">Sandwich biscuit line</button>
+      <button type="button" data-v="pk">Packing line</button>
+    </div>
+    <div class="seg" id="ru-mode" role="group" aria-label="Mode">
+      <button type="button" class="on" data-v="data">With connected data</button>
+      <button type="button" data-v="manual">Manual tracking</button>
+    </div>
+  </div>
+  <div class="chart-box"><svg id="ru-svg" viewBox="0 0 720 280" preserveAspectRatio="none" role="img" aria-label="OEE ramp-up by week"></svg></div>
+  <div class="kpis">
+    <div class="kpi"><b id="ru-wk">—</b><span>Weeks to 75% OEE</span></div>
+    <div class="kpi"><b id="ru-now">—</b><span>OEE at week 12</span></div>
+    <div class="kpi"><b id="ru-loss">—</b><span>Top loss driver</span></div>
+  </div>
+  <p class="note">Sample, illustrative ramp curves only, not Monde Nissin data. Dashed line: target ramp.</p>
+  <div class="why"><b>How it's built:</b> line sensors and MES events stream into Snowflake next to ERP orders and QA results. Downtime, speed and quality losses are classified automatically, so engineers fix the biggest loss first instead of waiting for a month-end report.</div>
+</section>
+
+<section class="card" id="customer-analytics">
+  <div class="card-h"><div class="num">3</div><div>
+    <span class="tag">Sales · Trade marketing · Distribution</span>
+    <h2>Store-level customer analytics: every sari-sari store, not just every distributor</h2>
+    <p class="sub">Combine distributor sell-out, salesman orders and modern trade POS data to predict, outlet by outlet, which stores will run out and which SKU to push next. Pick a channel and region, then click a store.</p>
+  </div></div>
+  <div class="ctrls">
+    <div class="seg" id="ca-ch" role="group" aria-label="Channel">
+      <button type="button" class="on" data-v="gt">Sari-sari / general trade</button>
+      <button type="button" data-v="mt">Modern trade</button>
+    </div>
+    <div class="seg" id="ca-rg" role="group" aria-label="Region">
+      <button type="button" class="on" data-v="ncr">NCR</button>
+      <button type="button" data-v="cl">Central Luzon</button>
+      <button type="button" data-v="vis">Visayas</button>
+      <button type="button" data-v="min">Mindanao</button>
+    </div>
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Outlet</th><th>Stock-out risk (7 days)</th><th></th><th>Next best SKU</th><th>Action</th></tr></thead>
+    <tbody id="ca-body"></tbody>
+  </table></div>
+  <div class="detail" id="ca-detail">Select a store to see why it was flagged and what to offer.</div>
+  <div class="kpis">
+    <div class="kpi"><b id="ca-n">—</b><span>Outlets flagged for this week's route</span></div>
+    <div class="kpi"><b id="ca-rev">—</b><span>Sales at risk from stock-outs / week</span></div>
+    <div class="kpi"><b id="ca-up">—</b><span>Uplift from next-best-SKU offers</span></div>
+  </div>
+  <p class="note">Sample, illustrative outlets, SKUs and figures only, not Monde Nissin data.</p>
+  <div class="why"><b>How it's built:</b> distributor DMS feeds, salesman app orders and retailer POS data are shared into Snowflake and matched to each outlet. A model learns each store's buying rhythm (payday, weather, school calendar), so salesmen get a daily list of which stores to visit and what to offer. The same data shows plants which SKUs to make more of.</div>
+</section>
+
+<section class="card" id="maintenance">
+  <div class="card-h"><div class="num">4</div><div>
+    <span class="tag">Engineering · Reliability</span>
+    <h2>Line maintenance: catch failures before they stop a line</h2>
+    <p class="sub">Score ovens, mixers, sheeters and packers from sensor and work-order history. Click an asset to see why.</p>
+  </div></div>
+  <div class="ctrls" style="flex-direction:column;align-items:stretch">
+    <label for="am-th" style="font-size:14px;font-weight:700">Alert threshold: flag assets with failure risk above <span id="am-thv">60</span>%</label>
+    <input type="range" id="am-th" min="30" max="90" step="5" value="60">
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Asset</th><th>Line</th><th>Failure risk (30 days)</th><th></th><th>Status</th></tr></thead>
+    <tbody id="am-body"></tbody>
+  </table></div>
+  <div class="detail" id="am-detail">Select an asset to see the signals behind its score.</div>
+  <div class="kpis">
+    <div class="kpi"><b id="am-n">—</b><span>Assets flagged for inspection</span></div>
+    <div class="kpi"><b id="am-hrs">—</b><span>Line hours at risk</span></div>
+  </div>
+  <p class="note">Sample, illustrative assets and scores.</p>
+  <div class="why"><b>How it's built:</b> historian and IoT data land in Snowflake with maintenance logs, and a failure-risk model scores each asset daily. Planned stops replace surprise outages during peak season.</div>
+</section>
+
+<section class="card" id="supply-chain">
+  <div class="card-h"><div class="num">5</div><div>
+    <span class="tag">Supply chain · Planning · Logistics</span>
+    <h2>Supply chain control tower: from flour silo to sari-sari shelf</h2>
+    <p class="sub">One live view of days of cover at every node: raw materials, plants, DCs, distributors and stores. Pick a disruption to see where it bites, and what the system recommends. Click a node for the detail.</p>
+  </div></div>
+  <div class="ctrls">
+    <div class="seg" id="sc-sc" role="group" aria-label="Scenario">
+      <button type="button" class="on" data-v="base">Normal week</button>
+      <button type="button" data-v="typhoon">Typhoon hits Visayas</button>
+      <button type="button" data-v="flour">Wheat shipment delayed</button>
+      <button type="button" data-v="promo">Holiday demand spike</button>
+    </div>
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Node</th><th>Days of cover</th><th></th><th>Status</th></tr></thead>
+    <tbody id="sc-body"></tbody>
+  </table></div>
+  <div class="detail" id="sc-detail">Select a node to see the root cause and recommended action.</div>
+  <div class="kpis">
+    <div class="kpi"><b id="sc-otif">—</b><span>Projected OTIF to distributors</span></div>
+    <div class="kpi"><b id="sc-risk">—</b><span>Cases at risk next 14 days</span></div>
+    <div class="kpi"><b id="sc-act">—</b><span>Top recommended action</span></div>
+  </div>
+  <p class="note">Sample, illustrative nodes, scenarios and figures only, not Monde Nissin data.</p>
+  <div class="why"><b>How it's built:</b> supplier ASNs, plant schedules, DC stock, distributor inventory and sell-out land in Snowflake as one model. Losses are tagged the same way at every step, like a zero-loss tree from plant to shelf, so planners see the root cause, not just the shortage. Scenario runs re-plan production, stock transfers and allocation in minutes, and AI agents draft the actions for approval.</div>
+</section>
+
+<section class="card" id="one-view">
+  <div class="card-h"><div class="num">6</div><div>
+    <span class="tag">CTO · Plant heads · Leadership</span>
+    <h2>One view across plants: old and new, same numbers</h2>
+    <p class="sub">The quickest win, and the base for every AI use case after it.</p>
+  </div></div>
+  <div class="tl">
+    <div class="col before"><h3>Today: weekly plant review</h3>
+      <div class="step"><i>Day 1–2</i>Each plant exports its own line and QA data</div>
+      <div class="step"><i>Day 3</i>Spreadsheets reconciled by hand, KPIs defined differently</div>
+      <div class="step"><i>Day 4</i>New plant data lives in a separate system</div>
+      <div class="step"><i>Day 5</i>Review uses last week's numbers</div>
+    </div>
+    <div class="col after"><h3>With Snowflake</h3>
+      <div class="step"><i>Live</i>Every plant, including the new one, feeds one platform</div>
+      <div class="step"><i>Always</i>One definition for OEE, yield and cost per case</div>
+      <div class="step"><i>Anytime</i>Plant heads ask questions in plain English</div>
+      <div class="step"><i>Day 1</i>Leadership acts on current numbers</div>
+    </div>
+  </div>
+  <div class="why"><b>The idea:</b> connect the new facility's data from the start, then bring the existing plants in one use case at a time.</div>
+</section>
+
+<section class="cta">
+  <h2>What's top of mind for plants and operations?</h2>
+  <p>We'd love to hear what you and the team are focused on, whether that's ramping the new facility, line reliability, supply chain or plant reporting, and show how other food manufacturers have tackled the same problem.</p>
+</section>
+
+<footer>Prepared by Christopher Gan, Snowflake, for Sir Ramil Bernabe, Monde Nissin. All figures on this page are illustrative examples, not Monde Nissin data.</footer>
+</main>
+
+<script>
+(function(){
+  function segWire(id, cb){
+    var g=document.getElementById(id), bs=g.querySelectorAll('button');
+    bs.forEach(function(b){ b.addEventListener('click',function(){
+      bs.forEach(function(x){x.classList.toggle('on',x===b);});
+      cb(b.getAttribute('data-v'));
+    });});
+  }
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  // 2. ramp-up
+  var lines={cr:{k:0.30,max:84,loss:'Oven temperature stops'},sw:{k:0.24,max:80,loss:'Cream depositor jams'},pk:{k:0.34,max:86,loss:'Film changeovers'}};
+  var ru={l:'cr',m:'data'};
+  function oee(w,L,manual){var k=manual?L.k*0.55:L.k;var mx=manual?L.max-8:L.max;return 35+(mx-35)*(1-Math.exp(-k*w));}
+  function drawRU(){
+    var svg=document.getElementById('ru-svg'); while(svg.firstChild)svg.removeChild(svg.firstChild);
+    var L=lines[ru.l], man=ru.m==='manual';
+    var W=720,H=280,Lp=40,R=12,T=14,B=30,N=20;
+    function x(i){return Lp+i*(W-Lp-R)/N;} function y(v){return T+(H-T-B)*(1-(v-30)/60);}
+    [40,60,80].forEach(function(v){svg.appendChild(el('line',{x1:Lp,x2:W-R,y1:y(v),y2:y(v),stroke:'currentColor','stroke-opacity':'.12'}));var t=el('text',{x:4,y:y(v)+4,'font-size':'12',fill:'currentColor','fill-opacity':'.6'});t.textContent=v+'%';svg.appendChild(t);});
+    for(var i=0;i<=N;i+=4){var t=el('text',{x:x(i),y:H-8,'text-anchor':'middle','font-size':'12',fill:'currentColor','fill-opacity':'.6'});t.textContent='Wk '+i;svg.appendChild(t);}
+    var pt='',pa='';
+    for(var w=0;w<=N;w++){pt+=(w?'L':'M')+x(w)+' '+y(oee(w,L,false));pa+=(w?'L':'M')+x(w)+' '+y(oee(w,L,man)-(man?0:0));}
+    svg.appendChild(el('path',{d:pt,fill:'none',stroke:'#29B5E8','stroke-width':'2.5','stroke-dasharray':'7 6'}));
+    svg.appendChild(el('path',{d:pa,fill:'none',stroke:man?'#E5484D':'#11567F','stroke-width':'3'}));
+    svg.appendChild(el('line',{x1:Lp,x2:W-R,y1:y(75),y2:y(75),stroke:'#2BB673','stroke-dasharray':'3 4'}));
+    var wk='>20';for(var w2=0;w2<=40;w2++){if(oee(w2,L,man)>=75){wk=w2;break;}}
+    document.getElementById('ru-wk').textContent=wk;
+    document.getElementById('ru-now').textContent=Math.round(oee(12,L,man))+'%';
+    document.getElementById('ru-loss').textContent=man?'Unknown until month-end':L.loss;
+    document.getElementById('ru-loss').style.fontSize='15px';
+  }
+  segWire('ru-line',function(v){ru.l=v;drawRU();});
+  segWire('ru-mode',function(v){ru.m=v;drawRU();});
+  drawRU();
+
+
+  // 3. customer analytics
+  var rg={ncr:1,cl:0.8,vis:0.7,min:0.6};
+  var outlets={
+    gt:[
+      {o:'Aling Nena Store, Brgy. 4',r:86,sku:'Lucky Me! Pancit Canton 6-pack',a:'Visit tomorrow',why:'Orders noodles every payday (15th/30th); last restock was 12 days ago and nearby stores sold out.'},
+      {o:'JM Sari-Sari, near school',r:74,sku:'SkyFlakes single-serve',a:'Visit tomorrow',why:'School reopens next week; single-serve crackers sell 2.3x in the first week of classes.'},
+      {o:'Tindahan ni Mang Ben',r:61,sku:'Fita bundle',a:'Add to route',why:'Rainy-week pattern: noodle and cracker demand up, but the store only stocks two SKUs.'},
+      {o:'Lorna Mini Mart',r:44,sku:'Lucky Me! Supreme cup',a:'Offer trial',why:'Similar stores nearby sell cup noodles to commuters; this store has never ordered them.'},
+      {o:'Bernie Variety Store',r:22,sku:'—',a:'OK',why:'Stock levels healthy; ordering rhythm on track.'}
+    ],
+    mt:[
+      {o:'Supermarket branch, Mall A',r:79,sku:'SkyFlakes family pack',a:'Replenish now',why:'POS shows sell-through 40% above forecast since a competitor promo ended.'},
+      {o:'Convenience chain cluster',r:66,sku:'Lucky Me! cup noodles',a:'Replenish now',why:'Late-night sales rising; shelf gaps seen on 3 of 8 stores.'},
+      {o:'Grocery branch, Province',r:48,sku:'Fita variety pack',a:'Adjust order',why:'Holiday basket data shows biscuit gift packs trending early.'},
+      {o:'Hypermarket, Metro',r:25,sku:'—',a:'OK',why:'Healthy stock and on-plan promotions.'}
+    ]};
+  var ca={c:'gt',r:'ncr'},caSel=-1;
+  function drawCA(){
+    var tb=document.getElementById('ca-body');tb.innerHTML='';var f=rg[ca.r],n=0;
+    outlets[ca.c].forEach(function(x,i){
+      var r=Math.min(95,Math.round(x.r*(0.85+0.15*f+(ca.r==='min'&&i===1?0.1:0))));if(r>=60)n++;
+      var cls=r>=75?'p-bad':(r>=60?'p-warn':'p-good');
+      var tr=document.createElement('tr');tr.className='pick'+(i===caSel?' sel':'');tr.tabIndex=0;
+      tr.innerHTML='<td><b></b></td><td>'+r+'%</td><td><div class="bar"><i style="width:'+r+'%"></i></div></td><td></td><td><span class="pill '+cls+'"></span></td>';
+      tr.children[0].firstChild.textContent=x.o;tr.children[3].textContent=x.sku;tr.querySelector('.pill').textContent=x.a;
+      function pick(){caSel=i;drawCA();var d=document.getElementById('ca-detail');d.innerHTML='<b></b> ';d.firstChild.textContent=x.o+':';d.appendChild(document.createTextNode(x.why));}
+      tr.addEventListener('click',pick);
+      tr.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+      tb.appendChild(tr);
+    });
+    var base=ca.c==='gt'?1840:620;
+    document.getElementById('ca-n').textContent=Math.round(base*f*n/outlets[ca.c].length).toLocaleString();
+    document.getElementById('ca-rev').textContent='₱'+(ca.c==='gt'?(4.2*f):(2.6*f)).toFixed(1)+'M';
+    document.getElementById('ca-up').textContent=(ca.c==='gt'?'+6–9%':'+4–6%');
+  }
+  segWire('ca-ch',function(v){ca.c=v;caSel=-1;drawCA();});
+  segWire('ca-rg',function(v){ca.r=v;drawCA();});
+  drawCA();
+
+  // 4. maintenance
+  var assets=[
+    {a:'Tunnel oven burner zone 3',s:'Cracker line',r:81,h:18,why:'Flame-sensor faults up 3x this week, and zone temperature swings are widening.'},
+    {a:'Dough sheeter roller',s:'Cracker line',r:68,h:10,why:'Motor current rising and thickness variation increasing, matching two past bearing failures.'},
+    {a:'Cream depositor pump',s:'Sandwich biscuit line',r:62,h:8,why:'Pressure drops during long runs; seal last replaced 9 months ago.'},
+    {a:'Flow-wrapper sealing jaw',s:'Packing line',r:49,h:6,why:'Seal-temperature drift linked to a slight rise in leaker rejects.'},
+    {a:'Industrial mixer gearbox',s:'Mixing',r:33,h:12,why:'Vibration slightly above baseline; check at the next planned stop.'},
+    {a:'Cooling conveyor drive',s:'Cracker line',r:21,h:4,why:'All signals within normal ranges.'}
+  ];
+  var amTh=document.getElementById('am-th'), amSel=-1;
+  function drawAM(){
+    var th=+amTh.value; document.getElementById('am-thv').textContent=th;
+    var tb=document.getElementById('am-body'); tb.innerHTML='';
+    var n=0,hrs=0;
+    assets.forEach(function(x,i){
+      var flag=x.r>=th; if(flag){n++;hrs+=x.h;}
+      var cls=x.r>=75?'p-bad':(flag?'p-warn':'p-good'), lab=x.r>=75?'Act now':(flag?'Inspect':'OK');
+      var tr=document.createElement('tr'); tr.className='pick'+(i===amSel?' sel':''); tr.tabIndex=0;
+      tr.innerHTML='<td><b></b></td><td></td><td>'+x.r+'%</td><td><div class="bar"><i style="width:'+x.r+'%"></i></div></td><td><span class="pill '+cls+'">'+lab+'</span></td>';
+      tr.children[0].firstChild.textContent=x.a; tr.children[1].textContent=x.s;
+      function pick(){amSel=i;drawAM();var d=document.getElementById('am-detail');d.innerHTML='<b></b> ';d.firstChild.textContent=x.a+':';d.appendChild(document.createTextNode(x.why));}
+      tr.addEventListener('click',pick);
+      tr.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+      tb.appendChild(tr);
+    });
+    document.getElementById('am-n').textContent=n;
+    document.getElementById('am-hrs').textContent=hrs+' hrs';
+  }
+  amTh.addEventListener('input',drawAM); drawAM();
+
+  // 5. supply chain
+  var nodes=[
+    {n:'Wheat flour (inbound)',k:'rm',d:21,why:{base:'Two shipments on schedule.',flour:'Vessel delay of 9 days pushes the next delivery past current stock.',typhoon:'No direct impact.',promo:'Higher burn rate from extra cracker runs.'},act:{flour:'Draw on alternate mill and shift noodle runs to save flour',promo:'Pull forward the next PO by 5 days'}},
+    {n:'Plant: cracker lines',k:'pl',d:12,why:{base:'Running to plan.',flour:'Flour gap stops lines on day 12 without action.',typhoon:'Cebu orders rerouted to Luzon lines.',promo:'Capacity tight; one extra shift needed.'},act:{promo:'Add weekend shift on cracker line 2'}},
+    {n:'DC: North Luzon',k:'dc',d:9,why:{base:'Healthy.',typhoon:'Receives redirected Visayas volume.',promo:'Fast-moving SKUs dropping quickly.',flour:'Normal.'}},
+    {n:'DC: Cebu',k:'dc2',d:8,why:{base:'Healthy.',typhoon:'Port closed for 3 days; trucks cannot load.',promo:'Holiday SKUs low.',flour:'Normal.'},act:{typhoon:'Pre-position 40K cases in Cebu before landfall'}},
+    {n:'Distributors: Visayas',k:'ds',d:11,why:{base:'Healthy.',typhoon:'Store orders for noodles spike 2x before the storm.',promo:'Holiday orders above forecast.',flour:'Normal.'}},
+    {n:'Stores: NCR general trade',k:'st',d:6,why:{base:'Normal sell-out.',typhoon:'Minor.',promo:'SkyFlakes and Lucky Me! demand up 35%.',flour:'Normal.'}}
+  ];
+  var mult={base:{},typhoon:{dc2:0.25,ds:0.45,dc:0.8,pl:0.85},flour:{rm:0.3,pl:0.6},promo:{st:0.5,ds:0.7,dc:0.6,pl:0.7,rm:0.8}};
+  var otif={base:'97%',typhoon:'84%',flour:'88%',promo:'90%'},risk={base:'4K',typhoon:'118K',flour:'76K',promo:'92K'};
+  var top={base:'No action needed',typhoon:'Pre-position stock in Cebu',flour:'Switch to alternate mill',promo:'Add a cracker shift'};
+  var sc='base',scSel=-1;
+  function drawSC(){
+    var tb=document.getElementById('sc-body');tb.innerHTML='';
+    nodes.forEach(function(x,i){
+      var d=Math.max(1,Math.round(x.d*(mult[sc][x.k]||1)));
+      var cls=d<=4?'p-bad':(d<=7?'p-warn':'p-good'),lab=d<=4?'Critical':(d<=7?'Watch':'OK');
+      var tr=document.createElement('tr');tr.className='pick'+(i===scSel?' sel':'');tr.tabIndex=0;
+      tr.innerHTML='<td><b></b></td><td>'+d+' days</td><td><div class="bar"><i style="width:'+Math.min(100,d*4.5)+'%"></i></div></td><td><span class="pill '+cls+'">'+lab+'</span></td>';
+      tr.children[0].firstChild.textContent=x.n;
+      function pick(){scSel=i;drawSC();var dd=document.getElementById('sc-detail');dd.innerHTML='<b></b> ';dd.firstChild.textContent=x.n+':';var t=x.why[sc]+((x.act&&x.act[sc])?' Recommended: '+x.act[sc]+'.':'');dd.appendChild(document.createTextNode(t));}
+      tr.addEventListener('click',pick);
+      tr.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+      tb.appendChild(tr);
+    });
+    document.getElementById('sc-otif').textContent=otif[sc];
+    document.getElementById('sc-risk').textContent=risk[sc];
+    var a=document.getElementById('sc-act');a.textContent=top[sc];a.style.fontSize='15px';
+  }
+  segWire('sc-sc',function(v){sc=v;scSel=-1;drawSC();var dd=document.getElementById('sc-detail');dd.textContent='Select a node to see the root cause and recommended action.';});
+  drawSC();
+})();
+</script>
+</body>
+</html>
